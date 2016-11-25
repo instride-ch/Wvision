@@ -1,0 +1,50 @@
+<container class="content">
+    <row>
+        <columns class="headline">
+            <h1><?= $this->input("headline"); ?></h1>
+            <p><?= $this->textarea("text"); ?></p>
+        </columns>
+    </row>
+    <row>
+        <columns class="dynamic-data">
+            <h3 class="text-center">Formulardaten</h3>
+
+            <?php if ($this->getRequest()->isPost()): ?>
+
+                <?php $data = $this->getRequest()->getPost(); ?>
+                <?php unset($data['Submit']); ?>
+                <?php unset($data['submitBtn']); ?>
+                <?php unset($data['_mailTemplate']); ?>
+                <?php unset($data['_language']); ?>
+                <?php unset($data['_formId']); ?>
+                <?php unset($data['path']); ?>
+                <?php unset($data['g-recaptcha-response']); ?>
+                <?php unset($data['honeypot']); ?>
+
+                <?php foreach($data as $key => $value): ?>
+                    <row class="data-row">
+                        <columns class="" small="4" large="3">
+                            <p><strong><?= $this->t($key); ?></strong></p>
+                        </columns>
+                        <columns small="8" large="9">
+                            <p><?= $value; ?></p>
+                        </columns>
+                    </row>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+
+                <callout class="primary">
+                    <p class="text-center">Keine Daten vorhanden!</p>
+                </callout>
+
+            <?php endif; ?>
+
+            <?php if ($this->getParam('email')): ?>
+                <center>
+                    <button href="mailto:<?= $this->getParam('email'); ?>">Antworten <img class="icon" src="/website/views/scripts/email/dist/assets/arrow_right.png" alt="Los!"></button>
+                </center>
+            <?php endif; ?>
+        </columns>
+    </row>
+</container>
