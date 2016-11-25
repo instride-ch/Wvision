@@ -1,10 +1,14 @@
 <?php
-
 namespace Wvision;
 
-class Email {
+/**
+ * Email
+ */
+class Email
+{
     /**
-     * send notification email to user and admin
+     * Send email to user and admin
+     *
      * @param  string $username email address of user
      * @param  int    $user     user email document ID
      * @param  int    $admin    admin email document ID

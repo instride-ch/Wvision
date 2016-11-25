@@ -1,15 +1,15 @@
 <?php
-
-use Pimcore\Logger;
 use Wvision\Controller\Action;
 
 /**
- * Wvision_EmailController Class
+ * Wvision_EmailController
  */
 class Wvision_EmailController extends Action
 {
     /**
-     * Mail Template Method
+     * Template Action
+     *
+     * @return string /views/scripts/email/template.php
      */
     public function templateAction()
     {

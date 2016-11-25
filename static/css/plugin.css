@@ -1,7 +1,7 @@
 #pimcore_menu_wvision{
     background-image: url(/plugins/Wvision/static/img/wvision.svg) !important;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
 .wvision_icon_test {

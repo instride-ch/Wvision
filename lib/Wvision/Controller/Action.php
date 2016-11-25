@@ -1,10 +1,13 @@
 <?php
-
 namespace Wvision\Controller;
 
-class Action extends \Website\Controller\Action {
+/**
+ * Action
+ */
+class Action extends \Website\Controller\Action
+{
     /**
-     * Init CoreShop Controller.
+     * Init Wvision Controller
      */
     public function init()
     {
@@ -13,9 +16,7 @@ class Action extends \Website\Controller\Action {
         $this->view->setScriptPath(
             array_merge(
                 $this->view->getScriptPaths(),
-                array(
-                    PIMCORE_WEBSITE_PATH.'/views/scripts/wvision',
-                )
+                array(PIMCORE_WEBSITE_PATH . '/views/scripts/wvision')
             )
         );
     }

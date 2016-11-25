@@ -30,7 +30,7 @@ pimcore.plugin.wvision = Class.create(pimcore.plugin.admin, {
             cls: 'pimcore_navigation_flyout'
         });
 
-        Ext.get('pimcore_navigation').down('ul').insertHtml('beforeEnd', '<li id="pimcore_menu_wvision" data-menu-tooltip="W-Vision" class="pimcore_menu_item pimcore_menu_needs_children"></li>');
+        Ext.get('pimcore_navigation').down('ul').insertHtml('beforeEnd', '<li id="pimcore_menu_wvision" data-menu-tooltip="w-vision" class="pimcore_menu_item pimcore_menu_needs_children"></li>');
         Ext.get('pimcore_menu_wvision').on('mousedown', function (e, el) {
             toolbar.showSubMenu.call(this._menu, e, el);
         }.bind(this));
