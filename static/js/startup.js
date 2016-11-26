@@ -14,14 +14,14 @@ pimcore.plugin.wvision = Class.create(pimcore.plugin.admin, {
         this._menu = new Ext.menu.Menu({
             items: [
                 {
-                    text: 'Test',
-                    iconCls: 'wvision_icon_test',
+                    text: 'Console',
+                    iconCls: 'wvision_icon_console',
                     handler: function () {
                         try {
-                            pimcore.globalmanager.get('wvision_test').activate();
+                            pimcore.globalmanager.get('wvision_console').activate();
                         }
                         catch (e) {
-                            pimcore.globalmanager.add('wvision_test', new pimcore.tool.genericiframewindow('wvision_test', '/plugin/Wvision/admin_test/test?no-cache=true', "wvision_icon_test", 'Test'));
+                            pimcore.globalmanager.add('wvision_console', new pimcore.tool.genericiframewindow('wvision_console', '/plugin/Wvision/admin_console/console?no-cache=true', "wvision_icon_console", 'Console'));
                         }
                     }
                 }

@@ -1,15 +1,15 @@
 <?php
 /**
- * Wvision_Admin_TestController
+ * Wvision_Admin_ConsoleController
  */
-class Wvision_Admin_TestController extends \Pimcore\Controller\Action\Admin
+class Wvision_Admin_ConsoleController extends \Pimcore\Controller\Action\Admin
 {
     /**
-     * Test Action
+     * Console Action
      *
      * @return string /views/scripts/test/test.php
      */
-    public function testAction()
+    public function consoleAction()
     {
         // reachable via http://your.domain/plugin/Wvision/admin_test/test
     }
