@@ -4,6 +4,18 @@
     height: 100%;
 }
 
+.wvision_icon_settings {
+    background: url(/pimcore/static6/img/flat-color-icons/services.svg) center center no-repeat !important;
+}
+
 .wvision_icon_console {
     background: url(/plugins/Wvision/static/img/console.svg) center center no-repeat !important;
+}
+
+.wvision_icon_force_update {
+    background: url(/plugins/Wvision/static/img/update.svg) center center no-repeat !important;
+}
+
+.wvision_icon_about {
+    background: url(/plugins/Wvision/static/img/wvision.svg) center center no-repeat !important;
 }

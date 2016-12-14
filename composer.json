@@ -1,6 +1,14 @@
 {
     "name": "wvision/wvision",
     "type": "pimcore-plugin",
+    "description": "Pimcore Plugin of w-vision",
+    "homepage": "http://www.w-vision.ch",
+    "authors": [{
+        "name": "w-vision | Woche-Pass AG",
+        "email": "support@w-vision.ch",
+        "homepage": "http://www.w-vision.ch",
+        "role": "Web Development Agency"
+    }],
     "require": {
         "pimcore/installer-plugin": ">=1"
     },

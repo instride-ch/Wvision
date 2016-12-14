@@ -1,15 +1,26 @@
 <?php
+/**
+ * w-vision
+ *
+ * LICENSE
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that is distributed with this source code.
+ *
+ * @copyright  Copyright (c) 2016 Woche-Pass AG (http://www.w-vision.ch)
+ */
+
 namespace Wvision;
 
 use Pimcore\API\Plugin as PluginLib;
+use Pimcore\Tool;
 
-/**
- * Plugin
- */
 class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterface
 {
     /**
-     * Init Plugin
+     * init plugin
+     *
+     * @return mixed init
      */
     public function init()
     {
@@ -17,7 +28,9 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     }
 
     /**
-     * Install Plugin
+     * install plugin
+     *
+     * @return bool true
      */
     public static function install()
     {
@@ -28,7 +41,9 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     }
 
     /**
-     * Uninstall Plugin
+     * uninstall plugin
+     *
+     * @return bool true
      */
     public static function uninstall()
     {
@@ -36,10 +51,66 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     }
 
     /**
-     * Plugin isInstalled
+     * plugin isInstalled
+     *
+     * @return bool true
      */
     public static function isInstalled()
     {
         return true;
+    }
+
+    /**
+     * get translation directory
+     *
+     * @return string
+     */
+    public static function getTranslationFileDirectory()
+    {
+        return PIMCORE_PLUGINS_PATH . '/Wvision/static/texts';
+    }
+
+    /**
+     * get translation file
+     *
+     * @param string $language
+     * @return string path to the translation file relative to plugin directory
+     */
+    public static function getTranslationFile($language)
+    {
+        if (is_file(self::getTranslationFileDirectory() . "/$language.csv")) {
+            return "/Wvision/static/texts/$language.csv";
+        } else {
+            return '/Wvision/static/texts/en.csv';
+        }
+    }
+
+    /**
+     * get translate
+     *
+     * @param $lang
+     * @return \Zend_Translate
+     */
+    public static function getTranslate($lang = null)
+    {
+        if (self::$_translate instanceof \Zend_Translate) {
+            return self::$_translate;
+        }
+        if (is_null($lang)) {
+            try {
+                $lang = \Zend_Registry::get('Zend_Locale')->getLanguage();
+            } catch (\Exception $e) {
+                $lang = 'en';
+            }
+        }
+
+        self::$_translate = new \Zend_Translate(
+            'csv',
+            PIMCORE_PLUGINS_PATH . self::getTranslationFile($lang),
+            $lang,
+            ['delimiter' => ',']
+        );
+
+        return self::$_translate;
     }
 }

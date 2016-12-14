@@ -11,17 +11,54 @@ pimcore.plugin.wvision = Class.create(pimcore.plugin.admin, {
 
     pimcoreReady: function (params,broker){
         var toolbar = pimcore.globalmanager.get('layout_toolbar');
+
         this._menu = new Ext.menu.Menu({
             items: [
                 {
-                    text: 'Console',
-                    iconCls: 'wvision_icon_console',
+                    text: t('wvision_settings'),
+                    iconCls: 'wvision_icon_settings',
                     handler: function () {
                         try {
-                            pimcore.globalmanager.get('wvision_console').activate();
+                            pimcore.globalmanager.get('wvision_settings').activate();
                         }
                         catch (e) {
-                            pimcore.globalmanager.add('wvision_console', new pimcore.tool.genericiframewindow('wvision_console', '/plugin/Wvision/admin_console/console?no-cache=true', "wvision_icon_console", 'Console'));
+                            pimcore.globalmanager.add('wvision_settings', new pimcore.plugin.wvision.settings());
+                        }
+                    }
+                },
+                // {
+                //     text: t('wvision_console'),
+                //     iconCls: 'wvision_icon_console',
+                //     handler: function () {
+                //         try {
+                //             pimcore.globalmanager.get('wvision_console').activate();
+                //         }
+                //         catch (e) {
+                //             pimcore.globalmanager.add('wvision_console', new pimcore.tool.genericiframewindow('wvision_console', '/plugin/Wvision/admin_console/console?no-cache=true', "wvision_icon_console", 'Console'));
+                //         }
+                //     }
+                // },
+                // {
+                //     text: t('wvision_update'),
+                //     iconCls: 'wvision_icon_force_update',
+                //     handler: function () {
+                //         try {
+                //             pimcore.globalmanager.get('wvision_update').activate();
+                //         }
+                //         catch (e) {
+                //             pimcore.globalmanager.add('wvision_update', new pimcore.tool.genericiframewindow('wvision_update', '/plugin/Wvision/admin_console/force-update?no-cache=true', "wvision_icon_update", 'Update'));
+                //         }
+                //     }
+                // },
+                {
+                    text: t('wvision_about'),
+                    iconCls: 'wvision_icon_about',
+                    handler: function () {
+                        try {
+                            pimcore.globalmanager.get('wvision_about').activate();
+                        }
+                        catch (e) {
+                            pimcore.globalmanager.add('wvision_about', new pimcore.tool.genericiframewindow('wvision_about', '/plugin/Wvision/admin_about/about?no-cache=true', "wvision_icon_about", 'ABOUT W-VISION'));
                         }
                     }
                 }
