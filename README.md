@@ -1,0 +1,1 @@
+#w-vision Pimcore Plugin
