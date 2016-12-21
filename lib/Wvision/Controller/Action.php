@@ -42,5 +42,6 @@ class Action extends \Website\Controller\Action
         $this->view->addHelperPath(PIMCORE_PLUGINS_PATH . "/Wvision/lib/Wvision/View/Helper", "Wvision\View\Helper");
 
         $this->enableLayout();
+        $this->setLayout('standard');
     }
 }

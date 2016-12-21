@@ -46,10 +46,44 @@ class Wvision_AuthenticationController extends \Wvision\Controller\Action
                     $session = $auth->getSession();
                     $session->user = $user->getId();
 
-                    Notification::success('Login erfolgreich', 'Sie sind nun angemeldet');
+                    if ($this->getRequest()->isXmlHttpRequest()) {
+                        $this->_helper->json([
+                            'title' => 'Login erfolgreich',
+                            'message' => 'Sie sind nun angemeldet'
+                        ]);
+                    } else {
+                        if ($this->getRequest()->isGet()) {
+                            $username = $this->getParam('username');
+                            $apiKey = $this->getParam('apikey');
+                            $pimcoreUser = \Pimcore\Model\User::getByName($username);
+
+                            if ($pimcoreUser instanceof \Pimcore\Model\User) {
+                                if ($apiKey === $pimcoreUser->getApiKey()) {
+                                    $this->_helper->json([
+                                        'success' => true,
+                                        'idnum' => $user->getIdnum(),
+                                        'email' => $user->getEmail(),
+                                        'company' => $user->getCompany(),
+                                        'lastname' => $user->getLastname(),
+                                        'firstname' => $user->getFirstname(),
+                                        'address' => $user->getAddress(),
+                                        'zip' => $user->getZip(),
+                                        'city' => $user->getCity(),
+                                        'phone' => $user->getPhone(),
+                                        'fax' => $user->getFax()
+                                    ]);
+                                }
+                            }
+                        } else {
+                            Notification::success('Login erfolgreich', 'Sie sind nun angemeldet');
+                        }
+                    }
                 }
+
+                $this->_helper->json(['success' => false]);
             } catch (\Exception $e) {
                 Logger::err($e);
+                $this->_helper->json(['success' => false]);
             }
         }
 	}
@@ -84,7 +118,14 @@ class Wvision_AuthenticationController extends \Wvision\Controller\Action
 
                 $user->save();
 
-                Notification::success('Registration abgeschlossen', 'Sie haben sich erfolgreich registriert');
+                if ($this->getRequest()->isXmlHttpRequest()) {
+                    $this->_helper->json([
+                        'title' => 'Registration abgeschlossen',
+                        'message' => 'Sie haben sich erfolgreich registriert'
+                    ]);
+                } else {
+                    Notification::success('Registration abgeschlossen', 'Sie haben sich erfolgreich registriert');
+                }
             } catch (\Exception $e) {
                 Logger::err($e);
             }
@@ -102,6 +143,60 @@ class Wvision_AuthenticationController extends \Wvision\Controller\Action
 
         if ($this->getParam('token')) {
             $auth->confirm($this->getParam('token'));
+        }
+    }
+
+    /**
+     * edit the user's data
+     *
+     * @return object confirmed user
+     */
+    public function editAction()
+    {
+        $auth = new Authentication('Kunde');
+        $params = $this->getAllParams();
+        $document = $params['document'];
+        $user = $auth->isAuthenticated();
+
+        if ($auth->checkParams($params)) {
+            try {
+                $success = $auth->updateObject($user, $params);
+
+                if ($success instanceof \Pimcore\Model\Object\Kunde) {
+                    if ($this->getRequest()->isXmlHttpRequest()) {
+                        $this->_helper->json([
+                    		'title' => 'Daten abgeändert',
+                    		'message' => 'Ihre Daten wurden erfolgreich aktualisiert'
+                    	]);
+                    } else {
+                        Notification::success('Daten abgeändert', 'Ihre Daten wurden erfolgreich aktualisiert');
+                    }
+                }
+            } catch (\Exception $e) {
+                Logger::err($e);
+            }
+        }
+    }
+
+    /**
+     * edit the user's data
+     *
+     * @return object confirmed user
+     */
+    public function logoutAction()
+    {
+        $auth = new Authentication('Kunde');
+
+        if ($auth->unsetUser()) {
+            if ($this->getRequest()->isXmlHttpRequest()) {
+                $this->_helper->json([
+                    'title' => 'Logout',
+                    'message' => 'Sie wurden erfolgreich abgemeldet',
+                    'redirect' => $this->document
+                ]);
+            } else {
+                Notification::success('Logout', 'Sie wurden erfolgreich abgemeldet');
+            }
         }
     }
 }

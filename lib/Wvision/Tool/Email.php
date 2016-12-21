@@ -15,16 +15,9 @@ namespace Wvision\Tool;
 use Pimcore\Model\Document;
 use Pimcore\Mail;
 use Pimcore\Tool;
-use Pimcore\Logger;
 
 class Email
 {
-    /**
-     * status of any method
-     * @var boolean
-     */
-    protected $status = false;
-
     /**
      * Send email to user and admin
      *
@@ -32,26 +25,33 @@ class Email
      * @param  array  $params   Params for email
      * @return bool             set status to true
      */
-    public static function send($email, $params)
+    public static function send($email, $params, $userDocument = false, $adminDocument = false, $file = false)
     {
+        $configs = \Pimcore\Config::getWebsiteConfig();
+        $success = false;
+
         if ($params && $params["document"]) {
             $document = $params["document"];
 
-            if ($document->getProperty("userEmailDocument")) {
-                $userDocument = $document->getProperty("userEmailDocument");
-            } else {
-                throw new \Exception('Document "' . $document->getKey() . '" is missing "userEmailDocument" property');
+            if (!$userDocument) {
+                if ($document->getProperty("userEmailDocument")) {
+                    $userDocument = $document->getProperty("userEmailDocument");
+                }
             }
 
-            if ($document->getProperty("adminEmailDocument")) {
-                $adminDocument = $document->getProperty("adminEmailDocument");
-            } else {
-                throw new \Exception('Document "' . $document->getKey() . '" is missing "adminEmailDocument" property');
+            if (!$adminDocument) {
+                if ($document->getProperty("adminEmailDocument")) {
+                    $adminDocument = $document->getProperty("adminEmailDocument");
+                }
             }
 
-            if ($document->getProperty('attachment')) {
-                $file = $document->getProperty('attachment');
+            if (!$file) {
+                if ($document->getProperty('attachment')) {
+                    $file = $document->getProperty('attachment');
+                }
+            }
 
+            if ($file) {
                 $attachment = new \Zend_Mime_Part(file_get_contents(PIMCORE_ASSET_DIRECTORY . $file->getFullPath()));
                 $attachment->type = $file->mimetype;
                 $attachment->encoding = \Zend_Mime::ENCODING_BASE64;
@@ -61,49 +61,53 @@ class Email
             }
         }
 
-        if (Mail::isValidEmailAddress($email)) {
-            if ($userDocument instanceof Document\Email) {
-                try {
-                    $userMail = new Mail();
-                    $userMail->setDocument($userDocument);
-                    $userMail->setParams($params);
-                    $userMail->addTo($email);
+        if ($userDocument && $userDocument instanceof \Pimcore\Model\Document\Email && Mail::isValidEmailAddress($email)) {
+            try {
+                $userMail = new Mail();
+                $userMail->setEnableLayoutOnPlaceholderRendering(false);
+                $userMail->setDocument($userDocument);
+                $userMail->setParams($params);
+                $userMail->addTo($email);
 
-                    if ($attachment) {
-                        $userMail->addAttachment($attachment);
-                    }
-
-                    $userMail->send();
-                    $this->status = true;
-                } catch (\Exception $e) {
-                    Logger::err($e);
+                if ($attachment) {
+                    $userMail->addAttachment($attachment);
                 }
-            } else {
-                throw new \Exception('Document "' . $userDocument->getKey() . '" is not an email document');
+
+                $userMail->send();
+
+                $success = true;
+            } catch (\Exception $e) {
+                throw new \Exception($e);
             }
-
-            if ($adminDocument instanceof Document\Email) {
-                try {
-                    $adminMail = new Mail();
-                    $adminMail->setDocument($adminDocument);
-                    $adminMail->setParams($params);
-
-                    if ($attachment) {
-                        $adminMail->addAttachment($attachment);
-                    }
-
-                    $adminMail->send();
-                    $this->status = true;
-                } catch (\Exception $e) {
-                    Logger::err($e);
-                }
-            } else {
-                throw new \Exception('Document "' . $adminDocument->getKey() . '" is not an email document');
-            }
-        } else {
-            throw new \Exception('"' . $email . '" is not a valid email address');
         }
 
-        return $this->status;
+        if ($adminDocument && $adminDocument instanceof \Pimcore\Model\Document\Email) {
+            try {
+                $adminMail = new Mail();
+                $adminMail->setEnableLayoutOnPlaceholderRendering(false);
+                $adminMail->setDocument($adminDocument);
+                $adminMail->setParams($params);
+
+                if (!$adminDocument->getTo()) {
+                    $adminMail->addTo($configs->Email);
+                }
+
+                if ($attachment) {
+                    $adminMail->addAttachment($attachment);
+                }
+
+                $adminMail->send();
+
+                $success = true;
+            } catch (\Exception $e) {
+                throw new \Exception($e);
+            }
+        }
+
+        if ($success) {
+            return true;
+        }
+
+        return false;
     }
 }

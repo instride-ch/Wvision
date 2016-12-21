@@ -3,6 +3,7 @@
 "wvision_settings_authentication", "Authentifizierung"
 "wvision_settings_authentication_user_folder", "Benutzer-Ordner"
 "wvision_settings_authentication_confirmation_mail", "Bestätigungs-E-Mail"
+"wvision_settings_authentication_publish_directly", "Objekte direkt veröffentlichen"
 "wvision_settings_authentication_delete_after_unregister", "Objekte löschen"
 
 "wvision_settings_newsletter", "Newsletter"

@@ -54,12 +54,7 @@ pimcore.plugin.wvision = Class.create(pimcore.plugin.admin, {
                     text: t('wvision_about'),
                     iconCls: 'wvision_icon_about',
                     handler: function () {
-                        try {
-                            pimcore.globalmanager.get('wvision_about').activate();
-                        }
-                        catch (e) {
-                            pimcore.globalmanager.add('wvision_about', new pimcore.tool.genericiframewindow('wvision_about', '/plugin/Wvision/admin_about/about?no-cache=true', "wvision_icon_about", 'ABOUT W-VISION'));
-                        }
+                        wvision.helpers.showAbout();
                     }
                 }
             ],

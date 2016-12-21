@@ -13,6 +13,7 @@
 namespace Wvision\Tool;
 
 use Wvision\Model\Configuration;
+use Wvision\Tool\Email;
 use Pimcore\Mail;
 use Pimcore\Tool;
 use Pimcore\Tool\Session;
@@ -50,7 +51,7 @@ class Authentication
 
     /**
      * get session
-     * s
+     *
      * @return Session
      */
     public function getSession() {
@@ -112,15 +113,17 @@ class Authentication
         $onlyCreateVersion = false;
         $className = $this->getClassName();
         $object = new $className;
+        $published = Configuration::get('APPLICATION.AUTH.PUBLISH_DIRECTLY');
 
         // check for existing e-mail
-        $existingObject = $className::getByEmail($params["email"], 1);
+        $existingObject = $className::getByEmail($params['email'], 1);
         if ($existingObject) {
-            throw new \Exception("email address '" . $params["email"] . "' already exists");
+            $object = $existingObject;
+            $onlyCreateVersion = true;
         }
 
-        if (!array_key_exists("email", $params)) {
-            throw new \Exception("key 'email' is a mandatory parameter");
+        if (!array_key_exists('email', $params)) {
+            throw new \Exception('key "email" is a mandatory parameter');
         }
 
         $object->setValues($params);
@@ -133,7 +136,7 @@ class Authentication
         $object->setModificationDate(time());
         $object->setUserModification(0);
         $object->setUserOwner(0);
-        $object->setPublished(true);
+        $object->setPublished($published);
         $object->setKey(\Pimcore\File::getValidFilename($object->getEmail() . "~" . substr(uniqid(), -3)));
 
         if (!$onlyCreateVersion) {
@@ -142,12 +145,12 @@ class Authentication
 
         // generate token
         $token = base64_encode(\Zend_Json::encode([
-            "salt" => md5(microtime()),
-            "email" => $object->getEmail(),
-            "id" => $object->getId()
+            'salt' => md5(microtime()),
+            'email' => $object->getEmail(),
+            'id' => $object->getId()
         ]));
-        $token = str_replace("=", "~", $token);                                 // base64 can contain = which isn't safe in URL's
-        $object->setProperty("token", "text", $token);
+        $token = str_replace('=', '~', $token);                                 // base64 can contain = which isn't safe in URL's
+        $object->setProperty('token', 'text', $token);
 
         if (!$onlyCreateVersion) {
             $object->save();
@@ -169,12 +172,12 @@ class Authentication
     public function sendConfirmationMail($object, $mailDocument, $params = [])
     {
         $defaultParameters = [
-            "gender" => $object->getGender(),
+            'gender' => $object->getGender(),
             'firstname' => $object->getFirstname(),
             'lastname' => $object->getLastname(),
-            "email" => $object->getEmail(),
-            'token' => $object->getProperty("token"),
-            "object" => $object
+            'email' => $object->getEmail(),
+            'token' => $object->getProperty('token'),
+            'object' => $object
         ];
 
         $params = array_merge($defaultParameters, $params);
@@ -184,6 +187,38 @@ class Authentication
         $mail->setDocument($mailDocument);
         $mail->setParams($params);
         $mail->send();
+    }
+
+    /**
+     * @param $params
+     * @return mixed
+     * @throws \Exception
+     */
+    public function updateObject($object, $params)
+    {
+        $className = $this->getClassName();
+        $emailExists = false;
+
+        if ($object->getEmail() != $params['email']) {
+            $emailExists = $className::getByEmail($params['email'], 1);
+        }
+
+        if ($object && !$emailExists) {
+            if (!array_key_exists('email', $params)) {
+                throw new \Exception('key "email" is a mandatory parameter');
+            }
+
+            $object->setValues($params);
+            $object->setModificationDate(time());
+
+            $object->save();
+
+            $this->addNoteOnObject($object, "update");
+
+            return $object;
+        }
+
+        return false;
     }
 
     /**
@@ -221,16 +256,18 @@ class Authentication
     public function confirm($token)
     {
         $object = $this->getObjectByToken($token);
-        if ($object) {
+        $published = Configuration::get('APPLICATION.AUTH.PUBLISH_DIRECTLY');
+
+        if ($object && !$object->getEmailConfirmed()) {
             if ($version = $object->getLatestVersion()) {
                 $object = $version->getData();
-                $object->setPublished(true);
+                $object->setPublished($published);
             }
 
             $object->setEmailConfirmed(true);
             $object->save();
 
-            $this->addNoteOnObject($object, "confirm");
+            $this->addNoteOnObject($object, 'confirm');
 
             return true;
         }
@@ -305,7 +342,7 @@ class Authentication
         $note = new Model\Element\Note();
         $note->setElement($object);
         $note->setDate(time());
-        $note->setType("login");
+        $note->setType('authentication');
         $note->setTitle($title);
         $note->setUser(0);
         $note->setData([
@@ -364,6 +401,8 @@ class Authentication
         // user needs to be active, needs a password and an ID (do not allow system user to login, ...)
         if ($this->isValidUser($user)) {
             if ($this->verifyPassword($user, $password)) {
+                $this->addNoteOnObject($user, "login");
+
                 return $user;
             } else {
                 throw new \Exception("Password could not be verified");
@@ -373,6 +412,22 @@ class Authentication
         }
 
         return null;
+    }
+
+    /**
+     * unset user session
+     */
+    public function unsetUser()
+    {
+        $session = $this->getSession();
+
+        if (isset($session->user)) {
+            unset($session->user);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -425,5 +480,65 @@ class Authentication
         }
 
         return $hash;
+    }
+
+    /**
+     * send email to user in order to reset password
+     *
+     * @param  string $username  the user's email
+     * @param  string $resetPath redirect to this page
+     * @return bool              true|false
+     * @throws \Exception
+     */
+    public function lostPassword($username, $emailDocument)
+    {
+        if ($username) {
+            $user = Object\Kunde::getByEmail($username, ['limit' => 1, 'unpublished' => true]);
+
+            if (!$user instanceof \Pimcore\Model\Object\Kunde) {
+                return false;
+            } else {
+                if ($user->isPublished() && $user->getEmailConfirmed()) {
+                    $params =[
+                        'id' => $user->getId(),
+                        'o_key' => $user->getO_key(),
+                        'token' => $user->getProperty('token'),
+                        'object' => $user
+                    ];
+
+                    $success = Email::send($user->getEmail(), $params, $emailDocument);
+
+                    if ($success) {
+                        return true;
+                    }
+                } else {
+                    throw new \Exception("email " . $username . " has not been verified");
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * resets password of the user object
+     *
+     * @param object $user   user object
+     * @param array  $params all params
+     */
+    public function resetPassword($user, $params)
+    {
+        $plainTextPassword = $params['password'];
+
+        if ($plainTextPassword == $params['confirmPassword']) {
+            $hashedPassword = password_hash($plainTextPassword, PASSWORD_DEFAULT);
+
+            $user->setPassword($hashedPassword);
+            $user->save();
+
+            return true;
+        }
+
+        return false;
     }
 }
