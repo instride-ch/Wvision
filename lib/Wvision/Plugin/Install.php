@@ -13,24 +13,16 @@
 namespace Wvision\Plugin;
 
 use Pimcore\API\Plugin as PluginLib;
+use Pimcore\Config;
 use Pimcore\Model;
 use Pimcore\File;
 use Pimcore\Model\Document;
-use Pimcore\Model\Object;
-use Pimcore\Model\Object\Folder;
-use Pimcore\Model\Translation\Admin;
-use Pimcore\Model\User;
-use Pimcore\Model\Staticroute;
-use Pimcore\Model\Tool\Setup;
 use Pimcore\Tool;
 
 class Install
 {
     public function install($password) {
-        //$this->createUser($password);
-
-        //TODO: Install Default Assets
-        //TODO: Install Default System Settings
+        $this->createUser($password);
 
         $this->installSystemSettings();
         $this->installDocuments("documents");
@@ -38,7 +30,17 @@ class Install
     }
 
     public function installSystemSettings() {
+        $defaultConfig = PIMCORE_PLUGINS_PATH . '/Wvision/install/system-settings.php';
+        $systemConfigFile = Config::locateConfigFile("system.php");
 
+        if(file_exists($defaultConfig) && file_exists($systemConfigFile)) {
+            $defaultConfig = new \Zend_Config(include $defaultConfig, true);
+            $config = new \Zend_Config(include($systemConfigFile), true);
+
+            $config->merge($defaultConfig);
+
+            File::putPhpFile($systemConfigFile, to_php_data_file_format($config->toArray()));
+        }
     }
 
     public function installAssets($xml) {
