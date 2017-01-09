@@ -8,6 +8,11 @@
         "email": "support@w-vision.ch",
         "homepage": "http://www.w-vision.ch",
         "role": "Web Development Agency"
+    },{
+        "name": "Dominik Pfaffenbauer",
+        "email": "dominik@pfaffenbauer.at",
+        "homepage": "http://www.pfaffenbauer.at",
+        "role": "Developer"
     }],
     "require": {
         "pimcore/installer-plugin": ">=1"
@@ -16,5 +21,8 @@
         "psr-4": {
             "Wvision\\": "lib"
         }
+    },
+    "scripts": {
+        "post-install-cmd": "Wvision\\Composer::postInstall"
     }
 }
