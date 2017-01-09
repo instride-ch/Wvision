@@ -9,9 +9,21 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Wvision\Plugin\Install;
 
 class InstallCommand extends AbstractCommand
 {
+    /*
+     * Full Headless Install
+     *
+     *
+     * composer create-project pimcore/pimcore ./pimcore
+     * composer config repositories.w-vision vcs https://github.com/w-vision/Wvision
+     * composer require wvision/wvision dev-master
+     * php plugins/Wvision/cli/console.php install -d [DB-NAME] -u [DB-USER] -p [DB-PASSWORD] -ap [ADMIN-PASSWORD]
+     *
+     * */
+
     protected function configure()
     {
         $this
@@ -51,6 +63,11 @@ class InstallCommand extends AbstractCommand
                 'adapter', 'adapter',
                 InputOption::VALUE_OPTIONAL,
                 'Adapter', 'mysqli'
+            )
+            ->addOption(
+                'admin-password', 'ap',
+                InputOption::VALUE_OPTIONAL,
+                'Admin Password', $this->generatePassword(12)
             );
     }
 
@@ -58,6 +75,8 @@ class InstallCommand extends AbstractCommand
     {
         $this->disableLogging();
         $conf = Config::getSystemConfig();
+
+        $adminPassword = $input->getOption("admin-password");
 
         if(!$conf) {
 
@@ -100,7 +119,6 @@ class InstallCommand extends AbstractCommand
                 throw new \Exception("Database charset is not utf-8");
             }
 
-
             $setup = new \Pimcore\Model\Tool\Setup();
 
             $setup->config([
@@ -127,10 +145,25 @@ class InstallCommand extends AbstractCommand
         $config = ExtensionManager::getPluginConfig('Wvision');
         $className = $config["plugin"]["pluginClassName"];
 
-        $message = $className::install();
+        $install = new Install();
+        $install->install($adminPassword);
 
         if (!$className::isInstalled()) {
-            throw new \Exception(sprintf("Installation error (%s)", $message));
+            throw new \Exception(sprintf("Installation error"));
         }
+
+        $output->writeln(sprintf("<info>W-Vision Admin User created using following password: %s</info>", $adminPassword));
+    }
+
+    protected function generatePassword($length = 8) {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-%&/()=?!';
+        $count = mb_strlen($chars);
+
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        return $result;
     }
 }
