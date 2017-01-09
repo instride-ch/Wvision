@@ -15,8 +15,8 @@ wvision.helpers.showAbout = function () {
 
     var html = '<div class="pimcore_about_window">';
     html += '<br /><img src="/plugins/Wvision/static/img/logo.svg" style="width: 300px;"><br />';
-    //html += '<br /><strong>Version: ' + wvision.settings.version + '</strong>';
-    //html += '<br /><strong>Build: ' + wvision.settings.build + '</strong>';
+    html += '<br /><strong>Version: ' + wvision.settings.version + '</strong>';
+    html += '<br /><strong>Build: ' + wvision.settings.build + '</strong>';
     html += '<br /><br />&copy; by w-vision, Sursee, Switzerland (<a href="http://www.w-vision.ch/" target="_blank">w-vision.ch</a>)';
     html += '<br />a proud member of the <a href="http://woche-pass.ch/" target="_blank">Woche-Pass AG</a>';
     html += '<br><br><a href="http://w-vision.ch/de/startseite#kennen-lernen" target="_blank">Contact</a> | ';
@@ -26,7 +26,7 @@ wvision.helpers.showAbout = function () {
     var win = new Ext.Window({
         title: t('wvision_about'),
         width: 500,
-        height: 300,
+        height: 320,
         bodyStyle: 'padding: 10px;',
         modal: true,
         html: html

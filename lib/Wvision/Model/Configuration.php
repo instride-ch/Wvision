@@ -14,6 +14,7 @@ namespace Wvision\Model;
 
 use Pimcore\Logger;
 use Pimcore\Model\AbstractModel;
+use Pimcore\Tool;
 
 /**
  * Class Configuration
@@ -170,6 +171,46 @@ class Configuration extends AbstractModel
         foreach ($list->getConfigurations() as $config) {
             $config->delete();
         }
+    }
+
+    /**
+     * get Plugin Config.
+     *
+     * @return mixed|null|\Zend_Config_Xml
+     *
+     * @throws \Zend_Exception
+     */
+    public static function getPluginConfig()
+    {
+        $config = null;
+
+        if (\Zend_Registry::isRegistered('wvision_plugin_config')) {
+            $config = \Zend_Registry::get('wvision_plugin_config');
+        } else {
+            try {
+                $config = new \Zend_Config_Xml(PIMCORE_PLUGINS_PATH . '/Wvision/plugin.xml');
+                self::setPluginConfig($config);
+            } catch (\Exception $e) {
+                if (is_file(PIMCORE_PLUGINS_PATH . '/Wvision/plugin.xml')) {
+                    $m = 'Your plugin_xml.xml located at '.PIMCORE_PLUGINS_PATH . '/Wvision/plugin.xml'.' is invalid, please check and correct it manually!';
+                    Tool::exitWithError($m);
+                }
+            }
+        }
+
+        return $config;
+    }
+
+    /**
+     * Set Plugin Config to \Zend_Registry.
+     *
+     * @static
+     *
+     * @param \Zend_Config $config
+     */
+    public static function setPluginConfig(\Zend_Config $config)
+    {
+        \Zend_Registry::set('wvision_plugin_config', $config);
     }
 
     /**

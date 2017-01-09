@@ -12,6 +12,15 @@
 
 class Wvision_Admin_SettingsController extends \Pimcore\Controller\Action\Admin
 {
+    public function getSettingsAction() {
+        $version = [
+            'version' => \Wvision\Version::getVersion(),
+            'build' => \Wvision\Version::getBuild()
+        ];
+
+        $this->_helper->json($version);
+    }
+
     public function getAction()
     {
         $valueArray = [];

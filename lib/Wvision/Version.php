@@ -12,32 +12,41 @@
 
 namespace Wvision;
 
+use Wvision\Model\Configuration;
+
+/**
+ * Class Version
+ * @package Wvision
+ */
 class Version
 {
     /**
-     * @var string
+     * Get Wvision Plugin Config.
+     *
+     * @return array
      */
-    public static $version = '0.7.0 (beta)';
+    protected static function getPluginConfig()
+    {
+        return Configuration::getPluginConfig()->plugin;
+    }
 
     /**
-     * @var int
-     */
-    public static $revision = 1000;
-
-
-    /**
+     * Get Wvision Version.
+     *
      * @return string
      */
     public static function getVersion()
     {
-        return self::$version;
+        return self::getPluginConfig()->pluginVersion;
     }
 
     /**
+     * Get Wvision Build.
+     *
      * @return int
      */
-    public static function getRevision()
+    public static function getBuild()
     {
-        return self::$revision;
+        return self::getPluginConfig()->pluginRevision;
     }
 }
