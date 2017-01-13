@@ -13,17 +13,6 @@ use Wvision\Plugin\Install;
 
 class InstallCommand extends AbstractCommand
 {
-    /*
-     * Full Headless Install
-     *
-     *
-     * composer create-project pimcore/pimcore ./pimcore
-     * composer config repositories.w-vision vcs https://github.com/w-vision/Wvision
-     * composer require wvision/wvision dev-master
-     * php plugins/Wvision/cli/console.php install -d [DB-NAME] -u [DB-USER] -p [DB-PASSWORD] -ap [ADMIN-PASSWORD]
-     *
-     * */
-
     protected function configure()
     {
         $this
