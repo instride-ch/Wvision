@@ -141,7 +141,8 @@ class InstallCommand extends AbstractCommand
         $className = $config["plugin"]["pluginClassName"];
 
         $install = new Install();
-        $install->install($adminUsername, $adminPassword);
+        $install->createUser($adminUsername, $adminPassword);
+        $install->install();
 
         if (!$className::isInstalled()) {
             throw new \Exception(sprintf("Installation error"));

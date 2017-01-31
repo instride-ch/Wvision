@@ -21,15 +21,18 @@ use Pimcore\Tool;
 
 class Install
 {
-    public function install($username, $password) {
-        $this->createUser($username, $password);
-
+    public function install() {
         $this->installSystemSettings();
         $this->installDocuments("documents");
         $this->installAssets("assets");
+        $this->installGulpFiles();
     }
 
-    public function installSystemSettings() {
+    protected function installGulpFiles() {
+        recurse_copy(PIMCORE_PLUGINS_PATH . "/Wvision/install/gulp", PIMCORE_DOCUMENT_ROOT);
+    }
+
+    protected function installSystemSettings() {
         $defaultConfig = PIMCORE_PLUGINS_PATH . '/Wvision/install/system-settings.php';
         $systemConfigFile = Config::locateConfigFile("system.php");
 
@@ -43,7 +46,7 @@ class Install
         }
     }
 
-    public function installAssets($xml) {
+    protected function installAssets($xml) {
         $dataPath = PIMCORE_PLUGINS_PATH.'/Wvision/install/data/assets';
         $file = $dataPath."/$xml.xml";
 
@@ -77,7 +80,7 @@ class Install
      *
      * @throws \Exception
      */
-    public function installDocuments($xml)
+    protected function installDocuments($xml)
     {
         $dataPath = PIMCORE_PLUGINS_PATH.'/Wvision/install/data/documents';
         $file = $dataPath."/$xml.xml";

@@ -13,7 +13,10 @@
 namespace Wvision;
 
 use Pimcore\API\Plugin as PluginLib;
-use Pimcore\Tool;
+use Pimcore\Config;
+use Wvision\Controller\Plugin\Inky;
+use Wvision\Model\Configuration;
+use Wvision\Plugin\Install;
 
 class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterface
 {
@@ -25,6 +28,17 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     public function init()
     {
         parent::init();
+
+        require_once(PIMCORE_PLUGINS_PATH . "/Wvision/config/helper.php");
+
+        \Pimcore::getEventManager()->attach('system.startup', function (\Zend_EventManager_Event $e) {
+            $frontController = $e->getTarget();
+
+            if ($frontController instanceof \Zend_Controller_Front) {
+                $frontController->registerPlugin(new Inky());
+            }
+        });
+
     }
 
     /**
@@ -34,6 +48,12 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function install()
     {
+        $install = new Install();
+        $install->install();
+
+        Configuration::set("INSTALLED", true);
+        Configuration::set("INSTALLED_VERSION", Version::getBuild());
+
         // cp();
         // \Pimcore\Tool\Console::exec('npm install' . PIMCORE_DOCUMENT_ROOT);
         // \Pimcore\Tool\Console::execInBackground('npm install' . PIMCORE_DOCUMENT_ROOT . ' > log.log');
@@ -57,6 +77,12 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function isInstalled()
     {
+        $versionInstalled = Configuration::get("INSTALLED_VERSION");
+
+        if(!$versionInstalled || $versionInstalled < Version::getBuild()) {
+            return false;
+        }
+
         return true;
     }
 

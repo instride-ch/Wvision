@@ -27,4 +27,5 @@ set_include_path(implode(PATH_SEPARATOR, $includePaths));
 
 $application = new Application();
 $application->add(new \Wvision\Command\InstallCommand());
+$application->add(new \Wvision\Command\InstallClassesCommand());
 $application->run();
