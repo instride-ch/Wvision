@@ -21,8 +21,8 @@ use Pimcore\Tool;
 
 class Install
 {
-    public function install($password) {
-        $this->createUser($password);
+    public function install($username, $password) {
+        $this->createUser($username, $password);
 
         $this->installSystemSettings();
         $this->installDocuments("documents");
@@ -194,10 +194,10 @@ class Install
      *
      * @param $password
      */
-    public function createUser($password)
+    public function createUser($username, $password)
     {
         $settings = [
-            "username" => "w-vision",
+            "username" => $username,
             "password" => $password
         ];
 

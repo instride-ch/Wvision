@@ -57,6 +57,11 @@ class InstallCommand extends AbstractCommand
                 'admin-password', 'ap',
                 InputOption::VALUE_OPTIONAL,
                 'Admin Password', $this->generatePassword(12)
+            )
+            ->addOption(
+                'admin-user', 'au',
+                InputOption::VALUE_OPTIONAL,
+                'Admin Username', 'wvision'
             );
     }
 
@@ -66,6 +71,7 @@ class InstallCommand extends AbstractCommand
         $conf = Config::getSystemConfig();
 
         $adminPassword = $input->getOption("admin-password");
+        $adminUsername = $input->getOption("admin-user");
 
         if(!$conf) {
 
@@ -135,7 +141,7 @@ class InstallCommand extends AbstractCommand
         $className = $config["plugin"]["pluginClassName"];
 
         $install = new Install();
-        $install->install($adminPassword);
+        $install->install($adminUsername, $adminPassword);
 
         if (!$className::isInstalled()) {
             throw new \Exception(sprintf("Installation error"));
@@ -154,5 +160,17 @@ class InstallCommand extends AbstractCommand
         }
 
         return $result;
+    }
+
+    protected function installClasses() {
+        $objectClassesFolder = PIMCORE_CLASS_DIRECTORY ;
+        $files = glob($objectClassesFolder . "/*.php");
+
+        foreach ($files as $file) {
+            $class = include $file;
+
+            $class->save();
+        }
+
     }
 }
