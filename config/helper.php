@@ -22,8 +22,10 @@ if (!function_exists("recurse_copy")) {
     {
         $dir = opendir($src);
 
-        if (@mkdir($dst) === false) {
-            throw new \RuntimeException('The directory '.$dst.' could not be created.');
+        if(!file_exists($dst)) {
+            if (@mkdir($dst) === false) {
+                throw new \RuntimeException('The directory '.$dst.' could not be created.');
+            }
         }
 
         while (false !== ($file = readdir($dir))) {

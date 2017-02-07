@@ -29,7 +29,7 @@ class Install
     }
 
     protected function installGulpFiles() {
-        recurse_copy(PIMCORE_PLUGINS_PATH . "/Wvision/install/gulp", PIMCORE_DOCUMENT_ROOT);
+        recurse_copy(PIMCORE_PLUGINS_PATH . "/Wvision/install/gulp", PIMCORE_DOCUMENT_ROOT . "/");
     }
 
     protected function installSystemSettings() {
