@@ -29,8 +29,8 @@ wvision.helpers.showAbout = function () {
         height: 320,
         bodyStyle: 'padding: 10px;',
         modal: true,
-        html: html
-    });
+        html: html,
+      });
 
     win.show();
-};
+  };
