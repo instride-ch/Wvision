@@ -7,15 +7,15 @@ var paths = {
   static: path.join(config.root.dest, '/**'),
   exclude: {
     static: path.join('!', config.root.dest),
-    php: path.join('!**/src/**')
-  }
+    php: path.join('!**/src/**'),
+  },
 };
 
-var cleanTask = function(cb) {
+var cleanTask = function (cb) {
   del([
       paths.static,
-      paths.exclude.static
-  ]).then(function(paths) {
+      paths.exclude.static,
+  ]).then(function (paths) {
     cb();
   });
 };

@@ -3,11 +3,11 @@ var gulp      = require('gulp');
 var jeditor   = require('gulp-json-editor');
 var argv      = require('yargs').argv;
 
-var configTask = function() {
+var configTask = function () {
   var module = argv.module ? argv.module : 'website';
 
   return gulp.src(config)
-    .pipe(jeditor(function(json) {
+    .pipe(jeditor(function (json) {
       if (module === 'website') {
         json.root.src = './' + module;
       } else {

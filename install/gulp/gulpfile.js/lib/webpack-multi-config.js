@@ -1,40 +1,61 @@
 var config = require('../config');
 if (!config.tasks.js) return;
 
-var path            = require('path');
-var pathToUrl       = require('./pathToUrl');
-var webpack         = require('webpack');
+var path = require('path');
+var pathToUrl = require('./pathToUrl');
+var webpack = require('webpack');
 var webpackManifest = require('./webpackManifest');
 
-module.exports = function(env) {
+module.exports = function (env) {
   var jsSrc = path.resolve(config.root.src, config.tasks.js.src);
   var jsDest = path.resolve(config.root.dest, config.tasks.js.dest);
   var publicPath = pathToUrl(config.tasks.js.dest, '/');
 
-  var extensions = config.tasks.js.extensions.map(function(extension) {
+  var extensions = config.tasks.js.extensions.map(function (extension) {
     return '.' + extension;
   });
 
   var filenamePattern = '[name].js';
 
   var webpackConfig = {
+    entry: {
+      vendor: [
+        "jquery",
+        "uikit"
+        // "bootstrap-switch"
+      ],
+    },
     context: jsSrc,
     plugins: [],
     resolve: {
-      root: jsSrc,
-      extensions: [''].concat(extensions)
+      root: [
+        jsSrc
+      ],
+      extensions: [''].concat(extensions),
+      alias: {
+        jquery: path.resolve(path.join(__dirname, '../..', 'node_modules', 'jquery', 'src', 'jquery'))
+      }
     },
     module: {
       loaders: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          exclude: /node_modules/,
           query: config.tasks.js.babel
+        },
+        {
+          test: require.resolve('jquery'),
+          loader: 'expose?$!expose?jQuery'
         }
       ]
     }
   };
+
+  if (config.tasks.js.hasOwnProperty("aliases")) {
+    Object.keys(config.tasks.js.aliases).forEach(function (key) {
+      webpackConfig.resolve.alias[key] = config.tasks.js.aliases[key];
+    });
+  }
 
   if (env === 'development') {
     webpackConfig.devtool = 'inline-source-map';

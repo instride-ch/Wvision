@@ -67,7 +67,10 @@
         ],
         "plugins": []
       },
-      "extractSharedJs": false
+      "extractSharedJs": false,
+      "aliases" : {
+        
+      }
     },
     "css": {
       "src": "/static/scss",

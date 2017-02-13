@@ -5,13 +5,14 @@ var compact = require('lodash/compact');
 var assetTasks = ['emails', 'fonts', 'iconFont', 'images', 'svgSprite'];
 var codeTasks = ['css', 'js'];
 
-module.exports = function(env) {
+module.exports = function (env) {
 
   function matchFilter(task) {
     if (config.tasks[task]) {
       if (task === 'js') {
         task = env === 'production' ? 'webpack:production' : false;
       }
+
       return task;
     }
   }
@@ -22,6 +23,6 @@ module.exports = function(env) {
 
   return {
     assetTasks: compact(assetTasks.map(matchFilter).filter(exists)),
-    codeTasks: compact(codeTasks.map(matchFilter).filter(exists))
+    codeTasks: compact(codeTasks.map(matchFilter).filter(exists)),
   };
 };

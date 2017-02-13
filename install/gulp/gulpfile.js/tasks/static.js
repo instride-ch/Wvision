@@ -6,12 +6,12 @@ var path    = require('path');
 var paths = {
   src: [
     path.join(config.root.src, config.tasks.favicon.src, '/**'),
-    path.join('!' + config.root.src, config.tasks.favicon.src, '/README.md')
+    path.join('!' + config.root.src, config.tasks.favicon.src, '/README.md'),
   ],
-  dest: path.join(config.root.dest, config.tasks.favicon.dest)
+  dest: path.join(config.root.dest, config.tasks.favicon.dest),
 };
 
-var staticTask = function() {
+var staticTask = function () {
   return gulp.src(paths.src)
     .pipe(changed(paths.dest)) // Ignore unchanged files
     .pipe(gulp.dest(paths.dest));
