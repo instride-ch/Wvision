@@ -33,10 +33,6 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 
         \Pimcore::getEventManager()->attach('system.startup', function (\Zend_EventManager_Event $e) {
             $frontController = $e->getTarget();
-
-            if ($frontController instanceof \Zend_Controller_Front) {
-                $frontController->registerPlugin(new Inky());
-            }
         });
 
     }
