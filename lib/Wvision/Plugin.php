@@ -44,6 +44,8 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function install()
     {
+        require_once(PIMCORE_PLUGINS_PATH . "/Wvision/config/helper.php");
+
         $install = new Install();
         $install->install();
 

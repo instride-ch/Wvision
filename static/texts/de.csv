@@ -36,5 +36,7 @@
 "wvision_settings_notification_timeout", "Anzeigedauer ohne Interaktion (ms)"
 "wvision_settings_notification_extended_timeout", "Anzeigedauer nach Hover (ms)"
 
+"wvision_settings_multi_site_smtp", "Multisite SMTP Einstellungen"
+
 "wvision_console", "Kommandozeile"
 "wvision_about", "Über w-vision"

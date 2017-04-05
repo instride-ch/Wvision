@@ -20,6 +20,7 @@
             <path>/plugins/Wvision/static/js/startup.js</path>
 			<path>/plugins/Wvision/static/js/wvision/settings.js</path>
 			<path>/plugins/Wvision/static/js/wvision/helpers.js</path>
+			<path>/plugins/Wvision/static/js/wvision/newsletter/sendingPanel.js</path>
 		</pluginJsPaths>
 		<pluginCssPaths>
             <path>/plugins/Wvision/static/css/plugin.css</path>

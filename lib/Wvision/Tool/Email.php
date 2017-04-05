@@ -25,7 +25,7 @@ class Email
      * @param  array  $params   Params for email
      * @return bool             set status to true
      */
-    public static function send($email, $params, $userDocument = false, $adminDocument = false, $file = false)
+    public static function send($email, $params, $userDocument = false, $adminDocument = false, $file = false, $site = null)
     {
         $configs = \Pimcore\Config::getWebsiteConfig();
         $success = false;

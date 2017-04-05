@@ -36,5 +36,7 @@
 "wvision_settings_notification_timeout", "Timeout (ms)"
 "wvision_settings_notification_extended_timeout", "Timeout after Hover (ms)"
 
+"wvision_settings_multi_site_smtp", "Multisite SMTP Settings"
+
 "wvision_console", "Kommandozeile"
 "wvision_about", "Über w-vision"
