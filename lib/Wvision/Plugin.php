@@ -20,6 +20,8 @@ use Wvision\Plugin\Install;
 
 class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterface
 {
+    protected static $_translate;
+
     /**
      * init plugin
      *
@@ -33,6 +35,14 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 
         \Pimcore::getEventManager()->attach('system.startup', function (\Zend_EventManager_Event $e) {
             $frontController = $e->getTarget();
+        });
+
+        \Pimcore::getEventManager()->attach('system.console.init', function (\Zend_EventManager_Event $e) {
+            /** @var \Pimcore\Console\Application $application */
+            $application = $e->getTarget();
+
+            // add a namespace to autoload commands from
+            $application->addAutoloadNamespace('Wvision\\Command', PIMCORE_PLUGINS_PATH . '/Wvision/lib/Wvision/Command');
         });
 
     }

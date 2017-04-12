@@ -2,11 +2,14 @@
 
 namespace Wvision\Command;
 
-use Pimcore\Console\Command\InternalNewsletterDocumentSendCommand;
+use Pimcore\Console\AbstractCommand;
 use Pimcore\Document\Newsletter\AddressSourceAdapterInterface;
+use Pimcore\Tool\Newsletter;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model;
 use Pimcore\Logger;
-use Wvision\Tool\Newsletter;
+use Pimcore\Console\Command\InternalNewsletterDocumentSendCommand;
 
 class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendCommand
 {
@@ -18,7 +21,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
             ->addArgument("sendingId")->addArgument("hostUrl");
     }
 
-    protected function doSendMailInBatchMode(Model\Document\Newsletter $document, AddressSourceAdapterInterface $addressAdapter, $sendingId)
+    protected function doSendMailInBatchMode(Model\Document\Newsletter $document, AddressSourceAdapterInterface $addressAdapter, $sendingId, $hostUrl)
     {
         $mail = \Pimcore\Tool\Newsletter::prepareMail($document);
         $sendingParamContainers = $addressAdapter->getMailAddressesForBatchSending();
@@ -53,7 +56,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
         }
     }
 
-    protected function doSendMailInSingleMode(Model\Document\Newsletter $document, AddressSourceAdapterInterface $addressAdapter, $sendingId)
+    protected function doSendMailInSingleMode(Model\Document\Newsletter $document, AddressSourceAdapterInterface $addressAdapter, $sendingId, $hostUrl)
     {
         $totalCount = $addressAdapter->getTotalRecordCount();
 
