@@ -13,30 +13,52 @@
 namespace Wvision\Plugin;
 
 use Pimcore\API\Plugin as PluginLib;
+use Pimcore\Model\Document;
 use Pimcore\Config;
 use Pimcore\Model;
 use Pimcore\File;
-use Pimcore\Model\Document;
 use Pimcore\Tool;
 
 class Install
 {
-    public function install() {
+    /**
+     * Installs everything needed to start the dev environment.
+     */
+    public function install()
+    {
         $this->installSystemSettings();
-        $this->installDocuments("documents");
-        $this->installAssets("assets");
+        $this->installRobotsTxt();
+        $this->installUserImage();
+        $this->installDocuments('documents');
+        $this->installAssets('assets');
         $this->installGulpFiles();
     }
 
-    protected function installGulpFiles() {
-        recurse_copy(PIMCORE_PLUGINS_PATH . "/Wvision/install/gulp", PIMCORE_DOCUMENT_ROOT . "/");
+    /**
+     * Recursively copies all gulp files into root directory.
+     */
+    protected function installGulpFiles()
+    {
+        recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/gulp', PIMCORE_DOCUMENT_ROOT . '/');
     }
 
-    protected function installSystemSettings() {
-        $defaultConfig = PIMCORE_PLUGINS_PATH . '/Wvision/install/system-settings.php';
-        $systemConfigFile = Config::locateConfigFile("system.php");
+    /**
+     * Recursively copies the default w-vision user image into the user image directory.
+     */
+    protected function installUserImage()
+    {
+        recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/user-2.png', PIMCORE_USERIMAGE_DIRECTORY . '/');
+    }
 
-        if(file_exists($defaultConfig) && file_exists($systemConfigFile)) {
+    /**
+     * Installs the default system settings.
+     */
+    protected function installSystemSettings()
+    {
+        $defaultConfig = PIMCORE_PLUGINS_PATH . '/Wvision/install/system-settings.php';
+        $systemConfigFile = Config::locateConfigFile('system.php');
+
+        if (file_exists($defaultConfig) && file_exists($systemConfigFile)) {
             $defaultConfig = new \Zend_Config(include $defaultConfig, true);
             $config = new \Zend_Config(include($systemConfigFile), true);
 
@@ -46,9 +68,23 @@ class Install
         }
     }
 
-    protected function installAssets($xml) {
-        $dataPath = PIMCORE_PLUGINS_PATH.'/Wvision/install/data/assets';
-        $file = $dataPath."/$xml.xml";
+    /**
+     * Recursively copies the robots.txt into the config directory.
+     */
+    protected function installRobotsTxt()
+    {
+        recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/robots.txt', PIMCORE_CONFIGURATION_DIRECTORY . '/');
+    }
+
+    /**
+     * Creates some assets with data based from XML file.
+     *
+     * @param $xml
+     */
+    protected function installAssets($xml)
+    {
+        $dataPath = PIMCORE_PLUGINS_PATH . '/Wvision/install/data/assets';
+        $file = $dataPath . "/$xml.xml";
 
         if (file_exists($file)) {
             $config = new \Zend_Config_Xml($file);
@@ -58,9 +94,9 @@ class Install
 
                 foreach ($config['assets'] as $value) {
                     foreach ($value as $asset) {
-                        $assetObject = Model\Asset::getByPath('/'.$asset['path'].'/'.$asset['name']);
+                        $assetObject = Model\Asset::getByPath('/' . $asset['path'] . '/' . $asset['name']);
 
-                        if(!$assetObject instanceof Model\Asset) {
+                        if (!$assetObject instanceof Model\Asset) {
                             $assetObject = new Model\Asset();
                             $assetObject->setFilename(File::getValidFilename($asset['name']));
                             $assetObject->setParent(Model\Asset\Service::createFolderByPath($asset['path']));
@@ -74,16 +110,15 @@ class Install
     }
 
     /**
-     * Creates some Documents with Data based from XML file.
+     * Creates some documents with data based from XML file.
      *
      * @param $xml
-     *
      * @throws \Exception
      */
     protected function installDocuments($xml)
     {
-        $dataPath = PIMCORE_PLUGINS_PATH.'/Wvision/install/data/documents';
-        $file = $dataPath."/$xml.xml";
+        $dataPath = PIMCORE_PLUGINS_PATH . '/Wvision/install/data/documents';
+        $file = $dataPath . "/$xml.xml";
 
         if (file_exists($file)) {
             $config = new \Zend_Config_Xml($file);
@@ -107,14 +142,14 @@ class Install
 
                     foreach ($config['documents'] as $value) {
                         foreach ($value as $doc) {
-                            $document = Document::getByPath('/'.$language.'/'.$doc['path'].'/'.$doc['key']);
+                            $document = Document::getByPath('/' . $language . '/' . $doc['path'] . '/' . $doc['key']);
 
                             if (!$document) {
-                                $class = 'Pimcore\\Model\\Document\\'.ucfirst($doc['type']);
+                                $class = 'Pimcore\\Model\\Document\\' . ucfirst($doc['type']);
 
                                 if (Tool::classExists($class)) {
                                     $document = new $class();
-                                    $document->setParent(Document::getByPath('/'.$language.'/'.$doc['path']));
+                                    $document->setParent(Document::getByPath('/' . $language . '/' . $doc['path']));
                                     $document->setKey($doc['key']);
                                     $document->setProperty('language', $language, 'text', true);
 
@@ -175,7 +210,7 @@ class Install
 
                             //Link translations
                             foreach ($languagesDone as $doneLanguage) {
-                                $translatedDocument = Document::getByPath('/'.$doneLanguage.'/'.$doc['path'].'/'.$doc['key']);
+                                $translatedDocument = Document::getByPath('/' . $doneLanguage . '/' . $doc['path'] . '/' . $doc['key']);
 
                                 if ($translatedDocument) {
                                     $service = new \Pimcore\Model\Document\Service();
@@ -193,26 +228,26 @@ class Install
     }
 
     /**
-     * creates a new w-vision admin user
+     * Creates a new w-vision admin user.
      *
      * @param $password
      */
     public function createUser($username, $password)
     {
         $settings = [
-            "username" => $username,
-            "password" => $password
+            'username' => $username,
+            'password' => $password
         ];
 
-        if ($user = Model\User::getByName($settings["username"])) {
+        if ($user = Model\User::getByName($settings['username'])) {
             $user->delete();
         }
 
         $user = Model\User::create([
-            "parentId" => 0,
-            "username" => $settings["username"],
-            "password" => \Pimcore\Tool\Authentication::getPasswordHash($settings["username"], $settings["password"]),
-            "active" => true
+            'parentId' => 0,
+            'username' => $settings['username'],
+            'password' => \Pimcore\Tool\Authentication::getPasswordHash($settings['username'], $settings['password']),
+            'active' => true
         ]);
         $user->setAdmin(true);
         $user->save();
