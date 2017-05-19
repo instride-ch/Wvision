@@ -2,7 +2,7 @@ var path = require('path');
 var fs   = require('fs');
 
 module.exports = function (publicPath, dest, filename) {
-  filename = filename || 'rev-manifest.json';
+  filename = filename;
 
   return function () {
     this.plugin('done', function (stats) {

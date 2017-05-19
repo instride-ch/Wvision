@@ -3,7 +3,7 @@
     "src": "./website",
     "dest": "./static/website",
     "vendor": "./node_modules",
-    "domain": "reifenportal.dev"
+    "domain": "domain.com"
   },
   "plugins": {
     "css": {
@@ -68,9 +68,7 @@
         "plugins": []
       },
       "extractSharedJs": false,
-      "aliases" : {
-        
-      }
+      "aliases" : {}
     },
     "css": {
       "src": "/static/scss",
