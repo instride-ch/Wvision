@@ -32,6 +32,7 @@ class Install
         $this->installDocuments('documents');
         $this->installAssets('assets');
         $this->installGulpFiles();
+        $this->installStaticFiles();
     }
 
     /**
@@ -40,6 +41,14 @@ class Install
     protected function installGulpFiles()
     {
         recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/gulp', PIMCORE_DOCUMENT_ROOT . '/');
+    }
+
+    /**
+     * Recursively copies all static files into website folder.
+     */
+    protected function installStaticFiles()
+    {
+        recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/static', PIMCORE_WEBSITE_PATH . '/');
     }
 
     /**
