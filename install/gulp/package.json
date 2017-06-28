@@ -49,9 +49,8 @@
   },
   "dependencies": {
     "jquery": "^3.2.1",
-    "uikit": "3.0.0-beta.23",
+    "uikit": "3.0.0-beta.25",
     "breakpoint-sass": "^2.7.1",
-    "bourbon": "^4.3.4",
     "foundation-emails": "^2.2.1"
   }
 }

@@ -32,7 +32,7 @@ module.exports = function (env) {
                 'node_modules',
                 jsSrc
             ],
-            extensions: [''].concat(extensions)
+            extensions: extensions
         },
         module: {
             rules: [

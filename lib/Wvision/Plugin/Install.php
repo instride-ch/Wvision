@@ -48,7 +48,7 @@ class Install
      */
     protected function installStaticFiles()
     {
-        recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/static', PIMCORE_WEBSITE_PATH . '/');
+        recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/static', PIMCORE_WEBSITE_PATH . '/static/');
     }
 
     /**

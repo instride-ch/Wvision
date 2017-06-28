@@ -1,6 +1,6 @@
 // Base
 import UIkit from 'uikit';
-import Icons from 'uikit-icons';
+import Icons from 'uikit/dist/js/uikit-icons';
 UIkit.use(Icons);
 
 // Global

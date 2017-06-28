@@ -1,18 +1,16 @@
 // Mixins and Variables
-@import 'modules/mixins';
-@import 'modules/variables';
+@import 'utils/mixins';
+@import 'utils/variables';
 
 // Config
-@import 'config/uikit';
-@import 'breakpoint';
-@import 'config/breakpoint';
-@import 'bourbon';
+@import 'base/uikit';
+@import 'base/breakpoint';
 
-// Partials
-@import 'partials/browser-switch';
-@import 'partials/general';
-@import 'partials/header';
-@import 'partials/footer';
+// Partials compontents
+@import 'browser-switch';
+@import 'components/general';
+@import 'components/header';
+@import 'components/footer';
 
 // Third-party
 // Attention: Only Sass Vendors!

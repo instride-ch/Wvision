@@ -20,7 +20,6 @@ if (!function_exists("recurse_copy")) {
      */
     function recurse_copy($src, $dst, $overwrite = false)
     {
-        $dir = opendir($src);
 
         if(!file_exists($dst)) {
             if (@mkdir($dst) === false) {
@@ -28,22 +27,32 @@ if (!function_exists("recurse_copy")) {
             }
         }
 
-        while (false !== ($file = readdir($dir))) {
-            if (($file != '.') && ($file != '..')) {
-                if (is_dir($src . '/' . $file)) {
-                    recurse_copy($src . '/' . $file, $dst . '/' . $file);
-                } else {
-                    if (is_file($dst . "/" . $file) && $overwrite) {
-                        if ($overwrite) {
-                            unlink($dst . "/" . $file);
+        // Check if path is directory or file
+        if (is_dir($src)) {
+            $dir = opendir($src);
+
+            while (false !== ($file = readdir($dir))) {
+                if (($file != '.') && ($file != '..')) {
+                    if (is_dir($src . '/' . $file)) {
+                        recurse_copy($src . '/' . $file, $dst . '/' . $file);
+                    } else {
+                        if (is_file($dst . "/" . $file) && $overwrite) {
+                            if ($overwrite) {
+                                unlink($dst . "/" . $file);
+                                copy($src . '/' . $file, $dst . '/' . $file);
+                            }
+                        } else {
                             copy($src . '/' . $file, $dst . '/' . $file);
                         }
-                    } else {
-                        copy($src . '/' . $file, $dst . '/' . $file);
                     }
                 }
             }
+            closedir($dir);
+        } else {
+            $info = pathinfo($src);
+            $file_name =  basename($src,'.'.$info['extension']);
+            copy($src,$dst.$file_name);
         }
-        closedir($dir);
     }
 }
+

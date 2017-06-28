@@ -82,9 +82,7 @@
       "sass": {
         "includePaths": [
           "./node_modules/bootstrap-sass/assets/stylesheets",
-          "./node_modules/uikit/dist/scss",
-          "./node_modules/font-awesome/scss",
-          "./node_modules/bourbon/app/assets/stylesheets",
+          "./node_modules/uikit/src/scss",
           "./node_modules/breakpoint-sass/stylesheets",
           "./node_modules/foundation-emails/scss"
         ]
