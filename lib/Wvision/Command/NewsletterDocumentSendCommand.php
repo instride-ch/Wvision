@@ -42,7 +42,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
             }
 
             if ($currentCount % $pageSize == 0) {
-                Logger::info("Sending newsletter " . $currentCount . " / " . $totalCount. " [" . $document->getId(). "]");
+                Logger::info("Sending newsletter " . $currentCount . " / " . $totalCount . " [" . $document->getId() . "]");
                 $data = $tmpStore->getData();
                 $data['progress'] = round($currentCount / $totalCount * 100, 2);
                 $tmpStore->setData($data);
@@ -50,7 +50,11 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
                 \Pimcore::collectGarbage();
             }
 
-            Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
+            try {
+                Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
+            } catch (\Exception $e) {
+                Logger::err('Exception while sending newsletter: ' . $e->getMessage());
+            }
 
             $currentCount++;
         }
@@ -71,7 +75,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
 
             $data = $tmpStore->getData();
 
-            Logger::info("Sending newsletter " . $hasElements . " / " . $totalCount. " [" . $document->getId(). "]");
+            Logger::info("Sending newsletter " . $hasElements . " / " . $totalCount . " [" . $document->getId() . "]");
 
             $data['progress'] = round($offset / $totalCount * 100, 2);
             $tmpStore->setData($data);
@@ -79,8 +83,12 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
 
             $sendingParamContainers = $addressAdapter->getParamsForSingleSending($limit, $offset);
             foreach ($sendingParamContainers as $sendingParamContainer) {
-                $mail = \Pimcore\Tool\Newsletter::prepareMail($document, $sendingParamContainer);
-                Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
+                try {
+                    $mail = \Pimcore\Tool\Newsletter::prepareMail($document, $sendingParamContainer);
+                    Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
+                } catch (\Exception $e) {
+                    Logger::err('Exception while sending newsletter: ' . $e->getMessage());
+                }
 
 
                 if (empty($tmpStore)) {
