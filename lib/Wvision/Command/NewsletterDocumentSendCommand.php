@@ -53,7 +53,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
             try {
                 Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
             } catch (\Exception $e) {
-                Logger::err('Exception while sending newsletter: ' . $e->getMessage());
+                Logger::err(sprintf('Exception while sending to "%s" newsletter: %s', implode(",", $mail->getRecipients()), $e->getMessage()), $e);
             }
 
             $currentCount++;
@@ -83,11 +83,12 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
 
             $sendingParamContainers = $addressAdapter->getParamsForSingleSending($limit, $offset);
             foreach ($sendingParamContainers as $sendingParamContainer) {
+                $mail = \Pimcore\Tool\Newsletter::prepareMail($document, $sendingParamContainer);
+
                 try {
-                    $mail = \Pimcore\Tool\Newsletter::prepareMail($document, $sendingParamContainer);
                     Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
                 } catch (\Exception $e) {
-                    Logger::err('Exception while sending newsletter: ' . $e->getMessage());
+                    Logger::err(sprintf('Exception while sending to "%s" newsletter: %s', implode(",", $mail->getRecipients()), $e->getMessage()), $e);
                 }
 
 
