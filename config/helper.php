@@ -49,10 +49,36 @@ if (!function_exists("recurse_copy")) {
             }
             closedir($dir);
         } else {
-            $info = pathinfo($src);
-            $file_name =  basename($src,'.'.$info['extension']);
+            $file_name = pathinfo($src,PATHINFO_BASENAME);
             copy($src,$dst.$file_name);
         }
     }
 }
 
+if (!function_exists('deleteDir')) {
+    /**
+     * Delete entire Directory
+     *
+     * @param string $dirPath
+     */
+    function deleteDir($dirPath)
+    {
+        if (! is_dir($dirPath)) {
+            throw new InvalidArgumentException("$dirPath must be a directory");
+        }
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deleteDir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
+    }
+
+
+}

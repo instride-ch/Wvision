@@ -44,11 +44,12 @@ class Install
     }
 
     /**
-     * Recursively copies all static files into website folder.
+     * Recursively copies all static files into website folder.and delete src
      */
     protected function installStaticFiles()
     {
         recurse_copy(PIMCORE_PLUGINS_PATH . '/Wvision/install/static', PIMCORE_WEBSITE_PATH . '/static/');
+        deleteDir(PIMCORE_PLUGINS_PATH . '/Wvision/install/static');
     }
 
     /**
