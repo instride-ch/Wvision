@@ -21,13 +21,19 @@ class Email
     /**
      * Send email to user and admin
      *
-     * @param  string $username email address of user
-     * @param  array  $params   Params for email
-     * @return bool             set status to true
+     * @param $email
+     * @param null $adminEmail
+     * @param  array $params Params for email
+     * @param bool $userDocument
+     * @param bool $adminDocument
+     * @param bool $file
+     * @param null $site
+     * @return bool set status to true
+     * @throws \Exception
+     * @internal param string $username email address of user
      */
-    public static function send($email, $params, $userDocument = false, $adminDocument = false, $file = false, $site = null)
+    public static function send($email, $adminEmail = null, $params, $userDocument = false, $adminDocument = false, $file = false, $site = null)
     {
-        $configs = \Pimcore\Config::getWebsiteConfig();
         $success = false;
 
         if ($params && $params["document"]) {
@@ -88,8 +94,8 @@ class Email
                 $adminMail->setDocument($adminDocument);
                 $adminMail->setParams($params);
 
-                if (!$adminDocument->getTo()) {
-                    $adminMail->addTo($configs->Email);
+                if ($adminEmail) {
+                    $adminMail->setTo($adminEmail);
                 }
 
                 if ($attachment) {
