@@ -4,12 +4,12 @@ namespace Wvision\Command;
 
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Document\Newsletter\AddressSourceAdapterInterface;
-use Pimcore\Tool\Newsletter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model;
 use Pimcore\Logger;
 use Pimcore\Console\Command\InternalNewsletterDocumentSendCommand;
+use Wvision\Tool\Newsletter;
 
 class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendCommand
 {

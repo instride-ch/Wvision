@@ -33,7 +33,7 @@ class Newsletter
             $mail->setTo($mailAddress);
             $mail->sendWithoutRendering(static::getTransportForMail($mail));
 
-            Logger::info("Sent newsletter to: " . self::obfuscateEmail($mailAddress) . " [" . $mail->getDocument()->getId() . "]");
+            Logger::info("Sent Multi SMTP newsletter to: " . self::obfuscateEmail($mailAddress) . " [" . $mail->getDocument()->getId() . "]");
         } else {
             Logger::warn("No E-Mail Address given - cannot send mail. [" . $mail->getDocument()->getId() . "]");
         }
@@ -85,6 +85,8 @@ class Newsletter
                     $config['username'] = $username;
                     $config['password'] = $password;
                 }
+
+                Logger::info("Got Transport for Multi SMTP: " . $name . ", " . $username);
 
                 return new \Zend_Mail_Transport_Smtp($host, $config);
             }
