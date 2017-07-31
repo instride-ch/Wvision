@@ -1,8 +1,8 @@
 services:
 
     # tool: installer
-    WvisionBundle\Tool\Install:
-        class: WvisionBundle\Tool\Install
+    WvisionBundle\Tool\Installer:
+        class: WvisionBundle\Tool\Installer
         arguments:
             - '@logger'
             - '@pimcore_admin.serializer'
@@ -10,6 +10,6 @@ services:
             - { name: monolog.logger }
 
     # tool: mailer
-    wvision.tool.mailer:
-        class: WvisionBundle\Tool\Email
+    WvisionBundle\Tool\Mailer:
+        class: WvisionBundle\Tool\Mailer
 #        autowire: true

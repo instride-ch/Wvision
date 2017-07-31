@@ -4,7 +4,7 @@ imports:
 services:
 
     # configuration
-    wvision.configuration:
+    WvisionBundle\Configuration\Configuration:
         class: WvisionBundle\Configuration\Configuration
         arguments:
             - '@pimcore.extension.bundle_manager'
