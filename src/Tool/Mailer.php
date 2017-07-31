@@ -17,7 +17,7 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Symfony\Component\HttpFoundation\Request;
 
-class Email
+class Mailer
 {
     /**
      * @var Request

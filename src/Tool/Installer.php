@@ -22,7 +22,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Serializer\Serializer;
 use WvisionBundle\Configuration\Configuration;
 
-class Install
+class Installer
 {
     /**
      * @var LoggerInterface
