@@ -1,0 +1,10 @@
+imports:
+    - { resource: services/*.yml }
+
+services:
+
+    # configuration
+    wvision.configuration:
+        class: WvisionBundle\Configuration\Configuration
+        arguments:
+            - '@pimcore.extension.bundle_manager'

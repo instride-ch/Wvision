@@ -1,0 +1,46 @@
+{
+  "name": "w-vision/Wvision",
+  "type": "pimcore-bundle",
+  "description": "A full-featured frontend-optimizer for developing projects with pimcore",
+  "version": "2.0.0-alpha.1",
+  "author": "w-vision <support@w-vision.ch>",
+  "homepage": "https://www.w-vision.ch",
+  "repository": "https://github.com/w-vision/Wvision",
+  "scripts": {
+    "build": "./node_modules/.bin/encore production",
+    "custom-icons": "npm run icons --prefix node_modules/uikit -- --custom ../../assets/img/icons",
+    "deploy": "deployer deploy",
+    "dev": "./node_modules/.bin/encore dev",
+    "dev-server": "./node_modules/.bin/encore dev-server --hot",
+    "install-uikit": "npm install --prefix node_modules/uikit",
+    "install-workflow": "npm install && npm run install-uikit",
+    "watch": "./node_modules/.bin/encore dev --watch"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "0.12.0",
+    "autoprefixer": "^7.1.2",
+    "babel-eslint": "^7.2.3",
+    "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "imagemin-webpack-plugin": "^1.5.0-beta.0",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.6",
+    "stylelint": "^8.0.0",
+    "stylelint-webpack-plugin": "^0.9.0"
+  },
+  "dependencies": {
+    "breakpoint-sass": "^2.7.1",
+    "foundation-emails": "^2.2.1",
+    "jquery": "^3.2.1",
+    "uikit": "^3.0.0-beta.27"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ios >= 8",
+    "Safari >= 7.1"
+  ]
+}

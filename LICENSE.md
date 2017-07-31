@@ -1,10 +1,10 @@
 #LICENSE
 
 ##Copyright
-Copyright © 2016 wvision | Woche-Pass AG, All rights reserved.
+Copyright © 2017 wvision | Woche-Pass AG, All rights reserved.
 
 ##Imprint
-Woche-Pass AG
+w-vision
 Sandgruebestrasse 4
 6210 Sursee
 Switzerland
