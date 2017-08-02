@@ -74,7 +74,7 @@ final class PimcorePredefinedPropertyInstaller implements ResourceInstallerInter
             foreach ($propertiesToInstall as $name => $propertyData) {
                 $progress->setMessage(sprintf('<error>Install Predefined Property %s</error>', $name));
 
-                $this->installRoute($name, $propertyData);
+                $this->installProperty($name, $propertyData);
 
                 $progress->advance();
             }
@@ -90,7 +90,7 @@ final class PimcorePredefinedPropertyInstaller implements ResourceInstallerInter
      * @param $properties
      * @return Predefined
      */
-    private function installRoute($key, $properties)
+    private function installProperty($key, $properties)
     {
         $property = new Predefined();
 
