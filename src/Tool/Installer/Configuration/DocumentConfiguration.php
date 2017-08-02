@@ -23,7 +23,7 @@ final class DocumentConfiguration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('wvision');
+        $rootNode = $treeBuilder->root('documents');
 
         $rootNode
             ->children()
