@@ -1,0 +1,7 @@
+assets:
+  -
+    filename: 'test-1.jpg'
+    type: 'image'
+    path: 'images'
+
+    # TODO: Add documents, images and videos
