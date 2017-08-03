@@ -1,0 +1,42 @@
+services:
+
+  # Installer Registry
+  WvisionBundle\Registry\PrioritizedServiceRegistry:
+    class: WvisionBundle\Registry\PrioritizedServiceRegistry
+    arguments:
+      - WvisionBundle\Installer\ResourceInstallerInterface
+      - 'wvision-resource-installer'
+
+  # Install Assets
+  WvisionBundle\Installer\PimcoreAssetInstaller:
+    class: WvisionBundle\Installer\PimcoreAssetInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'WvisionBundle\Installer\CompositeResourceInstaller', type: 'assets', priority: 100 }
+
+  # Install Documents
+  WvisionBundle\Installer\PimcoreDocumentInstaller:
+    class: WvisionBundle\Installer\PimcoreDocumentInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'WvisionBundle\Installer\CompositeResourceInstaller', type: 'documents', priority: 200 }
+
+  # Install Predefined Properties
+  WvisionBundle\Installer\PimcorePredefinedPropertyInstaller:
+    class: WvisionBundle\Installer\PimcorePredefinedPropertyInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'WvisionBundle\Installer\CompositeResourceInstaller', type: 'predefined-properties', priority: 300 }
+
+  # Install Routes
+  WvisionBundle\Installer\PimcoreRouteInstaller:
+    class: WvisionBundle\Installer\PimcoreRouteInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'WvisionBundle\Installer\CompositeResourceInstaller', type: 'routes', priority: 400 }
+
+  # Install Resources
+  WvisionBundle\Installer\CompositeResourceInstaller:
+    class: WvisionBundle\Installer\CompositeResourceInstaller
+    arguments:
+      - '@WvisionBundle\Registry\PrioritizedServiceRegistry'
