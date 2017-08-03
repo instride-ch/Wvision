@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Yaml\Yaml;
 use WvisionBundle\Tool\Installer\Configuration\RouteConfiguration;
 
-final class PimcoreRoutesInstaller implements ResourceInstallerInterface
+final class PimcoreRouteInstaller implements ResourceInstallerInterface
 {
     /**
      * @var KernelInterface
