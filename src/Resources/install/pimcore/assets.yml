@@ -1,7 +1,206 @@
 assets:
+  # Folders
   -
-    filename: 'test-1.jpg'
-    type: 'image'
+    filename: 'documents'
+    type: 'folder'
+
+  -
+    filename: 'images'
+    type: 'folder'
+
+  -
+    filename: 'cars'
+    type: 'folder'
     path: 'images'
 
-    # TODO: Add documents, images and videos
+  -
+    filename: 'india'
+    type: 'folder'
+    path: 'images'
+
+  -
+    filename: 'nature'
+    type: 'folder'
+    path: 'images'
+
+  -
+    filename: 'people'
+    type: 'folder'
+    path: 'images'
+
+  -
+    filename: 'videos'
+    type: 'folder'
+
+  # Documents
+  -
+    filename: 'sample.doc'
+    type: 'document'
+    path: 'documents'
+
+  -
+    filename: 'sample.docx'
+    type: 'document'
+    path: 'documents'
+
+  -
+    filename: 'sample.pdf'
+    type: 'document'
+    path: 'documents'
+
+  -
+    filename: 'sample.ppt'
+    type: 'document'
+    path: 'documents'
+
+  -
+    filename: 'sample.pptx'
+    type: 'document'
+    path: 'documents'
+
+  -
+    filename: 'sample.xls'
+    type: 'document'
+    path: 'documents'
+
+  -
+    filename: 'sample.xlsx'
+    type: 'document'
+    path: 'documents'
+
+  # Images
+  -
+    filename: 'hyper-car.jpg'
+    type: 'image'
+    path: 'images/cars'
+
+  -
+    filename: 'koenigsegg.jpg'
+    type: 'image'
+    path: 'images/cars'
+
+  -
+    filename: 'koenigsegg-2.jpg'
+    type: 'image'
+    path: 'images/cars'
+
+  -
+    filename: 'tail-lights.jpg'
+    type: 'image'
+    path: 'images/cars'
+
+  -
+    filename: 'india-1.jpg'
+    type: 'image'
+    path: 'images/india'
+
+  -
+    filename: 'india-2.jpg'
+    type: 'image'
+    path: 'images/india'
+
+  -
+    filename: 'india-3.jpg'
+    type: 'image'
+    path: 'images/india'
+
+  -
+    filename: 'india-4.jpg'
+    type: 'image'
+    path: 'images/india'
+
+  -
+    filename: 'india-5.jpg'
+    type: 'image'
+    path: 'images/india'
+
+  -
+    filename: 'india-6.jpg'
+    type: 'image'
+    path: 'images/india'
+
+  -
+    filename: 'boats.jpg'
+    type: 'image'
+    path: 'images/nature'
+
+  -
+    filename: 'forklift.jpg'
+    type: 'image'
+    path: 'images/nature'
+
+  -
+    filename: 'iceberg.jpg'
+    type: 'image'
+    path: 'images/nature'
+
+  -
+    filename: 'lake-pier.jpg'
+    type: 'image'
+    path: 'images/nature'
+
+  -
+    filename: 'tree.jpg'
+    type: 'image'
+    path: 'images/nature'
+
+  -
+    filename: 'asian-man.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'marriage-1.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'marriage-2.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'marriage-3.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'marriage-4.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'muscle-man.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'samurai-bride.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  -
+    filename: 'sports-in-the-woods.jpg'
+    type: 'image'
+    path: 'images/people'
+
+  # Videos
+  -
+    filename: 'big-buck-bunny_360x240.mp4'
+    type: 'video'
+    path: 'videos'
+
+  -
+    filename: 'big-buck-bunny_640x360.mp4'
+    type: 'video'
+    path: 'videos'
+
+  -
+    filename: 'big-buck-bunny_720x480.mp4'
+    type: 'video'
+    path: 'videos'
+
+  -
+    filename: 'big-buck-bunny_1280x720.mp4'
+    type: 'video'
+    path: 'videos'
