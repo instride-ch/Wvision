@@ -27,7 +27,7 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                // TODO: Configure config tree
+                // TODO: Configure Wvision Settings tree
             ->end()
         ;
 

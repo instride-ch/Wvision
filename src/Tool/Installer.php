@@ -72,8 +72,7 @@ class Installer
         $this->copyUserImage();
         $this->copyRobotsTxt();
 
-//        $this->installDocuments();
-//        $this->installAssets();
+        // TODO: Implement Resource Installer
 
 //        $this->installTranslations();
 //        $this->injectDbData();
@@ -204,32 +203,6 @@ class Installer
             $this->installSourcesPath . '/robots.txt',
             PIMCORE_PROJECT_ROOT
         );
-    }
-
-    /**
-     * TODO: Wait on Pimcore's solution
-     */
-    private function installDocuments()
-    {
-        $file = $this->installSourcesPath . '/pimcore/documents.json';
-        $contents = file_get_contents($file);
-        $documents = $this->serializer->decode($contents, 'json');
-
-        $defaultLanguage = Config::getSystemConfig()->general->defaultLanguage;
-        if (!in_array($defaultLanguage, ['de_CH', 'en'])) {
-            $defaultLanguage = 'en';
-        }
-
-        foreach ($documents as $doc) {
-            $path = '/' . $doc['path'] . '/' . $doc['key'];
-        }
-    }
-
-    /**
-     * TODO: Wait on Pimcore's solution
-     */
-    private function installAssets()
-    {
     }
 
     /**
