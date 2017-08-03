@@ -10,7 +10,7 @@
  * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
  */
 
-namespace WvisionBundle\Tool\Installer\Configuration;
+namespace WvisionBundle\Installer\Configuration;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -51,8 +51,7 @@ final class DocumentConfiguration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         return $treeBuilder;
     }

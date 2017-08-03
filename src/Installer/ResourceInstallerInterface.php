@@ -10,7 +10,7 @@
  * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
  */
 
-namespace WvisionBundle\Tool\Installer;
+namespace WvisionBundle\Installer;
 
 use Symfony\Component\Console\Output\OutputInterface;
 

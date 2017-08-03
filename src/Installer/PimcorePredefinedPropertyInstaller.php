@@ -10,7 +10,7 @@
  * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
  */
 
-namespace WvisionBundle\Tool\Installer;
+namespace WvisionBundle\Installer;
 
 use Pimcore\Model\Property\Predefined;
 use Symfony\Component\Config\Definition\Processor;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Yaml\Yaml;
-use WvisionBundle\Tool\Installer\Configuration\PredefinedPropertyConfiguration;
+use WvisionBundle\Installer\Configuration\PredefinedPropertyConfiguration;
 
 final class PimcorePredefinedPropertyInstaller implements ResourceInstallerInterface
 {
