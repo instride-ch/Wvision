@@ -98,7 +98,7 @@ class Installer
      */
     public function isInstalled()
     {
-        return $this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH);
+        return true; //$this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH);
     }
 
     /**
