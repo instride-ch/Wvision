@@ -21,6 +21,7 @@ class WvisionBundle extends AbstractPimcoreBundle
      */
     public function getInstaller()
     {
+        return $this->container->get('WvisionBundle\Tool\Installer');
     }
 
     /**
@@ -29,7 +30,12 @@ class WvisionBundle extends AbstractPimcoreBundle
     public function getJsPaths()
     {
         return [
-            '/bundles/wvision/pimcore/js/settings.js'
+            '/bundles/wvision/pimcore/js/global.js',
+
+            '/bundles/wvision/pimcore/js/wvision/settings.js',
+            '/bundles/wvision/pimcore/js/wvision/helpers.js',
+
+            '/bundles/wvision/pimcore/js/wvision/newsletter/sendingPanel.js'
         ];
     }
 
@@ -38,6 +44,8 @@ class WvisionBundle extends AbstractPimcoreBundle
      */
     public function getCssPaths()
     {
-        return [];
+        return [
+            '/bundles/wvision/pimcore/css/bundle.css'
+        ];
     }
 }
