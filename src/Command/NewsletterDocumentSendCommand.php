@@ -16,7 +16,7 @@ use Pimcore\Bundle\CoreBundle\Command\InternalNewsletterDocumentSendCommand;
 use Pimcore\Document\Newsletter\AddressSourceAdapterInterface;
 use Pimcore\Logger;
 use Pimcore\Model;
-use WvisionBundle\Tool\Newsletter;
+use Pimcore\Tool\Newsletter;
 
 class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendCommand
 {
@@ -46,7 +46,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
         $pageSize = $fifth > 10 ? 10 : ($fifth < 3 ? 3 : intval($fifth));
 
         foreach ($sendingParamContainers as $sendingParamContainer) {
-            $mail = \Pimcore\Tool\Newsletter::prepareMail($document, $sendingParamContainer, $hostUrl);
+            $mail = Newsletter::prepareMail($document, $sendingParamContainer, $hostUrl);
             $tmpStore = Model\Tool\TmpStore::get($sendingId);
 
             if (empty($tmpStore)) {
@@ -64,7 +64,7 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
             }
 
             try {
-                Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
+                $this->getContainer()->get('WvisionBundle\Tool\MultiSmtpNewsletter')->send($mail, $sendingParamContainer);
             } catch (\Exception $e) {
                 Logger::err('Exception while sending newsletter: '.$e->getMessage());
             }
@@ -100,8 +100,8 @@ class NewsletterDocumentSendCommand extends InternalNewsletterDocumentSendComman
             $sendingParamContainers = $addressAdapter->getParamsForSingleSending($limit, $offset);
             foreach ($sendingParamContainers as $sendingParamContainer) {
                 try {
-                    $mail = \Pimcore\Tool\Newsletter::prepareMail($document, $sendingParamContainer, $hostUrl);
-                    Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingParamContainer);
+                    $mail = Newsletter::prepareMail($document, $sendingParamContainer, $hostUrl);
+                    $this->getContainer()->get('WvisionBundle\Tool\MultiSmtpNewsletter')->send($mail, $sendingParamContainer);
                 } catch (\Exception $e) {
                     Logger::err('Exception while sending newsletter: '.$e->getMessage());
                 }

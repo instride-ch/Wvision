@@ -69,7 +69,7 @@ class NewsletterController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\
         $sendingContainer = $addressAdapter->getParamsForTestSending($request->get('testMailAddress'));
 
         $mail = Newsletter::prepareMail($document);
-        \WvisionBundle\Tool\Newsletter::sendNewsletterDocumentBasedMail($mail, $sendingContainer);
+        $this->container->get('WvisionBundle\Tool\MultiSmtpNewsletter')->send($mail, $sendingContainer);
 
         return $this->json(['success' => true]);
     }
