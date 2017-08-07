@@ -15,14 +15,15 @@ namespace WvisionBundle\Tool;
 use Pimcore\Mail;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
+use Pimcore\Service\Request\ViewModelResolver;
 use Symfony\Component\HttpFoundation\Request;
 
 class Mailer
 {
     /**
-     * @var Request
+     * @var ViewModelResolver
      */
-    private $request;
+    private $viewModel;
 
     /**
      * @var array
@@ -45,13 +46,11 @@ class Mailer
     private $success = false;
 
     /**
-     * Email constructor.
-     *
-     * @param Request $request
+     * @param ViewModelResolver $viewModel
      */
-    public function __construct(Request $request)
+    public function __construct(ViewModelResolver $viewModel)
     {
-        $this->request = $request;
+        $this->viewModel = $viewModel->getViewModel();
     }
 
     /**
@@ -87,7 +86,7 @@ class Mailer
      */
     public function setDocuments($documents)
     {
-        if ($documents instanceof Document) {
+        if ($documents instanceof Document\Email) {
             array_push($this->documents, $documents);
         } else {
             $this->documents = $documents;
@@ -151,7 +150,6 @@ class Mailer
 
             $this->setSuccess($success);
         }
-        // TODO: read document properties!
 
         if (!empty($admin) && !empty($admin['documents'])) {
             $success = false;
@@ -176,6 +174,8 @@ class Mailer
      */
     public function parseData($data, $admin)
     {
+        $document = $this->viewModel->get('document');
+
         foreach ($data as $param) {
             if (Mail::isValidEmailAddress($param)) {
                 $this->setEmails($param);
@@ -189,6 +189,10 @@ class Mailer
                 $this->setAssets($param);
             }
         }
+
+        // Additionally add document from properties
+        $userEmail = $document->getProperty('userEmailDocument');
+        $this->setDocuments($userEmail);
 
         if (!empty($admin)) {
             $adminArray = [];
@@ -205,6 +209,10 @@ class Mailer
                     $adminArray['assets'][] = $param;
                 }
             }
+
+            // Additionally add document from properties
+            $adminEmail = $document->getProperty('adminEmailDocument');
+            array_push($adminArray['documents'], $adminEmail);
 
             return $adminArray;
         }
