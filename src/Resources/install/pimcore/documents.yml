@@ -5,14 +5,3 @@ documents:
     module: 'AppBundle'
     controller: '@AppBundle\Controller\DefaultController'
     action: 'default'
-
-  -
-    key: 'error'
-    type: 'page'
-    module: 'AppBundle'
-    controller: '@AppBundle\Controller\DefaultController'
-    action: 'error'
-
-  -
-    key: 'elemente'
-    type: 'folder'
