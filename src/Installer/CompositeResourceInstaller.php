@@ -13,7 +13,7 @@
 namespace WvisionBundle\Installer;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use WvisionBundle\Registry\PrioritizedServiceRegistryInterface;
+use CoreShop\Component\Registry\PrioritizedServiceRegistryInterface;
 
 class CompositeResourceInstaller implements ResourceInstallerInterface
 {
@@ -33,11 +33,11 @@ class CompositeResourceInstaller implements ResourceInstallerInterface
     /**
      * {@inheritdoc}
      */
-    public function installResources(OutputInterface $output, $applicationName = null)
+    public function installResources(OutputInterface $output)
     {
         foreach ($this->serviceRegistry->all() as $installer) {
             if ($installer instanceof ResourceInstallerInterface) {
-                $installer->installResources($output, $applicationName);
+                $installer->installResources($output);
             }
         }
     }
