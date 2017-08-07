@@ -10,7 +10,7 @@
  */
 
 pimcore.registerNS('pimcore.plugin.wvision');
-pimcore.registerNS('wvision.settings');
+pimcore.registerNS('wvision.version');
 
 pimcore.plugin.wvision = Class.create(pimcore.plugin.admin, {
   getClassName: function () {
@@ -27,25 +27,13 @@ pimcore.plugin.wvision = Class.create(pimcore.plugin.admin, {
 
     if (user.admin === true) {
       Ext.Ajax.request({
-        url: '/admin/wvision/settings/get-settings',
+        url: '/admin/wvision/version/get-version',
         success: function (response) {
           var resp = Ext.decode(response.responseText);
-          wvision.settings = resp;
+          wvision.version = resp;
 
           this._menu = new Ext.menu.Menu({
             items: [
-              {
-                text: t('wvision_settings'),
-                iconCls: 'wvision_icon_settings',
-                handler: function () {
-                  try {
-                    pimcore.globalmanager.get('wvision_settings').activate();
-                  }
-                  catch (e) {
-                    pimcore.globalmanager.add('wvision_settings', new pimcore.plugin.wvision.settings());
-                  }
-                },
-              },
               {
                 text: t('wvision_about'),
                 iconCls: 'wvision_icon_about',
