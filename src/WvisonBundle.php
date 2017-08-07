@@ -13,9 +13,21 @@
 namespace WvisionBundle;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use WvisionBundle\DependencyInjection\Compiler\RegisterInstallersPass;
 
 class WvisionBundle extends AbstractPimcoreBundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new RegisterInstallersPass());
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -31,10 +43,7 @@ class WvisionBundle extends AbstractPimcoreBundle
     {
         return [
             '/bundles/wvision/pimcore/js/global.js',
-
-            '/bundles/wvision/pimcore/js/wvision/settings.js',
             '/bundles/wvision/pimcore/js/wvision/helpers.js',
-
             '/bundles/wvision/pimcore/js/wvision/newsletter/sendingPanel.js'
         ];
     }
