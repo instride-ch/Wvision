@@ -14,7 +14,6 @@ namespace WvisionBundle\Tool;
 
 use Pimcore\Config;
 use Pimcore\Document\Newsletter\SendingParamContainer;
-use Pimcore\Logger;
 use Pimcore\Mail;
 use Pimcore\Model\Document;
 use Pimcore\Model\Site;
@@ -40,7 +39,9 @@ class MultiSmtpNewsletter
      */
     public function send(Mail $mail, SendingParamContainer $sendingContainer)
     {
+        $logger = \Pimcore::getContainer()->get('pimcore.app_logger');
         $mailAddress = $sendingContainer->getEmail();
+
         if (!empty($mailAddress)) {
             $mail->setTo($mailAddress);
 
@@ -52,9 +53,19 @@ class MultiSmtpNewsletter
 
             $mail->sendWithoutRendering($mailer);
 
-            Logger::info('Sent newsletter to: ' . static::obfuscateEmail($mailAddress) . ' [' . $mail->getDocument()->getId() . ']');
+            $logger->info(
+                sprintf('Sent newsletter to: %s [%s]', static::obfuscateEmail($mailAddress), $mail->getDocument()->getId()), [
+                    'relatedObject' => $mail->getDocument(),
+                    'component' => 'MultiSmtpNewsletter'
+                ]
+            );
         } else {
-            Logger::warn('No E-Mail Address given - cannot send mail. [' . $mail->getDocument()->getId() . ']');
+            $logger->warning(
+                sprintf('No email address given - cannot send newsletter. [%s]', $mail->getDocument()->getId()), [
+                    'relatedObject' => $mail->getDocument(),
+                    'component' => 'MultiSmtpNewsletter'
+                ]
+            );
         }
     }
 
@@ -66,17 +77,19 @@ class MultiSmtpNewsletter
      */
     public function getTransportForMail(Mail $mail)
     {
+        $logger = \Pimcore::getContainer()->get('pimcore.app_logger');
         $document = $mail->getDocument();
         $site = $this->getSiteForDocument($document);
 
         // Only change SMTP stuff if document is part of a site
         if ($site instanceof Site) {
             $siteMainDomain = $site->getMainDomain();
-            $config = $this->configuration->getConfig('default');
-            $sitesConfig = $this->configuration->getConfig('sites');
+            $config = $this->configuration->getConfig('newsletter');
 
-            if (array_key_exists($siteMainDomain, $sitesConfig)) {
-                $config = $sitesConfig[$siteMainDomain];
+            if (!is_null($config['sites']) && array_key_exists($siteMainDomain, $config['sites'])) {
+                $config = $config['sites'][$siteMainDomain];
+            } else {
+                $config = $config['default'];
             }
 
             $host = $config['smtp']['host'];
@@ -94,7 +107,12 @@ class MultiSmtpNewsletter
                     $config['password'] = $password;
                 }
 
-                Logger::info(sprintf('Got Transport for Multi SMTP: %s, %s.', [$name, $user]));
+                $logger->info(
+                    sprintf('Got Transport for Multi SMTP: %s, %s.', $name, $user), [
+                        'relatedObject' => $document,
+                        'component' => 'MultiSmtpNewsletter'
+                    ]
+                );
 
                 $transport = (new \Swift_SmtpTransport($host, $port, $security))
                     ->setUsername($config['username'])
