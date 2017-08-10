@@ -1,6 +1,7 @@
 {
   "name": "wvision/Wvision",
   "type": "pimcore-bundle",
+  "license": "GPLv3",
   "description": "Pimcore Bundle for w-vision",
   "homepage": "https://github.com/w-vision/Wvision",
   "authors": [
