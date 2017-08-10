@@ -1,6 +1,7 @@
 {
     "name": "wvision/wvision",
     "type": "pimcore-plugin",
+    "license": "GPLv3",
     "description": "Pimcore Plugin of w-vision",
     "homepage": "http://www.w-vision.ch",
     "authors": [{
