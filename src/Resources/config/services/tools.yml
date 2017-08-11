@@ -1,0 +1,22 @@
+services:
+
+  # Installer
+  WvisionBundle\Tool\Installer:
+    class: WvisionBundle\Tool\Installer
+    arguments:
+      - '@filesystem'
+      - '@WvisionBundle\Installer\CompositeResourceInstaller'
+
+  # Mailer
+  WvisionBundle\Tool\Mailer:
+    class: WvisionBundle\Tool\Mailer
+    arguments: ['@pimcore.service.request.view_model_resolver']
+
+  # Newsletter
+  WvisionBundle\Tool\MultiSmtpNewsletter:
+    class: WvisionBundle\Tool\MultiSmtpNewsletter
+    arguments: ['@WvisionBundle\Configuration\Configuration']
+
+  # iCalendar
+  WvisionBundle\Tool\Ics:
+    class: WvisionBundle\Tool\Ics

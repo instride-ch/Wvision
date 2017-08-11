@@ -1,0 +1,7 @@
+documents:
+  -
+    key: 'de-ch'
+    type: 'page'
+    module: 'AppBundle'
+    controller: '@AppBundle\Controller\DefaultController'
+    action: 'default'

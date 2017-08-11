@@ -1,0 +1,13 @@
+<svg class="logo logo-wvision" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+<linearGradient id="wvGradient" gradientUnits="userSpaceOnUse" x1="14.6447" y1="14.6447" x2="85.3553" y2="85.3553">
+	<stop  offset="0" style="stop-color:#007BC1"/>
+	<stop  offset="1" style="stop-color:#004A8B"/>
+</linearGradient>
+<path style="fill:url(#wvGradient);" d="M50,100c27.614,0,50-22.386,50-50S77.614,0,50,0S0,22.386,0,50S22.386,100,50,100L50,100"/>
+<polygon style="fill:#FFFFFF;" points="20,40.181 26.561,40.181 26.561,69.325 20,69.325 20,40.181 "/>
+<path style="fill:#FFFFFF;" d="M28.498,35.989v-5.744H39.73v26.752c0,3.775,3.121,6.816,6.821,6.816
+	c3.752,0,6.953-2.835,6.953-6.842v-16.79h6.346l0.003,16.816c-0.03,3.826,3.082,6.816,6.909,6.816c3.683,0,6.93-2.99,6.93-6.816
+	V40.181H80l-0.001,16.816c0,8.216-6.197,12.758-12.32,12.758c-4.665,0-8.255-1.461-10.896-5.559
+	c-2.741,4.079-6.266,5.559-10.931,5.559c-6.123,0-12.455-4.543-12.455-12.758V35.991L28.498,35.989L28.498,35.989z"/>
+</svg>

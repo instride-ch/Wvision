@@ -1,0 +1,17 @@
+framework:
+  assets:
+    json_manifest_path: '%kernel.project_dir%/web/build/manifest.json'
+
+wvision:
+
+  newsletter:
+    # If no site is found, the default stays as fallback.
+    default:
+      folder: '/newsletter/subscriber'
+      smtp:
+        host: 'isis.4webspace.ch'
+        name: 'isis.4webspace.ch'
+        auth_method: 'login'
+        user: 'newsletter@isis.4webspace.ch'
+        password: '7Jgg6d!2'
+    sites: ~

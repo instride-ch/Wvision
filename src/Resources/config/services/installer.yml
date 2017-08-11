@@ -1,0 +1,75 @@
+services:
+
+  # Installer Registry
+  wvision.registry.installers:
+    class: CoreShop\Component\Registry\PrioritizedServiceRegistry
+    arguments:
+      - WvisionBundle\Installer\ResourceInstallerInterface
+      - 'wvision-resource-installer'
+
+  # Install Documents
+  WvisionBundle\Installer\Pimcore\DocumentInstaller:
+    class: WvisionBundle\Installer\Pimcore\DocumentInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'wvision.installer', type: 'documents', priority: 100 }
+
+  # Install Assets
+  WvisionBundle\Installer\Pimcore\AssetInstaller:
+    class: WvisionBundle\Installer\Pimcore\AssetInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'wvision.installer', type: 'assets', priority: 110 }
+
+  # Install System Configs
+  WvisionBundle\Installer\Pimcore\SystemConfigInstaller:
+    class: WvisionBundle\Installer\Pimcore\SystemConfigInstaller
+    tags:
+      - { name: 'wvision.installer', type: 'system-config', priority: 200 }
+
+  # Install Predefined Properties
+  WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller:
+    class: WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'wvision.installer', type: 'predefined-properties', priority: 210 }
+
+  # Install Routes
+  WvisionBundle\Installer\Pimcore\RouteInstaller:
+    class: WvisionBundle\Installer\Pimcore\RouteInstaller
+    arguments: ['@kernel']
+    tags:
+      - { name: 'wvision.installer', type: 'routes', priority: 220 }
+
+  # Install Robots.txt
+  WvisionBundle\Installer\Pimcore\RobotsTxtInstaller:
+    class: WvisionBundle\Installer\Pimcore\RobotsTxtInstaller
+    tags:
+      - { name: 'wvision.installer', type: 'robots-txt', priority: 230 }
+
+  # Install Workflow
+  WvisionBundle\Installer\Wvision\WorkflowInstaller:
+    class: WvisionBundle\Installer\Wvision\WorkflowInstaller
+    arguments: ['@filesystem']
+    tags:
+      - { name: 'wvision.installer', type: 'workflow', priority: 300 }
+
+  # Install Static Assets
+  WvisionBundle\Installer\Wvision\StaticAssetInstaller:
+    class: WvisionBundle\Installer\Wvision\StaticAssetInstaller
+    arguments: ['@filesystem']
+    tags:
+      - { name: 'wvision.installer', type: 'static-assets', priority: 310 }
+
+  # Install Bundle Config
+  WvisionBundle\Installer\Wvision\ConfigFileInstaller:
+    class: WvisionBundle\Installer\Wvision\ConfigFileInstaller
+    arguments: ['@filesystem']
+    tags:
+      - { name: 'wvision.installer', type: 'bundle-config', priority: 320 }
+
+  # Install Resources
+  WvisionBundle\Installer\CompositeResourceInstaller:
+    class: WvisionBundle\Installer\CompositeResourceInstaller
+    arguments:
+      - '@wvision.registry.installers'

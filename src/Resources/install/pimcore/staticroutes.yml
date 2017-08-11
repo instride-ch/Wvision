@@ -1,0 +1,18 @@
+routes:
+  app_search:
+    pattern: '/(\\w+)\\/search/'
+    reverse: '/%_locale/search'
+    module: AppBundle
+    controller: '@AppBundle\Controller\SearchController'
+    action: search
+    variables: _locale
+    priority: 1
+
+  app_error:
+    pattern: '/(\\w+)\\/error/'
+    reverse: '/%_locale/error'
+    module: AppBundle
+    controller: '@AppBundle\Controller\ErrorController'
+    action: error
+    variables: _locale
+    priority: 1
