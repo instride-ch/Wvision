@@ -21,12 +21,6 @@ services:
     tags:
       - { name: 'wvision.installer', type: 'assets', priority: 110 }
 
-  # Install System Configs
-  WvisionBundle\Installer\Pimcore\SystemConfigInstaller:
-    class: WvisionBundle\Installer\Pimcore\SystemConfigInstaller
-    tags:
-      - { name: 'wvision.installer', type: 'system-config', priority: 200 }
-
   # Install Predefined Properties
   WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller:
     class: WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller
@@ -60,13 +54,6 @@ services:
     arguments: ['@filesystem']
     tags:
       - { name: 'wvision.installer', type: 'static-assets', priority: 310 }
-
-  # Install Bundle Config
-  WvisionBundle\Installer\Wvision\ConfigFileInstaller:
-    class: WvisionBundle\Installer\Wvision\ConfigFileInstaller
-    arguments: ['@filesystem']
-    tags:
-      - { name: 'wvision.installer', type: 'bundle-config', priority: 320 }
 
   # Install Resources
   WvisionBundle\Installer\CompositeResourceInstaller:

@@ -15,6 +15,7 @@ namespace WvisionBundle;
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use WvisionBundle\DependencyInjection\Compiler\RegisterInstallersPass;
+use WvisionBundle\Tool\Installer;
 
 class WvisionBundle extends AbstractPimcoreBundle
 {
@@ -33,7 +34,7 @@ class WvisionBundle extends AbstractPimcoreBundle
      */
     public function getInstaller()
     {
-        return $this->container->get('WvisionBundle\Tool\Installer');
+        return $this->container->get(Installer::class);
     }
 
     /**

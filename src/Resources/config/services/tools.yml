@@ -1,12 +1,4 @@
 services:
-
-  # Installer
-  WvisionBundle\Tool\Installer:
-    class: WvisionBundle\Tool\Installer
-    arguments:
-      - '@filesystem'
-      - '@WvisionBundle\Installer\CompositeResourceInstaller'
-
   # Mailer
   WvisionBundle\Tool\Mailer:
     class: WvisionBundle\Tool\Mailer

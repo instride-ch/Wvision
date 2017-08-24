@@ -17,8 +17,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Configuration
 {
-    const SYSTEM_CONFIG_FILE_PATH = PIMCORE_PRIVATE_VAR . '/bundles/WvisionBundle/config.yml';
-
     /**
      * @var array
      */

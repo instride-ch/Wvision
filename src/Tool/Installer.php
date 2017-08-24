@@ -12,12 +12,15 @@
 
 namespace WvisionBundle\Tool;
 
+use Doctrine\DBAL\Migrations\Version;
+use Doctrine\DBAL\Schema\Schema;
+use Pimcore\Extension\Bundle\Installer\MigrationInstaller;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Filesystem\Filesystem;
 use WvisionBundle\Configuration\Configuration;
 use WvisionBundle\Installer\ResourceInstallerInterface;
 
-class Installer
+final class Installer extends MigrationInstaller
 {
     /**
      * @var Filesystem
@@ -31,73 +34,50 @@ class Installer
 
     /**
      * @param Filesystem $fileSystem
-     * @param ResourceInstallerInterface $installer
      */
-    public function __construct(Filesystem $fileSystem, ResourceInstallerInterface $installer)
+    public function setFileSystem(Filesystem $fileSystem)
     {
         $this->fileSystem = $fileSystem;
+    }
+
+    /**
+     * @param ResourceInstallerInterface $installer
+     */
+    public function setInstaller(ResourceInstallerInterface $installer)
+    {
         $this->installer = $installer;
     }
 
     /**
-     * {@inheritdoc}
+     * Install Migrations
      */
-    public function install()
+    protected function beforeInstallMigration()
     {
         $this->installer->installResources(new NullOutput());
-
-        return true;
     }
 
     /**
-     * {@inheritdoc}
+     * @param Schema $schema
+     * @param Version $version
      */
-    public function uninstall()
+    public function migrateInstall(Schema $schema, Version $version)
     {
-        if ($this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH)) {
-            $this->fileSystem->rename(
-                Configuration::SYSTEM_CONFIG_FILE_PATH,
-                PIMCORE_PRIVATE_VAR . '/bundles/WvisionBundle/config_backup.yml'
-            );
-        }
+
     }
 
     /**
-     * {@inheritdoc}
+     * @param Schema $schema
+     * @param Version $version
      */
-    public function isInstalled()
+    public function migrateUninstall(Schema $schema, Version $version)
     {
-        return true; //$this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH);
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function canBeInstalled()
-    {
-        return !$this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function canBeUninstalled()
-    {
-        return $this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH);
     }
 
     /**
      * {@inheritdoc}
      */
     public function needsReloadAfterInstall()
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function canBeUpdated()
     {
         return false;
     }
