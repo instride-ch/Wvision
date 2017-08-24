@@ -56,16 +56,20 @@ final class RouteInstaller implements ResourceInstallerInterface
 
         $routesToInstall = [];
         foreach ($routeFilesToInstall as $file) {
-            $file = $this->kernel->locateResource($file);
+            try {
+                $file = $this->kernel->locateResource($file);
 
-            if (file_exists($file)) {
-                $routes = Yaml::parse(file_get_contents($file));
-                $routes = $processor->processConfiguration($configurationDefinition, ['staticroutes' => $routes]);
-                $routes = $routes['routes'];
+                if (file_exists($file)) {
+                    $routes = Yaml::parse(file_get_contents($file));
+                    $routes = $processor->processConfiguration($configurationDefinition, ['staticroutes' => $routes]);
+                    $routes = $routes['routes'];
 
-                foreach ($routes as $name => $routeData) {
-                    $routesToInstall[$name] = $routeData;
+                    foreach ($routes as $name => $routeData) {
+                        $routesToInstall[$name] = $routeData;
+                    }
                 }
+            } catch (\InvalidArgumentException $ex) {
+                //Catch Not found exception
             }
         }
 
