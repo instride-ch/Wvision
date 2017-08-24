@@ -46,7 +46,7 @@ class StaticAssetInstaller implements ResourceInstallerInterface
         if (!$this->fileSystem->exists(PIMCORE_PROJECT_ROOT . '/assets')) {
             $this->fileSystem->mirror(
                 $this->installSourcesPath . '/assets',
-                PIMCORE_PROJECT_ROOT
+                PIMCORE_PROJECT_ROOT . '/assets'
             );
         }
     }

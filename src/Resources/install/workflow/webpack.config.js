@@ -40,8 +40,8 @@ Encore
   .addStyleEntry('css/global', paths.resources + '/scss/global.scss')
   .addStyleEntry('css/email', paths.resources + '/scss/email.scss')
   .addStyleEntry('css/editmode', paths.resources + '/scss/editmode.scss')
-  .enableSassLoader(function(sassOptions) {
-    sassOptions.includePaths = [
+  .enableSassLoader(function(options) {
+    options.includePaths = [
       paths.vendor + '/uikit/src/scss',
       paths.vendor + '/breakpoint-sass/stylesheets',
       paths.vendor + '/foundation-emails/scss'

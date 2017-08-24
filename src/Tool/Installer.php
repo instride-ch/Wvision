@@ -17,7 +17,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Pimcore\Extension\Bundle\Installer\MigrationInstaller;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Filesystem\Filesystem;
-use WvisionBundle\Configuration\Configuration;
 use WvisionBundle\Installer\ResourceInstallerInterface;
 
 final class Installer extends MigrationInstaller
