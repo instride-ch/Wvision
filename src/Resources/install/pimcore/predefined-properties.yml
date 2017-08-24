@@ -1,4 +1,5 @@
 properties:
+
   userEmailDocument:
     name: 'User Email Document'
     description: 'Defines the email document, which is sent to the user.'
