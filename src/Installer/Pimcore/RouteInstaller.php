@@ -42,7 +42,7 @@ final class RouteInstaller implements ResourceInstallerInterface
     public function installResources(OutputInterface $output)
     {
         $routeFilesToInstall = [
-            '@WvisionBundle/Resources/install/pimcore/routes.yml'
+            '@WvisionBundle/Resources/install/pimcore/static-routes.yml'
         ];
 
         $progress = new ProgressBar($output);
