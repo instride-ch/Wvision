@@ -7,7 +7,7 @@ services:
     WvisionBundle\Tool\Installer:
         public: true
         arguments:
-            $bundle: "@=service('kernel').getBundle('CoreShopAdminBundle')"
+            $bundle: "@=service('kernel').getBundle('WvisionBundle')"
         calls:
             - [setFileSystem, ['@filesystem']]
             - [setInstaller, ['@WvisionBundle\Installer\CompositeResourceInstaller']]
