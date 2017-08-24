@@ -35,10 +35,5 @@ final class WvisionExtension extends Extension
 
         $configManagerDefinition = $container->getDefinition('WvisionBundle\Configuration\Configuration');
         $configManagerDefinition->addMethodCall('setConfig', [$config]);
-
-        if (file_exists(BundleConfiguration::SYSTEM_CONFIG_FILE_PATH)) {
-            $bundleConfig = Yaml::parse(file_get_contents(BundleConfiguration::SYSTEM_CONFIG_FILE_PATH));
-            $configManagerDefinition->addMethodCall('setSystemConfig', [$bundleConfig]);
-        }
     }
 }

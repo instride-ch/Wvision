@@ -71,20 +71,7 @@ final class Installer extends MigrationInstaller
      */
     public function migrateUninstall(Schema $schema, Version $version)
     {
-        if ($this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH)) {
-            $this->fileSystem->rename(
-                Configuration::SYSTEM_CONFIG_FILE_PATH,
-                PIMCORE_PRIVATE_VAR . '/bundles/WvisionBundle/config_backup.yml'
-            );
-        }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isInstalled()
-    {
-        return $this->fileSystem->exists(Configuration::SYSTEM_CONFIG_FILE_PATH);
     }
 
     /**
