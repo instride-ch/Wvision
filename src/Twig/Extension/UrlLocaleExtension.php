@@ -23,9 +23,9 @@ class UrlLocaleExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter(
-                'urlLocale',
-                [$this, 'getUrlLocale'],
-                ['is_safe' => ['html']]
+                'urlLocale', [$this, 'getUrlLocale'], [
+                    'is_safe' => ['html']
+                ]
             )
         ];
     }

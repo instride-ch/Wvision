@@ -22,10 +22,10 @@ class TruncateExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter(
-                'truncate',
-                [$this, 'truncate'],
-                ['is_safe' => ['html']]
+            new \Twig_SimpleFunction(
+                'truncate', [$this, 'truncate'], [
+                    'is_safe' => ['html']
+                ]
             )
         ];
     }

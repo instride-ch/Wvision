@@ -23,9 +23,9 @@ class ObfuscateEmailExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter(
-                'obfuscateEmail',
-                [$this, 'parse'],
-                ['is_safe' => ['html']]
+                'obfuscateEmail', [$this, 'parse'], [
+                    'is_safe' => ['html']
+                ]
             )
         ];
     }
