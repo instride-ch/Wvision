@@ -1,51 +1,15 @@
-#w-vision Pimcore Bundle
+![WvisionBundle for pimcore 5](https://www.w-vision.ch/website/github-banner.png "WvisionBundle for pimcore 5")
 
-### Generate an iCalendar File
-Create a controller method and create a route for it. Inspect the example below:
+## Documentation
+- [Installation](docs/00_Installation.md)
+- [Configuration](docs/01_Configuration.md)
+- [Email Development](docs/02_Email-Development.md)
+- [Tools](docs/03_Tools.md)
+- [Twig Helpers](docs/04_Twig-Helpers.md)
 
-**src/AppBundle/Resources/config/pimcore/routing.yml**
-```yaml
-generate_ics:
-  path: /generate-ics/{id}
-  defaults: { _controller: AppBundle:Example:generateIcs }
-```
+## License
+This bundle is for w-vision's internal use only. Please **do not** use without permission.
 
-**src/AppBundle/Controller/ExampleController.php**
-```php
-use Pimcore\File;
-use Pimcore\Model\Object;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-
-/**
- * @return Response The generated iCalendar file
- */
-public function generateIcsAction($id)
-{
-    $event = Object\News::getById($id);
-    $filename = File::getValidFilename($event->getTitle());
-
-    $properties = [
-        'description' => $event->getShortText(),
-        'dtstart' => $event->getDate(),
-        'dtend' => $event->getDate(),
-        'summary' => $event->getTitle(),
-        'url' => 'https://google.ch/'
-    ];
-
-    $ics = $this->get('WvisionBundle\Tool\Ics');
-    $ics->setProps($properties);
-    $fileContent = $ics->toString();
-
-    $response = new Response($fileContent);
-    $disposition = $response->headers->makeDisposition(
-        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $filename . '.ics'
-    );
-
-    $response->headers->set('Content-Type', 'text/calendar');
-    $response->headers->set('Content-Disposition', $disposition);
-
-    return $response;
-}
-```
+w-vision, Sandgruebestrasse 4, 6210 Sursee, Switzerland
+https://www.w-vision.ch, support@w-vision.ch
+Copyright © 2017 w-vision. All rights reserved.

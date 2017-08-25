@@ -21,7 +21,7 @@ public function contactFormAction(Request $request)
     $form = $this->createForm(ContactFormType::class);
     $form->handleRequest();
 
-    if ($form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
         $data = $form->getData();
         $success = $this->get('WvisionBundle\Tool\Mailer')
             ->sendEmails($data, 'admin@email.com');
