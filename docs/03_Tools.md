@@ -38,6 +38,7 @@ public function contactFormAction(Request $request)
 Create a controller method and define a static route for it. Inspect the example below:
 
 **Pimcore static route**
+
 | Name    | Pattern                    | Reverse           | Bundle | Controller | Action       | Variables | Defaults | Site IDs | Priority |
 |---------|----------------------------|-------------------|--------|------------|--------------|-----------|----------|----------|----------|
 | app_ics | /\/generate-ics\/([0-9]+)/ | /generate-ics/%id |        | example    | generate-ics | id        |          |          | 1        |
