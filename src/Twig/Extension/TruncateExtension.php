@@ -19,10 +19,10 @@ class TruncateExtension extends \Twig_Extension
      *
      * @return array An array of filters
      */
-    public function getFilters()
+    public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new \Twig_Function(
                 'truncate', [$this, 'truncate'], [
                     'is_safe' => ['html']
                 ]
@@ -40,12 +40,8 @@ class TruncateExtension extends \Twig_Extension
      *
      * @return string The cut string
      */
-    public function truncate($str, $limit, $brChar = '', $pad = ' ...')
+    public function truncate($str, $limit = 100, $brChar = '', $pad = ' ...')
     {
-        if ('UTF-8' === mb_detect_encoding($str, 'UTF-8')) {
-            $str = utf8_decode($str);
-        }
-
         if (strlen($str) <= $limit) {
             return $str;
         }
