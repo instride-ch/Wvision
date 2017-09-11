@@ -1,9 +1,0 @@
-routes:
-  app_search:
-    pattern: '/(.*)\/search/'
-    reverse: '/%_locale/search'
-    module: AppBundle
-    controller: '@AppBundle\Controller\SearchController'
-    action: search
-    variables: _locale
-    priority: 1

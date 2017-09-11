@@ -7,53 +7,26 @@ services:
       - WvisionBundle\Installer\ResourceInstallerInterface
       - 'wvision-resource-installer'
 
-  # Install Documents
-  WvisionBundle\Installer\Pimcore\DocumentInstaller:
-    class: WvisionBundle\Installer\Pimcore\DocumentInstaller
-    arguments: ['@kernel']
-    tags:
-      - { name: 'wvision.installer', type: 'documents', priority: 100 }
-
-  # Install Assets
-  WvisionBundle\Installer\Pimcore\AssetInstaller:
-    class: WvisionBundle\Installer\Pimcore\AssetInstaller
-    arguments: ['@kernel']
-    tags:
-      - { name: 'wvision.installer', type: 'assets', priority: 110 }
-
   # Install Predefined Properties
   WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller:
     class: WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller
     arguments: ['@kernel']
     tags:
-      - { name: 'wvision.installer', type: 'predefined-properties', priority: 210 }
-
-  # Install Routes
-  WvisionBundle\Installer\Pimcore\RouteInstaller:
-    class: WvisionBundle\Installer\Pimcore\RouteInstaller
-    arguments: ['@kernel']
-    tags:
-      - { name: 'wvision.installer', type: 'routes', priority: 220 }
-
-  # Install Robots.txt
-  WvisionBundle\Installer\Pimcore\RobotsTxtInstaller:
-    class: WvisionBundle\Installer\Pimcore\RobotsTxtInstaller
-    tags:
-      - { name: 'wvision.installer', type: 'robots-txt', priority: 230 }
+      - { name: 'wvision.installer', type: 'predefined-properties', priority: 100 }
 
   # Install Workflow
   WvisionBundle\Installer\Wvision\WorkflowInstaller:
     class: WvisionBundle\Installer\Wvision\WorkflowInstaller
     arguments: ['@filesystem']
     tags:
-      - { name: 'wvision.installer', type: 'workflow', priority: 300 }
+      - { name: 'wvision.installer', type: 'workflow', priority: 200 }
 
   # Install Static Assets
   WvisionBundle\Installer\Wvision\StaticAssetInstaller:
     class: WvisionBundle\Installer\Wvision\StaticAssetInstaller
     arguments: ['@filesystem']
     tags:
-      - { name: 'wvision.installer', type: 'static-assets', priority: 310 }
+      - { name: 'wvision.installer', type: 'static-assets', priority: 210 }
 
   # Install Resources
   WvisionBundle\Installer\CompositeResourceInstaller:
