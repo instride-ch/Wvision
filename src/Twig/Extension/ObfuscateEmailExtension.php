@@ -22,7 +22,7 @@ class ObfuscateEmailExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter(
+            new \Twig_Filter(
                 'obfuscateEmail', [$this, 'parse'], [
                     'is_safe' => ['html']
                 ]

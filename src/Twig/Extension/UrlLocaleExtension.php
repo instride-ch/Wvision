@@ -22,7 +22,7 @@ class UrlLocaleExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter(
+            new \Twig_Filter(
                 'urlLocale', [$this, 'getUrlLocale'], [
                     'is_safe' => ['html']
                 ]

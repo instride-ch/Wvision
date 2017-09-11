@@ -19,10 +19,10 @@ class TruncateExtension extends \Twig_Extension
      *
      * @return array An array of filters
      */
-    public function getFunctions()
+    public function getFilters()
     {
         return [
-            new \Twig_Function(
+            new \Twig_Filter(
                 'truncate', [$this, 'truncate'], [
                     'is_safe' => ['html']
                 ]
