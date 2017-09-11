@@ -12,6 +12,11 @@
       "role": "Web Development Agency"
     }
   ],
+  "require": {
+    "coreshop/registry": "^2.0",
+    "hampe/zurb-ink-bundle": "^2.2",
+    "wvision/pimcore5-install-profile": "dev-master"
+  },
   "autoload": {
     "psr-4": {
       "WvisionBundle\\": "src/"
@@ -22,11 +27,9 @@
       "bundles": [
         "WvisionBundle\\WvisionBundle"
       ]
+    },
+    "branch-alias": {
+      "dev-master": "1.0-dev"
     }
-  },
-  "require": {
-    "coreshop/registry": "^2.0",
-    "hampe/zurb-ink-bundle": "^2.2",
-    "wvision/pimcore5-install-profile": "dev-master"
   }
 }
