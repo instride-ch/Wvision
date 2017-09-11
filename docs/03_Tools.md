@@ -15,21 +15,22 @@ use Symfony\Component\HttpFoundation\Request;
  * @return \Symfony\Component\HttpFoundation\Response
  */
 public function contactFormAction(Request $request)
-{
-    $success = false;
-    
+{    
     $form = $this->createForm(ContactFormType::class);
-    $form->handleRequest();
+    $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         $data = $form->getData();
         $success = $this->get('WvisionBundle\Tool\Mailer')
             ->sendEmails($data, 'admin@email.com');
+            
+        if ($success) {
+            $this->redirect($request->getPathInfo());
+        }
     }
     
     return $this->renderTemplate('Contact/contact-form.html.twig', [
-        'form' => $form->createView(),
-        'success' => $success
+        'form' => $form->createView()
     ]);
 }
 ```
