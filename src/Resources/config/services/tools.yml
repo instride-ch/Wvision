@@ -1,0 +1,14 @@
+services:
+  # Mailer
+  WvisionBundle\Tool\Mailer:
+    class: WvisionBundle\Tool\Mailer
+    arguments: ['@pimcore.service.request.view_model_resolver']
+
+  # Newsletter
+  WvisionBundle\Tool\MultiSmtpNewsletter:
+    class: WvisionBundle\Tool\MultiSmtpNewsletter
+    arguments: ['@WvisionBundle\Configuration\Configuration']
+
+  # iCalendar
+  WvisionBundle\Tool\Ics:
+    class: WvisionBundle\Tool\Ics

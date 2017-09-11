@@ -1,0 +1,9 @@
+wvision: "Wvision"
+wvision_install_failed: "Wvision Bundle could not be installed."
+wvision_install_successfully: "Wvision Bundle has been successfully installed."
+wvision_uninstalled_successfully: "Wvision Bundle has been successfully uninstalled."
+wvision_uninstall_failed: "Wvision Bundle could not be uninstalled."
+
+wvision_about: "About Wvision"
+wvision_about_contact: "Contact"
+wvision_about_team: "Team"
