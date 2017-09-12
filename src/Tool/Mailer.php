@@ -197,22 +197,24 @@ class Mailer
         if (!empty($admin)) {
             $adminArray = [];
             foreach ($admin as $param) {
+                $adminArray['emails'] = [];
                 if (Mail::isValidEmailAddress($param)) {
                     $adminArray['emails'][] = $param;
                 }
 
+                $adminArray['documents'] = [];
                 if ($param instanceof Document\Email) {
                     $adminArray['documents'][] = $param;
                 }
 
+                $adminArray['assets'] = [];
                 if ($param instanceof Asset) {
                     $adminArray['assets'][] = $param;
                 }
             }
 
             // Additionally add document from properties
-            $adminEmail = $document->getProperty('adminEmailDocument');
-            array_push($adminArray['documents'], $adminEmail);
+            $adminArray['documents'][] = $document->getProperty('adminEmailDocument');
 
             return $adminArray;
         }
