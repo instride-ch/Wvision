@@ -14,16 +14,18 @@ namespace WvisionBundle\Tool;
 
 use Pimcore\Mail;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject;
 use Pimcore\Model\Document;
+use Pimcore\Service\Request\DocumentResolver;
 use Pimcore\Service\Request\ViewModelResolver;
 use Symfony\Component\HttpFoundation\Request;
 
 class Mailer
 {
     /**
-     * @var ViewModelResolver
+     * @var DocumentResolver
      */
-    private $viewModel;
+    private $documentResolver;
 
     /**
      * @var array
@@ -48,9 +50,9 @@ class Mailer
     /**
      * @param ViewModelResolver $viewModel
      */
-    public function __construct(ViewModelResolver $viewModel)
+    public function __construct(DocumentResolver $documentResolver)
     {
-        $this->viewModel = $viewModel->getViewModel();
+        $this->documentResolver = $documentResolver;
     }
 
     /**
@@ -174,18 +176,16 @@ class Mailer
      */
     public function parseData($data, $admin)
     {
-        $document = $this->viewModel->get('document');
+        $document = $this->documentResolver->getDocument();
 
         foreach ($data as $param) {
-            if (Mail::isValidEmailAddress($param)) {
+            if (is_string($param) && Mail::isValidEmailAddress($param)) {
                 $this->setEmails($param);
             }
-
-            if ($param instanceof Document\Email) {
+            else if ($param instanceof Document\Email) {
                 $this->setDocuments($param);
             }
-
-            if ($param instanceof Asset) {
+            else if ($param instanceof Asset) {
                 $this->setAssets($param);
             }
         }
@@ -198,7 +198,8 @@ class Mailer
             $adminArray = [];
             foreach ($admin as $param) {
                 $adminArray['emails'] = [];
-                if (Mail::isValidEmailAddress($param)) {
+                
+                if (is_string($param) && Mail::isValidEmailAddress($param)) {
                     $adminArray['emails'][] = $param;
                 }
 
@@ -227,7 +228,7 @@ class Mailer
      * with or without attachment(s).
      *
      * @param $emails
-     * @param array $params
+     * @param $params
      * @param Document\Email $document
      * @param array $assets
      * @return bool

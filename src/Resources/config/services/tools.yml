@@ -2,7 +2,7 @@ services:
   # Mailer
   WvisionBundle\Tool\Mailer:
     class: WvisionBundle\Tool\Mailer
-    arguments: ['@pimcore.service.request.view_model_resolver']
+    arguments: ['@pimcore.service.request.document_resolver']
 
   # Newsletter
   WvisionBundle\Tool\MultiSmtpNewsletter:
