@@ -48,7 +48,7 @@ class Mailer
     private $success = false;
 
     /**
-     * @param ViewModelResolver $viewModel
+     * @param DocumentResolver $documentResolver
      */
     public function __construct(DocumentResolver $documentResolver)
     {
@@ -156,7 +156,11 @@ class Mailer
         if (!empty($admin) && !empty($admin['documents'])) {
             $success = false;
             foreach ($admin['documents'] as $document) {
-                $success = $this->send($admin['emails'], $data, $document, $admin['assets']);
+                if (empty($admin['assets'])) {
+                    $success = $this->send($admin['emails'], $data, $document, $this->getAssets());
+                } else {
+                    $success = $this->send($admin['emails'], $data, $document, $admin['assets']);
+                }
 
                 if (!$success) {
                     continue;
@@ -196,22 +200,24 @@ class Mailer
 
         if (!empty($admin)) {
             $adminArray = [];
+            $i = 0;
             foreach ($admin as $param) {
                 $adminArray['emails'] = [];
-
                 if (is_string($param) && Mail::isValidEmailAddress($param)) {
-                    $adminArray['emails'][] = $param;
+                    $adminArray['emails'][$i] = $param;
                 }
 
                 $adminArray['documents'] = [];
                 if ($param instanceof Document\Email) {
-                    $adminArray['documents'][] = $param;
+                    $adminArray['documents'][$i] = $param;
                 }
 
                 $adminArray['assets'] = [];
                 if ($param instanceof Asset) {
-                    $adminArray['assets'][] = $param;
+                    $adminArray['assets'][$i] = $param;
                 }
+
+                $i++;
             }
 
             // Additionally add document from properties
