@@ -156,7 +156,7 @@ class Mailer
         if (!empty($admin) && !empty($admin['documents'])) {
             $success = false;
             foreach ($admin['documents'] as $document) {
-                $success = $this->send($admin['emails'], $adminEmail, $document, $admin['assets']);
+                $success = $this->send($admin['emails'], $data, $document, $admin['assets']);
 
                 if (!$success) {
                     continue;
@@ -198,7 +198,7 @@ class Mailer
             $adminArray = [];
             foreach ($admin as $param) {
                 $adminArray['emails'] = [];
-                
+
                 if (is_string($param) && Mail::isValidEmailAddress($param)) {
                     $adminArray['emails'][] = $param;
                 }
