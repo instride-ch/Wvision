@@ -1,11 +1,9 @@
-#pimcore_menu_wvision{
-    background-image: url('/bundles/wvision/pimcore/img/wvision.svg') !important;
-    width: 100%;
-    height: 100%;
+#pimcore_menu_wvision svg * {
+    fill: #969696;
 }
 
-.wvision_icon_settings {
-    background: url('/web/pimcore/static6/img/flat-color-icons/services.svg') center center no-repeat !important;
+#pimcore_menu_wvision:hover svg * {
+    fill: #fff;
 }
 
 .wvision_icon_about {
