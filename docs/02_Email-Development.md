@@ -1,7 +1,12 @@
 # Email development
 
 A full-featured workflow for responsive emails comes with this bundle.  
-To use its functionality inside a pimcore email, simply extend the base layout.
+To use its functionality inside a pimcore email, simply add the bundle in your AppKernel.php
+and extend the base layout.
+
+```php
+$collection->addBundle(new \Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle());
+```
 
 ```twig
 {% extends 'HampeZurbInkBundle:FoundationForEmails:2/base.html.twig' %}
