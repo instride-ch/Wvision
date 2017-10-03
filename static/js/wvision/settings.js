@@ -445,16 +445,16 @@ pimcore.plugin.wvision.settings = Class.create({
                             fieldLabel: t("email_smtp_auth_username"),
                             name: "APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.USERNAME",
                             itemId: "email"+siteId+"_username",
-                            hidden: (me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.METHOD").length > 1) ? false : true,
-                            value: me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.METHOD")
+                            hidden: (me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.USERNAME").length > 1) ? false : true,
+                            value: me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.USERNAME")
                         },
                         {
                             fieldLabel: t("email_smtp_auth_password"),
                             name: "APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.PASSWORD",
                             inputType: "password",
                             itemId: "email"+siteId+"_password",
-                            hidden: (me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.METHOD").length > 1) ? false : true,
-                            value: me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.METHOD")
+                            hidden: (me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.PASSWORD").length > 1) ? false : true,
+                            value: me.getValue("APPLICATION.MULTISITE."+siteId+".SMTP.AUTH.PASSWORD")
                         }
                     ]
                 });
