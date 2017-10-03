@@ -14,7 +14,7 @@ namespace WvisionBundle\Application;
 
 final class Version
 {
-    const BUILD_VERSION = '1';
+    const BUILD_VERSION = '2';
 
     const MAJOR_VERSION = '2';
     const MINOR_VERSION = '0';
