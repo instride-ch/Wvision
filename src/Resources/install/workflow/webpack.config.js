@@ -47,7 +47,7 @@ Encore
       paths.vendor + '/foundation-emails/scss'
     ]
   }, {
-    resolve_url_loader: false
+    resolveUrlLoader: false
   })
   .enablePostCssLoader()
   .addPlugin(new StyleLintPlugin())
