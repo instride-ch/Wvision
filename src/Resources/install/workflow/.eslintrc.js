@@ -6,7 +6,11 @@ module.exports = {
     'es6': true,
     'jquery': true,
   },
-  'globals': { 'UIkit': true },
+  'globals': {
+    'UIkit': true,
+    'google': true,
+    'grecaptcha': true,
+  },
   'parser': 'babel-eslint',
   'rules': {
     'no-extra-semi': 'error',
