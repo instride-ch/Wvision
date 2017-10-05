@@ -40,5 +40,8 @@
     "last 2 versions",
     "ios >= 8",
     "Safari >= 7.1"
+  ],
+  "eslintIgnore": [
+    "assets/js/vendor/**/*"
   ]
 }
