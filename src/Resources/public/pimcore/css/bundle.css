@@ -6,7 +6,7 @@
     fill: #fff;
 }
 
-#pimcore_menu_wvision:hover:after {
+#pimcore_navigation li#pimcore_menu_wvision:hover:after {
     background-color: #005fa8;
 }
 
