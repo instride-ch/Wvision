@@ -6,6 +6,10 @@
     fill: #fff;
 }
 
+#pimcore_menu_wvision:hover:after {
+    background-color: #005fa8;
+}
+
 .wvision_icon_about {
     background: url('/bundles/wvision/pimcore/img/wvision.svg') center center no-repeat !important;
 }
