@@ -3,14 +3,14 @@
 {# Widgets #}
 
 {% block form_widget_simple -%}
-    {% if type is not defined or type not in ['file', 'hidden'] %}
+    {% if type is not defined or type not in ['hidden'] %}
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' uk-input')|trim}) -%}
     {% endif %}
 
     {% if type is defined and type in 'file' %}
-        <div class="upload-file uk-display-block" data-uk-form-custom="target: true">
+        <div class="uk-form-custom uk-display-block" data-uk-form-custom="target: true">
             {{- parent() -}}
-            <input class="uk-input uk-width-1-1" placeholder="{{ 'app.form.camp.placeholder.file-upload'|trans({}, translation_domain) }}" disabled>
+            <input {{ block('attributes') }} disabled>
         </div>
     {% else %}
         {{- parent() -}}
@@ -160,7 +160,7 @@
 
 {% block checkbox_widget -%}
     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-    {% if 'checkbox-inline' in parent_label_class %}
+    {% if 'uk-display-inline-block' in parent_label_class %}
         {{- form_label(form, null, { widget: parent() }) -}}
     {% else -%}
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' uk-checkbox')|trim}) %}
@@ -191,8 +191,8 @@
 {%- endblock form_label %}
 
 {% block choice_label -%}
-    {# remove the checkbox-inline and radio-inline class, it's only useful for embed labels #}
-    {%- set label_attr = label_attr|merge({class: label_attr.class|default('')|replace({'checkbox-inline': '', 'radio-inline': ''})|trim}) -%}
+    {# remove the uk-display-inline-block class, it's only useful for embed labels #}
+    {%- set label_attr = label_attr|merge({class: label_attr.class|default('')|replace({'uk-display-inline-block': ''})|trim}) -%}
     {{- block('form_label') -}}
 {% endblock %}
 
@@ -286,7 +286,7 @@
         {% if form.parent %}<span class="help-block">{% else %}<div class="uk-alert-danger" data-uk-alert>{% endif %}
         <ul class="uk-list">
             {%- for error in errors -%}
-                <li><span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}</li>
+                <li><span data-uk-icon="warning"></span> {{ error.message }}</li>
             {%- endfor -%}
         </ul>
         {% if form.parent %}</span>{% else %}</div>{% endif %}
