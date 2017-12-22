@@ -1,6 +1,6 @@
 {
   "name": "wvision-bundle",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0",
   "description": "A full-featured frontend-optimizer for developing projects with pimcore",
   "author": "w-vision <support@w-vision.ch>",
   "license": "GPLv3",
@@ -9,7 +9,8 @@
   "scripts": {
     "build": "./node_modules/.bin/encore production",
     "custom-icons": "npm run icons --prefix ./node_modules/uikit -- --custom ../../assets/img/icons",
-    "deploy": "php deployer.phar deploy",
+    "deploy": "vendor/bin/dep deploy",
+    "deploy-prod": "vendor/bin/dep deploy production",
     "dev": "./node_modules/.bin/encore dev",
     "dev-server": "./node_modules/.bin/encore dev-server --hot",
     "install-uikit": "npm install --prefix ./node_modules/uikit",
@@ -17,29 +18,29 @@
     "watch": "./node_modules/.bin/encore dev --watch"
   },
   "dependencies": {
-    "@symfony/webpack-encore": "^0.15.1",
-    "autoprefixer": "^7.1.2",
-    "babel-eslint": "^7.2.3",
+    "@symfony/webpack-encore": "^0.17.0",
+    "autoprefixer": "^7.2.3",
+    "babel-eslint": "^8.0.3",
     "breakpoint-sass": "^2.7.1",
-    "copy-webpack-plugin": "^4.0.1",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.3.1",
+    "copy-webpack-plugin": "^4.3.0",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^1.9.0",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "^2.8.0",
     "foundation-emails": "^2.2.1",
-    "imagemin-webpack-plugin": "^1.5.0-beta.0",
-    "jquery": "^3.2.1",
-    "node-sass": "^4.5.3",
-    "postcss-loader": "^2.0.6",
+    "imagemin-webpack-plugin": "^1.5.2",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.9",
     "sass-loader": "^6.0.6",
-    "stylelint": "^8.0.0",
+    "stylelint": "^8.4.0",
     "stylelint-webpack-plugin": "^0.9.0",
-    "uikit": "^3.0.0-beta.30"
+    "uikit": "^3.0.0-beta.35"
   },
   "browserslist": [
     "last 2 versions",
-    "ios >= 8",
-    "Safari >= 7.1"
+    "ios >= 9.1",
+    "Safari >= 9.1",
+    "not ie <= 10"
   ],
   "eslintIgnore": [
     "assets/js/vendor/**/*"

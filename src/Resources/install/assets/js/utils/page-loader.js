@@ -1,6 +1,8 @@
-(function pageLoader() {
-  $(window).on('load', () => {
-    const loader = $('.page-loader');
-    UIkit.util.animate(loader, 'uk-animation-fade', 400, false, true).then(() => loader.remove());
-  });
-}(jQuery, UIkit));
+(function PageLoader() {
+  window.onload = () => {
+    const loader = UIkit.util.$('#page-loader');
+
+    UIkit.util.transition(loader, { opacity: 0 });
+    UIkit.util.once(loader, 'transitionend', () => UIkit.util.remove(loader));
+  };
+}(UIkit));
