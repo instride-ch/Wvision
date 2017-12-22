@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "A full-featured frontend-optimizer for developing projects with pimcore",
   "author": "w-vision <support@w-vision.ch>",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "homepage": "https://www.w-vision.ch",
   "repository": "https://github.com/w-vision/Wvision",
   "scripts": {
@@ -21,8 +21,7 @@
     "@symfony/webpack-encore": "^0.17.0",
     "autoprefixer": "^7.2.3",
     "babel-eslint": "^8.0.3",
-    "breakpoint-sass": "^2.7.1",
-    "copy-webpack-plugin": "^4.3.0",
+    "copy-webpack-plugin": "^4.3.1",
     "eslint": "^4.13.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^1.9.0",

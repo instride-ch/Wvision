@@ -1,10 +1,10 @@
-let path            = require('path');
-let Encore          = require('@symfony/webpack-encore');
-let CopyPlugin      = require('copy-webpack-plugin');
-let ImageminPlugin  = require('imagemin-webpack-plugin').default;
-let StyleLintPlugin = require('stylelint-webpack-plugin');
+const path            = require('path');
+const Encore          = require('@symfony/webpack-encore');
+const CopyPlugin      = require('copy-webpack-plugin');
+const ImageminPlugin  = require('imagemin-webpack-plugin').default;
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
-let paths = {
+const paths = {
   output: path.resolve(__dirname, './web/build'),
   public: '/build',
   resources: path.resolve(__dirname, './assets'),
@@ -12,39 +12,33 @@ let paths = {
 };
 
 Encore
-// set output and public paths
+// Set output and public paths
   .setOutputPath(paths.output)
   .setPublicPath(paths.public)
 
-  // clean output before build
+  // Clean output before build
   .cleanupOutputBeforeBuild()
 
-  // javascript
-  .autoProvidejQuery()
+  // Javascript
   .autoProvideVariables({
     UIkit: 'uikit',
     'window.UIkit': 'uikit'
   })
-  .createSharedEntry('js/vendor', [
-    'jquery',
-    'uikit'
-  ])
-  .addEntry('js/app', paths.resources + '/js/main.js')
+  .addEntry('js/app', `${paths.resources}/js/main.js`)
   .addLoader({
     test: /\.js$/,
     exclude: /node_modules/,
     loader: 'eslint-loader'
   })
 
-  // css
-  .addStyleEntry('css/global', paths.resources + '/scss/global.scss')
-  .addStyleEntry('css/email', paths.resources + '/scss/email.scss')
-  .addStyleEntry('css/editmode', paths.resources + '/scss/editmode.scss')
-  .enableSassLoader(function(options) {
+  // CSS
+  .addStyleEntry('css/global', `${paths.resources}/scss/global.scss`)
+  .addStyleEntry('css/email', `${paths.resources}/scss/email.scss`)
+  .addStyleEntry('css/editmode', `${paths.resources}/scss/editmode.scss`)
+  .enableSassLoader(function (options) {
     options.includePaths = [
-      paths.vendor + '/uikit/src/scss',
-      paths.vendor + '/breakpoint-sass/stylesheets',
-      paths.vendor + '/foundation-emails/scss'
+      `${paths.vendor}/uikit/src/scss`,
+      `${paths.vendor}/foundation-emails/scss`
     ]
   }, {
     resolveUrlLoader: false
@@ -52,10 +46,10 @@ Encore
   .enablePostCssLoader()
   .addPlugin(new StyleLintPlugin())
 
-  // copy and optimize images
+  // Copy and optimize images
   .addPlugin(new CopyPlugin([{
-    from: paths.resources + '/img',
-    to: paths.output + '/images'
+    from: `${paths.resources}/img`,
+    to: `${paths.output}/images`
   }], {
     ignore: [
       'ico/*',
@@ -67,15 +61,15 @@ Encore
     test: /\.(jpe?g|png|gif|svg)$/i
   }))
 
-  // source maps and cache buster
+  // Source maps, cache buster and build notifications
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 ;
 
 let webpackConfig = Encore.getWebpackConfig();
 
-// advanced webpack config
-webpackConfig.watchOptions = { ignored: paths.vendor + '/' };
+// Advanced webpack config
+webpackConfig.watchOptions = { ignored: `${paths.vendor}/` };
 webpackConfig.resolve.extensions.push('json');
 
 module.exports = webpackConfig;
