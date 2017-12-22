@@ -14,12 +14,10 @@ namespace WvisionBundle\Application;
 
 final class Version
 {
-    const BUILD_VERSION = '2';
-
     const MAJOR_VERSION = '2';
     const MINOR_VERSION = '0';
     const RELEASE_VERSION = '0';
-    const EXTRA_VERSION = 'alpha.2';
+    const EXTRA_VERSION = null;
 
     /**
      * @return string
@@ -33,10 +31,5 @@ final class Version
         }
 
         return $version;
-    }
-
-    public static function getBuild()
-    {
-        return self::BUILD_VERSION;
     }
 }
