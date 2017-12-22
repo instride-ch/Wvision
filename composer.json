@@ -1,12 +1,12 @@
 {
-  "name": "wvision/Wvision",
+  "name": "w-vision/Wvision",
   "type": "pimcore-bundle",
   "license": "GPLv3",
   "description": "Pimcore Bundle for w-vision",
   "homepage": "https://github.com/w-vision/Wvision",
   "authors": [
     {
-      "name": "w-vision | Woche-Pass AG",
+      "name": "w-vision AG",
       "email": "support@w-vision.ch",
       "homepage": "https://www.w-vision.ch",
       "role": "Web Development Agency"

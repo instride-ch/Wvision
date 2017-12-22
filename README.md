@@ -13,6 +13,6 @@
 ## License
 This bundle is for w-vision's internal use only. Please **do not** use without permission.
 
-w-vision, Sandgruebestrasse 4, 6210 Sursee, Switzerland  
+w-vision AG, Sandgruebestrasse 4, 6210 Sursee, Switzerland  
 https://www.w-vision.ch, support@w-vision.ch  
-Copyright © 2017 w-vision. All rights reserved.
+Copyright © 2017 w-vision AG. All rights reserved.
