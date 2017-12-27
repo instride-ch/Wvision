@@ -8,13 +8,13 @@
   "repository": "https://github.com/w-vision/Wvision",
   "scripts": {
     "build": "./node_modules/.bin/encore production",
-    "custom-icons": "npm run icons --prefix ./node_modules/uikit -- --custom ../../assets/img/icons",
+    "custom-icons": "npm run uikit-install && npm run uikit-icons",
     "deploy": "vendor/bin/dep deploy",
     "deploy-prod": "vendor/bin/dep deploy production",
     "dev": "./node_modules/.bin/encore dev",
     "dev-server": "./node_modules/.bin/encore dev-server --hot",
-    "install-uikit": "npm install --prefix ./node_modules/uikit",
-    "install-workflow": "npm install && npm run install-uikit",
+    "uikit-icons": "npm run icons --prefix ./node_modules/uikit -- --custom ../../assets/images/icons",
+    "uikit-install": "npm install --prefix ./node_modules/uikit",
     "watch": "./node_modules/.bin/encore dev --watch"
   },
   "dependencies": {
