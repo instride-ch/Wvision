@@ -30,6 +30,20 @@ Encore
     exclude: /node_modules/,
     loader: 'eslint-loader'
   })
+  .configureBabel(function (babelConfig) {
+    babelConfig.presets.push(['env', {
+      modules: false,
+      targets: {
+        browsers: [
+          'last 2 versions',
+          'ios >= 9.1',
+          'Safari >= 9.1',
+          'not ie <= 10'
+        ]
+      },
+      useBuiltIns: true
+    }]);
+  })
 
   // CSS
   .addStyleEntry('css/global', `${paths.resources}/scss/global.scss`)
@@ -40,19 +54,17 @@ Encore
       `${paths.vendor}/uikit/src/scss`,
       `${paths.vendor}/foundation-emails/scss`
     ]
-  }, {
-    resolveUrlLoader: false
-  })
+  }, { resolveUrlLoader: false })
   .enablePostCssLoader()
   .addPlugin(new StyleLintPlugin())
 
   // Copy and optimize images
   .addPlugin(new CopyPlugin([{
-    from: `${paths.resources}/img`,
+    from: `${paths.resources}/images`,
     to: `${paths.output}/images`
   }], {
     ignore: [
-      'ico/*',
+      'favicon.png',
       '.dummy'
     ]
   }))
@@ -61,14 +73,14 @@ Encore
     test: /\.(jpe?g|png|gif|svg)$/i
   }))
 
-  // Source maps, cache buster and build notifications
+  // Source maps and cache buster
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 ;
 
+// Advanced webpack config
 let webpackConfig = Encore.getWebpackConfig();
 
-// Advanced webpack config
 webpackConfig.watchOptions = { ignored: `${paths.vendor}/` };
 webpackConfig.resolve.extensions.push('json');
 

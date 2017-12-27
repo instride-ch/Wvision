@@ -20,9 +20,9 @@
   "dependencies": {
     "@symfony/webpack-encore": "^0.17.0",
     "autoprefixer": "^7.2.3",
-    "babel-eslint": "^8.0.3",
+    "babel-eslint": "^8.1.2",
     "copy-webpack-plugin": "^4.3.1",
-    "eslint": "^4.13.1",
+    "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.8.0",
