@@ -13,24 +13,20 @@
 namespace WvisionBundle\Controller\Admin;
 
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
-use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use WvisionBundle\Application\Version;
 
 class VersionController extends AdminController
 {
     /**
-     * Returns the current version and build number of the bundle.
+     * Returns the current version of the bundle.
      *
      * @return JsonResponse
      */
     public function getVersionAction()
     {
         $version = Version::getVersion();
-        $build = Version::getBuild();
 
-        return $this->json([
-            'version' => $version,
-            'build' => $build
-        ]);
+        return $this->json(['version' => $version]);
     }
 }
