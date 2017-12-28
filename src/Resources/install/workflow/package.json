@@ -8,8 +8,8 @@
   "repository": "https://github.com/w-vision/Wvision",
   "scripts": {
     "build": "./node_modules/.bin/encore production",
-    "deploy": "vendor/bin/dep deploy",
-    "deploy:prod": "vendor/bin/dep deploy production",
+    "deploy": "php vendor/bin/dep deploy",
+    "deploy:prod": "php vendor/bin/dep deploy production",
     "dev": "./node_modules/.bin/encore dev",
     "dev:server": "./node_modules/.bin/encore dev-server --hot",
     "icons:custom": "cd node_modules/uikit && npm run icons -- --custom ../../assets/custom/icons",
