@@ -21,8 +21,8 @@ Encore
 
   // Javascript
   .autoProvideVariables({
-    UIkit: 'uikit',
-    'window.UIkit': 'uikit'
+    UIkit: 'uikit/dist/js/uikit-core',
+    'window.UIkit': 'uikit/dist/js/uikit-core'
   })
   .addEntry('js/app', `${paths.resources}/js/main.js`)
   .addLoader({
@@ -32,7 +32,6 @@ Encore
   })
   .configureBabel(function (babelConfig) {
     babelConfig.presets.push(['env', {
-      modules: false,
       targets: {
         browsers: [
           'last 2 versions',

@@ -1,16 +1,15 @@
 module.exports = {
   'root': true,
-  'extends': ['eslint:recommended', 'airbnb-base'],
   'env': {
     'browser': true,
+    'commonjs': true,
     'es6': true,
-    'jquery': true,
   },
-  'globals': {
-    'UIkit': true,
-    'google': true,
-    'grecaptcha': true,
-  },
+  'extends': [
+    'eslint:recommended',
+    'airbnb-base'
+  ],
+  'globals': { 'UIkit': true },
   'parser': 'babel-eslint',
   'rules': {
     'no-extra-semi': 'error',

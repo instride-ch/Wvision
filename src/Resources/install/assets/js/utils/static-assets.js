@@ -1,0 +1,1 @@
+require('../../images/logo.svg');
