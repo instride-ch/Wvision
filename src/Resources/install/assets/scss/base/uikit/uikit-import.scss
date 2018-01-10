@@ -4,7 +4,7 @@
 @import 'components/base.scss';
 
 // Elements
-//@import 'components/link.scss';
+@import 'components/link.scss';
 @import 'components/heading.scss';
 //@import 'components/divider.scss';
 //@import 'components/list.scss';
@@ -44,12 +44,15 @@
 //@import 'components/tab.scss';
 //@import 'components/slidenav.scss'; // After: Icon
 //@import 'components/dotnav.scss';
+//@import 'components/thumbnav.scss';
 
 // JavaScript
 //@import 'components/accordion.scss';
 @import 'components/drop.scss'; // After: Card
 @import 'components/dropdown.scss'; // After: Card
 //@import 'components/modal.scss'; // After: Close
+//@import 'components/lightbox.scss'; // After: Close
+//@import 'components/slideshow.scss';
 @import 'components/sticky.scss';
 @import 'components/offcanvas.scss';
 //@import 'components/switcher.scss';
