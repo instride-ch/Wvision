@@ -1,4 +1,4 @@
-![WvisionBundle for pimcore 5](https://www.w-vision.ch/website/github-banner-compressed.jpg "WvisionBundle for pimcore 5")
+![WvisionBundle](docs/images/github_banner.png "WvisionBundle")
 
 [![Software License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat-square)](LICENCE)
 [![Packagist Pre Release](https://img.shields.io/packagist/vpre/wvision/wvision.svg?style=flat-square)](https://packagist.org/packages/wvision/wvision)
