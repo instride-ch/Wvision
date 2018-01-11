@@ -9,11 +9,15 @@
   "scripts": {
     "build": "./node_modules/.bin/encore production",
     "deploy": "php vendor/bin/dep deploy",
+    "deploy:dev": "php vendor/bin/dep deploy dev",
     "deploy:prod": "php vendor/bin/dep deploy production",
     "dev": "./node_modules/.bin/encore dev",
     "dev:server": "./node_modules/.bin/encore dev-server --hot",
     "icons:custom": "cd node_modules/uikit && npm run icons -- --custom ../../assets/custom/icons",
     "install": "cd node_modules/uikit && npm i && npm run compile",
+    "ssh": "php vendor/bin/dep ssh",
+    "ssh:dev": "php vendor/bin/dep ssh dev",
+    "ssh:prod": "php vendor/bin/dep ssh production",
     "watch": "./node_modules/.bin/encore dev --watch"
   },
   "dependencies": {
