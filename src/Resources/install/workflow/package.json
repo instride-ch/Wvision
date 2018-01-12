@@ -16,8 +16,6 @@
     "icons:custom": "cd node_modules/uikit && npm run icons -- --custom ../../assets/custom/icons",
     "install": "cd node_modules/uikit && npm i && npm run compile",
     "ssh": "php vendor/bin/dep ssh",
-    "ssh:dev": "php vendor/bin/dep ssh dev",
-    "ssh:prod": "php vendor/bin/dep ssh production",
     "watch": "./node_modules/.bin/encore dev --watch"
   },
   "dependencies": {
