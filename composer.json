@@ -15,7 +15,7 @@
   "require": {
     "coreshop/registry": "^2.0",
     "hampe/zurb-ink-bundle": "^2.2",
-    "wvision/pimcore5-install-profile": "dev-master"
+    "w-vision/wvision-web-project": "^1.0"
   },
   "autoload": {
     "psr-4": {
