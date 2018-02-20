@@ -13,8 +13,8 @@
     "deploy:prod": "php vendor/bin/dep deploy production",
     "dev": "./node_modules/.bin/encore dev",
     "dev:server": "./node_modules/.bin/encore dev-server --hot",
-    "icons:custom": "cd node_modules/uikit && npm run icons -- --custom ../../assets/custom/icons",
-    "install": "cd node_modules/uikit && npm i && npm run compile",
+    "icons:custom": "cd node_modules/uikit && yarn run icons -- --custom ../../assets/custom/icons",
+    "install": "cd node_modules/uikit && yarn install && yarn run compile",
     "ssh": "php vendor/bin/dep ssh",
     "watch": "./node_modules/.bin/encore dev --watch"
   },
