@@ -1,7 +1,11 @@
+// Utils
+@import 'utils/functions';
+@import 'utils/mixins';
+@import 'utils/variables';
+
 // Base
 @import 'base/foundation-emails';
 @import 'foundation-emails';
 
 // Components
-@import 'components/email/general';
-@import 'components/email/content';
+@import 'components/email';

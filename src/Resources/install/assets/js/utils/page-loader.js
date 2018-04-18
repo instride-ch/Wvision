@@ -1,8 +1,15 @@
-(function PageLoader() {
-  window.onload = () => {
-    const loader = UIkit.util.$('#page-loader');
+const {
+  $,
+  once,
+  remove,
+  transition,
+} = UIkit.util;
 
-    UIkit.util.transition(loader, { opacity: 0 });
-    UIkit.util.once(loader, 'transitionend', () => UIkit.util.remove(loader));
+export default function pageLoader() {
+  window.onload = () => {
+    const loader = $('#page-loader');
+
+    transition(loader, { opacity: 0 });
+    once(loader, 'transitionend', () => remove(loader));
   };
-}(UIkit));
+}

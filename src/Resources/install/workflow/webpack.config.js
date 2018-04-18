@@ -7,7 +7,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const paths = {
   output: path.resolve(__dirname, './web/build'),
   public: '/build',
-  resources: path.resolve(__dirname, './assets'),
+  source: path.resolve(__dirname, './assets'),
   vendor: path.resolve(__dirname, './node_modules')
 };
 
@@ -19,36 +19,38 @@ Encore
   // Clean output before build
   .cleanupOutputBeforeBuild()
 
-  // Javascript
+  // JavaScript
   .autoProvideVariables({
-    UIkit: 'uikit/dist/js/uikit-core',
-    'window.UIkit': 'uikit/dist/js/uikit-core'
+    UIkit: 'uikit',
+    'window.UIkit': 'uikit'
   })
-  .addEntry('js/app', `${paths.resources}/js/main.js`)
+  .addEntry('js/app', `${paths.source}/js/main.js`)
   .addLoader({
     test: /\.js$/,
     exclude: /node_modules/,
     loader: 'eslint-loader'
   })
-  .configureBabel(function (babelConfig) {
-    babelConfig.presets.push(['env', {
-      targets: {
-        browsers: [
-          'last 2 versions',
-          'ios >= 9.1',
-          'Safari >= 9.1',
-          'not ie <= 10'
-        ]
-      },
-      useBuiltIns: true
-    }]);
+  .configureBabel((babelConfig) => {
+    babelConfig.presets.push(
+      ['env', {
+        targets: {
+          browsers: [
+            'last 2 versions',
+            'ios >= 9.1',
+            'Safari >= 9.1',
+            'not ie <= 10'
+          ]
+        },
+        useBuiltIns: true
+      }]
+    );
   })
 
   // CSS
-  .addStyleEntry('css/global', `${paths.resources}/scss/global.scss`)
-  .addStyleEntry('css/email', `${paths.resources}/scss/email.scss`)
-  .addStyleEntry('css/editmode', `${paths.resources}/scss/editmode.scss`)
-  .enableSassLoader(function (options) {
+  .addStyleEntry('css/global', `${paths.source}/scss/global.scss`)
+  .addStyleEntry('css/email', `${paths.source}/scss/email.scss`)
+  .addStyleEntry('css/editmode', `${paths.source}/scss/editmode.scss`)
+  .enableSassLoader((options) => {
     options.includePaths = [
       `${paths.vendor}/uikit/src/scss`,
       `${paths.vendor}/foundation-emails/scss`
@@ -59,7 +61,7 @@ Encore
 
   // Copy and optimize images
   .addPlugin(new CopyPlugin([{
-    from: `${paths.resources}/images`,
+    from: `${paths.source}/images`,
     to: `${paths.output}/images`
   }], {
     ignore: [
@@ -78,9 +80,12 @@ Encore
 ;
 
 // Advanced webpack config
-let webpackConfig = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
 
-webpackConfig.watchOptions = { ignored: `${paths.vendor}/` };
-webpackConfig.resolve.extensions.push('json');
+config.watchOptions = {
+  ignored: `${paths.vendor}/`,
+  poll: true
+};
+config.resolve.extensions.push('json');
 
-module.exports = webpackConfig;
+module.exports = config;

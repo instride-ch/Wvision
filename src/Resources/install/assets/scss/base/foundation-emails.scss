@@ -16,24 +16,24 @@
 // 1. Global
 // ---------
 
-$primary-color: #2199e8;
-$secondary-color: #777777;
-$success-color: #3adb76;
-$warning-color: #ffae00;
-$alert-color: #ec5840;
+$primary-color: $color-primary;
+$secondary-color: $color-secondary;
+$success-color: $color-success;
+$warning-color: $color-warning;
+$alert-color: $color-danger;
 $light-gray: #f3f3f3;
 $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
 $black: #0a0a0a;
 $white: #fefefe;
 $pre-color: #ff6908;
-$global-width: 580px;
+$global-width: 600px;
 $global-width-small: 95%;
-$global-gutter: 16px;
+$global-gutter: 15px;
 $body-background: $light-gray;
 $container-background: $white;
-$global-padding: 16px;
-$global-margin: 16px;
+$global-padding: 15px;
+$global-margin: 15px;
 $global-radius: 3px;
 $global-rounded: 500px;
 $global-breakpoint: $global-width + $global-gutter;
