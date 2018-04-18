@@ -1,5 +1,5 @@
 module.exports = {
-  'ignoreFiles': '**/vendor/**/*',
+  'ignoreFiles': ['**/vendor/**/*', '**/pimcore/**/*'],
   'rules': {
     'block-no-empty': true,
     'color-no-invalid-hex': true,
