@@ -1,14 +1,14 @@
-const path            = require('path');
-const Encore          = require('@symfony/webpack-encore');
-const CopyPlugin      = require('copy-webpack-plugin');
-const ImageminPlugin  = require('imagemin-webpack-plugin').default;
+const path = require('path');
+const Encore = require('@symfony/webpack-encore');
+const CopyPlugin = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const paths = {
   output: path.resolve(__dirname, './web/build'),
   public: '/build',
   source: path.resolve(__dirname, './assets'),
-  vendor: path.resolve(__dirname, './node_modules')
+  vendor: path.resolve(__dirname, './node_modules'),
 };
 
 Encore
@@ -21,27 +21,26 @@ Encore
 
   // JavaScript
   .autoProvideVariables({
-    UIkit: 'uikit',
-    'window.UIkit': 'uikit'
+    UIkit: 'uikit/dist/js/uikit-core',
+    'window.UIkit': 'uikit/dist/js/uikit-core',
   })
   .addEntry('js/app', `${paths.source}/js/main.js`)
   .addLoader({
     test: /\.js$/,
     exclude: /node_modules/,
-    loader: 'eslint-loader'
+    loader: 'eslint-loader',
   })
   .configureBabel((babelConfig) => {
     babelConfig.presets.push(
       ['env', {
         targets: {
           browsers: [
-            'last 2 versions',
-            'ios >= 9.1',
-            'Safari >= 9.1',
-            'not ie <= 10'
+            '>0.25%',
+            'not ie <= 10',
+            'not op_mini all',
           ]
         },
-        useBuiltIns: true
+        useBuiltIns: true,
       }]
     );
   })
@@ -53,7 +52,7 @@ Encore
   .enableSassLoader((options) => {
     options.includePaths = [
       `${paths.vendor}/uikit/src/scss`,
-      `${paths.vendor}/foundation-emails/scss`
+      `${paths.vendor}/foundation-emails/scss`,
     ]
   }, { resolveUrlLoader: false })
   .enablePostCssLoader()
@@ -62,16 +61,16 @@ Encore
   // Copy and optimize images
   .addPlugin(new CopyPlugin([{
     from: `${paths.source}/images`,
-    to: `${paths.output}/images`
+    to: `${paths.output}/images`,
   }], {
     ignore: [
       'favicon.png',
-      '.dummy'
+      '.dummy',
     ]
   }))
   .addPlugin(new ImageminPlugin({
     disable: !Encore.isProduction(),
-    test: /\.(jpe?g|png|gif|svg)$/i
+    test: /\.(jpe?g|png|gif|svg)$/i,
   }))
 
   // Source maps and cache buster
@@ -84,7 +83,7 @@ const config = Encore.getWebpackConfig();
 
 config.watchOptions = {
   ignored: `${paths.vendor}/`,
-  poll: true
+  poll: true,
 };
 config.resolve.extensions.push('json');
 

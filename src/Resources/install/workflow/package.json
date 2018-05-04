@@ -18,7 +18,7 @@
     "ssh": "php vendor/bin/dep ssh",
     "watch": "./node_modules/.bin/encore dev --watch"
   },
-  "dependencies": {
+  "devDependencies": {
     "@symfony/webpack-encore": "^0.20.0",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^8.2.3",
@@ -27,22 +27,23 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.11.0",
-    "foundation-emails": "^2.2.1",
     "imagemin-webpack-plugin": "^2.1.1",
-    "imagesloaded": "^4.1.4",
     "node-sass": "^4.8.3",
     "postcss-loader": "^2.1.4",
     "sass-loader": "^7.0.1",
     "stylelint": "^9.2.0",
-    "stylelint-webpack-plugin": "^0.10.4",
+    "stylelint-webpack-plugin": "^0.10.4"
+  },
+  "dependencies": {
+    "foundation-emails": "^2.2.1",
+    "imagesloaded": "^4.1.4",
     "uikit": "^3.0.0-beta.42",
     "webfontloader": "^1.6.28"
   },
   "browserslist": [
-    "last 2 versions",
-    "ios >= 9.1",
-    "Safari >= 9.1",
-    "not ie <= 10"
+    ">0.25%",
+    "not ie <= 10",
+    "not op_mini all"
   ],
   "eslintIgnore": [
     "assets/js/vendor/**/*"
