@@ -1,6 +1,5 @@
 const path = require('path');
 const Encore = require('@symfony/webpack-encore');
-const CopyPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
@@ -58,19 +57,10 @@ Encore
   .enablePostCssLoader()
   .addPlugin(new StyleLintPlugin())
 
-  // Copy and optimize images
-  .addPlugin(new CopyPlugin([{
-    from: `${paths.source}/images`,
-    to: `${paths.output}/images`,
-  }], {
-    ignore: [
-      'favicon.png',
-      '.dummy',
-    ]
-  }))
+  // Optimize images
   .addPlugin(new ImageminPlugin({
     disable: !Encore.isProduction(),
-    test: /\.(jpe?g|png|gif|svg)$/i,
+    test: /\.(jpe?g|png|gif|svg|webp)$/i,
   }))
 
   // Source maps and cache buster
