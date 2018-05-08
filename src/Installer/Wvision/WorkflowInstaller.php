@@ -44,12 +44,12 @@ class WorkflowInstaller implements ResourceInstallerInterface
     public function installResources(OutputInterface $output)
     {
         $sourceDir = $this->installSourcesPath . '/workflow';
-        $allFiles = scandir($sourceDir);
+        $allFiles = scandir($sourceDir, SCANDIR_SORT_ASCENDING);
         $files = array_diff($allFiles, ['.', '..']);
 
         foreach ($files as $file) {
             $target = PIMCORE_PROJECT_ROOT . '/' . $file;
-            $source = $sourceDir . "/" . $file;
+            $source = $sourceDir . '/' . $file;
 
             if (file_exists($source) && !file_exists($target)) {
                 $this->fileSystem->copy($source, $target);

@@ -38,21 +38,20 @@ class WvisionBundle extends AbstractPimcoreBundle
     }
 
     /**
-     * @return string[]
+     * @return array
      */
-    public function getJsPaths()
+    public function getJsPaths(): array
     {
         return [
             '/bundles/wvision/pimcore/js/global.js',
             '/bundles/wvision/pimcore/js/wvision/helpers.js',
-            '/bundles/wvision/pimcore/js/wvision/newsletter/sendingPanel.js'
         ];
     }
 
     /**
-     * @return string[]
+     * @return array
      */
-    public function getCssPaths()
+    public function getCssPaths(): array
     {
         return [
             '/bundles/wvision/pimcore/css/bundle.css'

@@ -2,13 +2,3 @@
 wvision.admin.version.get_version:
   path: /admin/wvision/version/get-version
   defaults: { _controller: WvisionBundle:Admin\Version:getVersion }
-
-# Send newsletter
-wvision.admin.newsletter.send:
-  path: /admin/wvision/newsletter/send
-  defaults: { _controller: WvisionBundle:Admin\Newsletter:send }
-
-# Send test-newsletter
-wvision.admin.newsletter.send-test:
-  path: /admin/wvision/newsletter/send-test
-  defaults: { _controller: WvisionBundle:Admin\Newsletter:sendTest }

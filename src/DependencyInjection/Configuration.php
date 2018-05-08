@@ -15,58 +15,15 @@ namespace WvisionBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-final class Configuration implements ConfigurationInterface
+class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritdoc}
+     * @return TreeBuilder
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('wvision');
-
-        $rootNode
-            ->children()
-                ->arrayNode('newsletter')
-                    ->children()
-                    ->arrayNode('default')->isRequired()
-                        ->children()
-                            ->scalarNode('folder')->isRequired()->cannotBeEmpty()->end()
-                            ->arrayNode('smtp')->isRequired()->addDefaultsIfNotSet()
-                                ->children()
-                                    ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
-                                    ->scalarNode('security')->defaultValue(null)->end()
-                                    ->integerNode('port')->defaultValue(25)->end()
-                                    ->scalarNode('name')->isRequired()->cannotBeEmpty()->end()
-                                    ->scalarNode('auth_method')->isRequired()->cannotBeEmpty()->end()
-                                    ->scalarNode('user')->isRequired()->cannotBeEmpty()->end()
-                                    ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->arrayNode('sites')
-                        ->useAttributeAsKey('main_domain')
-                        ->prototype('array')
-                            ->children()
-                                ->scalarNode('main_domain')->cannotBeEmpty()->end()
-                                ->scalarNode('folder')->end()
-                                ->arrayNode('smtp')->addDefaultsIfNotSet()
-                                    ->children()
-                                        ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
-                                        ->scalarNode('security')->defaultValue(null)->end()
-                                        ->integerNode('port')->defaultValue(25)->end()
-                                        ->scalarNode('name')->isRequired()->cannotBeEmpty()->end()
-                                        ->scalarNode('auth_method')->isRequired()->cannotBeEmpty()->end()
-                                        ->scalarNode('user')->isRequired()->cannotBeEmpty()->end()
-                                        ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
+        $treeBuilder->root('wvision');
 
         return $treeBuilder;
     }

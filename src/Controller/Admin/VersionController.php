@@ -19,11 +19,11 @@ use WvisionBundle\Application\Version;
 class VersionController extends AdminController
 {
     /**
-     * Returns the current version of the bundle.
+     * Returns the current version of the bundle
      *
      * @return JsonResponse
      */
-    public function getVersionAction()
+    public function getVersionAction(): JsonResponse
     {
         $version = Version::getVersion();
 

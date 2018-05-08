@@ -72,12 +72,4 @@ final class Installer extends MigrationInstaller
     {
 
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function needsReloadAfterInstall()
-    {
-        return false;
-    }
 }

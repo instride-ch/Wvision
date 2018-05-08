@@ -11,9 +11,3 @@ services:
     class: WvisionBundle\Twig\Extension\TruncateExtension
     tags:
       - { name: twig.extension }
-
-  # Url Locale
-  WvisionBundle\Twig\Extension\UrlLocaleExtension:
-    class: WvisionBundle\Twig\Extension\UrlLocaleExtension
-    tags:
-      - { name: twig.extension }

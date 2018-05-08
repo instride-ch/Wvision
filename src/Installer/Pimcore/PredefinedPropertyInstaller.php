@@ -26,7 +26,7 @@ final class PredefinedPropertyInstaller implements ResourceInstallerInterface
     /**
      * @var KernelInterface
      */
-    protected $kernel;
+    private $kernel;
 
     /**<
      * @param KernelInterface $kernel
@@ -38,6 +38,7 @@ final class PredefinedPropertyInstaller implements ResourceInstallerInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
     public function installResources(OutputInterface $output)
     {
@@ -69,7 +70,7 @@ final class PredefinedPropertyInstaller implements ResourceInstallerInterface
             }
         }
 
-        $progress->start(count($propertiesToInstall));
+        $progress->start(\count($propertiesToInstall));
 
         foreach ($propertiesToInstall as $name => $propertyData) {
             $progress->setMessage(sprintf('<error>Install Predefined Property %s</error>', $name));
@@ -88,8 +89,9 @@ final class PredefinedPropertyInstaller implements ResourceInstallerInterface
      * @param $key
      * @param $properties
      * @return Predefined
+     * @throws \Exception
      */
-    private function installProperty($key, $properties)
+    private function installProperty($key, $properties): Predefined
     {
         $property = new Predefined();
 

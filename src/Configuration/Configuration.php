@@ -43,7 +43,7 @@ class Configuration
     /**
      * @param array $config
      */
-    public function setConfig($config = [])
+    public function setConfig(array $config = [])
     {
         $this->config = $config;
     }
@@ -51,7 +51,7 @@ class Configuration
     /**
      * @return array
      */
-    public function getConfigNode()
+    public function getConfigNode(): array
     {
         return $this->config;
     }
@@ -105,7 +105,7 @@ class Configuration
     /**
      * @param array $config
      */
-    public function setSystemConfig($config = [])
+    public function setSystemConfig(array $config = [])
     {
         $this->systemConfig = $config;
     }
@@ -123,7 +123,7 @@ class Configuration
      * @param string $bundleName
      * @return bool
      */
-    public function hasBundle($bundleName = 'ExtensionBundle\ExtensionBundle')
+    public function hasBundle($bundleName = 'ExtensionBundle\ExtensionBundle'): bool
     {
         try {
             $hasExtension = $this->bundleManager->isEnabled($bundleName);

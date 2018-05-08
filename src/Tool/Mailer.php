@@ -14,11 +14,8 @@ namespace WvisionBundle\Tool;
 
 use Pimcore\Mail;
 use Pimcore\Model\Asset;
-use Pimcore\Model\DataObject;
 use Pimcore\Model\Document;
-use Pimcore\Service\Request\DocumentResolver;
-use Pimcore\Service\Request\ViewModelResolver;
-use Symfony\Component\HttpFoundation\Request;
+use Pimcore\Http\Request\Resolver\DocumentResolver;
 
 class Mailer
 {
@@ -58,7 +55,7 @@ class Mailer
     /**
      * @return array
      */
-    public function getEmails()
+    public function getEmails(): array
     {
         return $this->emails;
     }
@@ -68,8 +65,8 @@ class Mailer
      */
     public function setEmails($emails)
     {
-        if (is_string($emails)) {
-            array_push($this->emails, $emails);
+        if (\is_string($emails)) {
+            $this->emails[] = $emails;
         } else {
             $this->emails = $emails;
         }
@@ -78,7 +75,7 @@ class Mailer
     /**
      * @return array
      */
-    public function getDocuments()
+    public function getDocuments(): array
     {
         return $this->documents;
     }
@@ -89,7 +86,7 @@ class Mailer
     public function setDocuments($documents)
     {
         if ($documents instanceof Document\Email) {
-            array_push($this->documents, $documents);
+            $this->documents[] = $documents;
         } else {
             $this->documents = $documents;
         }
@@ -98,7 +95,7 @@ class Mailer
     /**
      * @return array
      */
-    public function getAssets()
+    public function getAssets(): array
     {
         return $this->assets;
     }
@@ -109,7 +106,7 @@ class Mailer
     public function setAssets($assets)
     {
         if ($assets instanceof Asset) {
-            array_push($this->assets, $assets);
+            $this->assets[] = $assets;
         } else {
             $this->assets = $assets;
         }
@@ -118,7 +115,7 @@ class Mailer
     /**
      * @return bool
      */
-    public function isSuccess()
+    public function isSuccess(): bool
     {
         return $this->success;
     }
@@ -135,8 +132,9 @@ class Mailer
      * @param $data
      * @param array $adminEmail
      * @return bool
+     * @throws \Exception
      */
-    public function sendEmails($data, $adminEmail = [])
+    public function sendEmails($data, array $adminEmail = []): bool
     {
         $admin = $this->parseData($data, $adminEmail);
 
@@ -178,12 +176,12 @@ class Mailer
      * @param $admin
      * @return array
      */
-    public function parseData($data, $admin)
+    public function parseData($data, $admin): array
     {
         $document = $this->documentResolver->getDocument();
 
         foreach ($data as $param) {
-            if (is_string($param) && Mail::isValidEmailAddress($param)) {
+            if (\is_string($param) && Mail::isValidEmailAddress($param)) {
                 $this->setEmails($param);
             }
             else if ($param instanceof Document\Email) {
@@ -194,36 +192,38 @@ class Mailer
             }
         }
 
-        // Additionally add document from properties
-        $userEmail = $document->getProperty('userEmailDocument');
-        $this->setDocuments($userEmail);
-
-        if (!empty($admin)) {
-            $adminArray = [];
-            $i = 0;
-            foreach ($admin as $param) {
-                $adminArray['emails'] = [];
-                if (is_string($param) && Mail::isValidEmailAddress($param)) {
-                    $adminArray['emails'][$i] = $param;
-                }
-
-                $adminArray['documents'] = [];
-                if ($param instanceof Document\Email) {
-                    $adminArray['documents'][$i] = $param;
-                }
-
-                $adminArray['assets'] = [];
-                if ($param instanceof Asset) {
-                    $adminArray['assets'][$i] = $param;
-                }
-
-                $i++;
-            }
-
+        if ($document instanceof Document) {
             // Additionally add document from properties
-            $adminArray['documents'][] = $document->getProperty('adminEmailDocument');
+            $userEmail = $document->getProperty('userEmailDocument');
+            $this->setDocuments($userEmail);
 
-            return $adminArray;
+            if (!empty($admin)) {
+                $adminArray = [];
+                $i = 0;
+                foreach ($admin as $param) {
+                    $adminArray['emails'] = [];
+                    if (\is_string($param) && Mail::isValidEmailAddress($param)) {
+                        $adminArray['emails'][$i] = $param;
+                    }
+
+                    $adminArray['documents'] = [];
+                    if ($param instanceof Document\Email) {
+                        $adminArray['documents'][$i] = $param;
+                    }
+
+                    $adminArray['assets'] = [];
+                    if ($param instanceof Asset) {
+                        $adminArray['assets'][$i] = $param;
+                    }
+
+                    $i++;
+                }
+
+                // Additionally add document from properties
+                $adminArray['documents'][] = $document->getProperty('adminEmailDocument');
+
+                return $adminArray;
+            }
         }
 
         return [];
@@ -238,8 +238,9 @@ class Mailer
      * @param Document\Email $document
      * @param array $assets
      * @return bool
+     * @throws \Exception
      */
-    public function send($emails, array $params, Document\Email $document, array $assets)
+    public function send($emails, array $params, Document\Email $document, array $assets): bool
     {
         $mail = new Mail();
         $mail->addTo($emails);
@@ -254,10 +255,6 @@ class Mailer
 
         $sentEmail = $mail->send();
 
-        if ($sentEmail instanceof Mail) {
-            return true;
-        }
-
-        return false;
+        return $sentEmail instanceof Mail;
     }
 }
