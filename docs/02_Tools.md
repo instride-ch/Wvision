@@ -8,11 +8,12 @@ The following code sends two emails to client and admin.
 ```php
 use AppBundle\Form\ContactFormType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use WvisionBundle\Tool\Mailer;
 
 /**
  * @param Request $request
- * 
- * @return \Symfony\Component\HttpFoundation\Response
+ * @return Response
  */
 public function contactFormAction(Request $request)
 {    
@@ -21,12 +22,16 @@ public function contactFormAction(Request $request)
 
     if ($form->isSubmitted() && $form->isValid()) {
         $data = $form->getData();
-        $success = $this->get('WvisionBundle\Tool\Mailer')
-            ->sendEmails($data, 'admin@email.com');
-            
+        
+        $success = $this->get(Mailer::class)->sendEmails($data, ['admin@email.com']);
+        
         if ($success) {
-            $this->redirect($request->getPathInfo());
+            $this->addFlash('success', 'app.form.contact.success');
+        } else {
+            $this->addFlash('danger', 'app.form.contact.danger');
         }
+        
+        return $this->redirect($request->getPathInfo());
     }
     
     return $this->renderTemplate('Contact/contact-form.html.twig', [
@@ -38,7 +43,7 @@ public function contactFormAction(Request $request)
 ## iCalendar
 Create a controller method and define a static route for it. Inspect the example below:
 
-**Pimcore static route**
+**Pimcore Static Route**
 
 | Name    | Pattern                    | Reverse           | Controller | Action       | Variables | Priority |
 |---------|----------------------------|-------------------|------------|--------------|-----------|----------|
@@ -47,16 +52,17 @@ Create a controller method and define a static route for it. Inspect the example
 **src/AppBundle/Controller/ExampleController.php**
 ```php
 use Pimcore\File;
-use Pimcore\Model\Object;
+use Pimcore\Model\DataObject;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use WvisionBundle\Tool\Ics;
 
 /**
  * @return Response The generated iCalendar file
  */
 public function generateIcsAction($id)
 {
-    $event = Object\News::getById($id);
+    $event = DataObject\News::getById($id);
     $filename = File::getValidFilename($event->getTitle());
 
     $properties = [
@@ -68,14 +74,13 @@ public function generateIcsAction($id)
         'url' => $event->getWeblink()
     ];
 
-    $ics = $this->get('WvisionBundle\Tool\Ics');
+    $ics = $this->get(Ics::class);
     $ics->setProps($properties);
-    $fileContent = $ics->toString();
 
-    $response = new Response($fileContent);
+    $response = new Response($ics->toString());
     $disposition = $response->headers->makeDisposition(
         ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $filename . '.ics'
+        sprintf('%s.ics', $filename)
     );
 
     $response->headers->set('Content-Type', 'text/calendar');
@@ -87,5 +92,5 @@ public function generateIcsAction($id)
 
 Now you can generate a iCalendar file with the following twig function:
 ```twig
-{{ pimcore_url({ id: newsObject.getId() }, 'app_ics') }}
+{{ path('app_ics', { id: newsObject.getId() }) }}
 ```

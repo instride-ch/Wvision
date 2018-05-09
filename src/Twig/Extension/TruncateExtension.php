@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that is distributed with this source code.
  *
- * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
+ * @copyright  Copyright (c) 2018 w-vision AG (https://www.w-vision.ch)
  */
 
 namespace WvisionBundle\Twig\Extension;
@@ -19,7 +19,7 @@ class TruncateExtension extends \Twig_Extension
      *
      * @return array An array of filters
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new \Twig_Filter(
@@ -37,12 +37,11 @@ class TruncateExtension extends \Twig_Extension
      * @param int $limit The maximum number of characters that must be returned.
      * @param string $brChar The character to use for breaking the string.
      * @param string $pad The string to use at the end of the cut string.
-     *
      * @return string The cut string
      */
-    public function truncate($str, $limit = 100, $brChar = '', $pad = ' ...')
+    public function truncate($str, $limit = 100, $brChar = '', $pad = ' ...'): string
     {
-        if (strlen($str) <= $limit) {
+        if (\strlen($str) <= $limit) {
             return $str;
         }
 

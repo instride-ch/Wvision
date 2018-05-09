@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that is distributed with this source code.
  *
- * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
+ * @copyright  Copyright (c) 2018 w-vision AG (https://www.w-vision.ch)
  */
 
 namespace WvisionBundle\Twig\Extension;
@@ -19,7 +19,7 @@ class ObfuscateEmailExtension extends \Twig_Extension
      *
      * @return array An array of filters
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new \Twig_Filter(
@@ -38,7 +38,7 @@ class ObfuscateEmailExtension extends \Twig_Extension
      * @param $email
      * @return string
      */
-    public function parse($email)
+    public function parse($email): string
     {
         return mb_encode_numericentity($email, [0, 0xffff, 0, 0xffff], 'utf-8');
     }

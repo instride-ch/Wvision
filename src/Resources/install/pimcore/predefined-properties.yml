@@ -9,3 +9,9 @@ properties:
     name: 'Admin Email Document'
     description: 'Defines the email document, which is sent to the admin.'
     type: 'document'
+
+  imprintPage:
+    name: 'Imprint Page'
+    description: 'Defines where the Imprint page of the website lies.'
+    type: 'document'
+    inheritable: true

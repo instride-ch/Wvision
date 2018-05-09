@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that is distributed with this source code.
  *
- * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
+ * @copyright  Copyright (c) 2018 w-vision AG (https://www.w-vision.ch)
  */
 
 namespace WvisionBundle\Tool;
@@ -61,7 +61,6 @@ final class Installer extends MigrationInstaller
      */
     public function migrateInstall(Schema $schema, Version $version)
     {
-
     }
 
     /**
@@ -70,6 +69,5 @@ final class Installer extends MigrationInstaller
      */
     public function migrateUninstall(Schema $schema, Version $version)
     {
-
     }
 }

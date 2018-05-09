@@ -1,13 +1,1 @@
-<svg class="logo logo-wvision" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
-<linearGradient id="wvGradient" gradientUnits="userSpaceOnUse" x1="14.6447" y1="14.6447" x2="85.3553" y2="85.3553">
-	<stop  offset="0" style="stop-color:#007BC1"/>
-	<stop  offset="1" style="stop-color:#004A8B"/>
-</linearGradient>
-<path style="fill:url(#wvGradient);" d="M50,100c27.614,0,50-22.386,50-50S77.614,0,50,0S0,22.386,0,50S22.386,100,50,100L50,100"/>
-<polygon style="fill:#FFFFFF;" points="20,40.181 26.561,40.181 26.561,69.325 20,69.325 20,40.181 "/>
-<path style="fill:#FFFFFF;" d="M28.498,35.989v-5.744H39.73v26.752c0,3.775,3.121,6.816,6.821,6.816
-	c3.752,0,6.953-2.835,6.953-6.842v-16.79h6.346l0.003,16.816c-0.03,3.826,3.082,6.816,6.909,6.816c3.683,0,6.93-2.99,6.93-6.816
-	V40.181H80l-0.001,16.816c0,8.216-6.197,12.758-12.32,12.758c-4.665,0-8.255-1.461-10.896-5.559
-	c-2.741,4.079-6.266,5.559-10.931,5.559c-6.123,0-12.455-4.543-12.455-12.758V35.991L28.498,35.989L28.498,35.989z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="3.515" y1="22.485" x2="20.485" y2="5.515" gradientTransform="matrix(1 0 0 -1 0 26)"><stop offset="0" stop-color="#007bc1"/><stop offset="1" stop-color="#004a8b"/></linearGradient><path d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12" fill="url(#a)"/><path d="M6.84 8.637V7.259h2.696v6.42c0 .906.749 1.636 1.637 1.636.9 0 1.669-.68 1.669-1.642v-4.03h1.523l.001 4.036c-.007.918.74 1.636 1.658 1.636.884 0 1.663-.718 1.663-1.636V9.643H19.2v4.036c0 1.972-1.487 3.062-2.957 3.062-1.12 0-1.981-.351-2.615-1.334-.658.979-1.504 1.334-2.623 1.334-1.47 0-2.989-1.09-2.989-3.062V8.638L6.84 8.637zM4.8 9.643h1.575v6.995H4.8z" fill="#fff"/></svg>

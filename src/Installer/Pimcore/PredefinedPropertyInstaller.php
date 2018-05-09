@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that is distributed with this source code.
  *
- * @copyright  Copyright (c) 2017 Woche-Pass AG (https://www.w-vision.ch)
+ * @copyright  Copyright (c) 2018 w-vision AG (https://www.w-vision.ch)
  */
 
 namespace WvisionBundle\Installer\Pimcore;
@@ -28,7 +28,7 @@ final class PredefinedPropertyInstaller implements ResourceInstallerInterface
      */
     private $kernel;
 
-    /**<
+    /**
      * @param KernelInterface $kernel
      */
     public function __construct(KernelInterface $kernel)
