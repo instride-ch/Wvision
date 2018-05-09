@@ -31,9 +31,7 @@ class ObfuscateEmailExtension extends \Twig_Extension
     }
 
     /**
-     * Twig filter callback.
-     * TODO: Implement a better email obfuscator
-     * @link https://github.com/Propaganistas/Email-Obfuscator
+     * Twig filter callback
      *
      * @param $email
      * @return string
