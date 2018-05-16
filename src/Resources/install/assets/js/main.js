@@ -1,13 +1,12 @@
 import './base/uikit';
-import fontLoader from './utils/font-loader';
-import pageLoader from './utils/page-loader';
-import staticAssets from './utils/static-assets';
+import { loadFonts, loadImages } from './utils';
+import pageLoader from './modules/page-loader';
 import glitchImage from './modules/glitch-image';
 
 // Utils
-fontLoader();
-pageLoader();
-staticAssets();
+loadFonts();
+loadImages();
 
 // Modules
+pageLoader();
 glitchImage();
