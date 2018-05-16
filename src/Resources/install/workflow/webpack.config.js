@@ -1,13 +1,13 @@
-const path = require('path');
+const { resolve } = require('path');
 const Encore = require('@symfony/webpack-encore');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const paths = {
-  output: path.resolve(__dirname, './web/build'),
+  output: resolve(__dirname, './web/build'),
   public: '/build',
-  source: path.resolve(__dirname, './assets'),
-  vendor: path.resolve(__dirname, './node_modules'),
+  source: resolve(__dirname, './assets'),
+  vendor: resolve(__dirname, './node_modules'),
 };
 
 Encore
@@ -70,11 +70,11 @@ Encore
 
 // Advanced webpack config
 const config = Encore.getWebpackConfig();
-
+config.resolve.extensions.push('json');
+config.resolve.alias['uikit-util'] = `${paths.vendor}/uikit/src/js/util`;
 config.watchOptions = {
   ignored: `${paths.vendor}/`,
   poll: true,
 };
-config.resolve.extensions.push('json');
 
 module.exports = config;
