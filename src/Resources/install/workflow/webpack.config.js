@@ -70,11 +70,22 @@ Encore
 
 // Advanced webpack config
 const config = Encore.getWebpackConfig();
+
 config.resolve.extensions.push('json');
 config.resolve.alias['uikit-util'] = `${paths.vendor}/uikit/src/js/util`;
 config.watchOptions = {
   ignored: `${paths.vendor}/`,
   poll: true,
 };
+
+for (const rule of config.module.rules) {
+  if (rule.use) {
+    for (loader of rule.use) {
+      if (loader.loader === 'babel-loader') {
+        delete rule.exclude;
+      }
+    }
+  }
+}
 
 module.exports = config;
