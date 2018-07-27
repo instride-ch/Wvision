@@ -36,7 +36,7 @@
   "dependencies": {
     "foundation-emails": "^2.2.1",
     "imagesloaded": "^4.1.4",
-    "uikit": "^3.0.0-rc.2",
+    "uikit": "^3.0.0-rc.10",
     "webfontloader": "^1.6.28"
   },
   "browserslist": [
