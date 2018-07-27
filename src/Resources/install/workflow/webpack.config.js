@@ -80,7 +80,7 @@ config.watchOptions = {
 
 for (const rule of config.module.rules) {
   if (rule.use) {
-    for (loader of rule.use) {
+    for (const loader of rule.use) {
       if (loader.loader === 'babel-loader') {
         delete rule.exclude;
       }
