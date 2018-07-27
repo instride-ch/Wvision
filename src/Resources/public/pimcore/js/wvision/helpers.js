@@ -16,7 +16,7 @@ wvision.helpers.showAbout = function () {
       html +=   '<br /><img src="/bundles/wvision/pimcore/img/logo.svg" style="width: 300px;"><br />';
       html +=   '<br /><strong>Version: ' + wvision.version.version + '</strong>';
       html +=   '<br /><br />&copy; w-vision AG, Sursee, Switzerland (<a href="https://www.w-vision.ch/" target="_blank">www.w-vision.ch</a>)';
-      html +=   '<br /><br /><a href="https://www.w-vision.ch" target="_blank">' + t('wvision_about_contact') + '</a> | ';
+      html +=   '<br /><br /><a href="mailto:support@w-vision.ch">' + t('wvision_about_contact') + '</a> | ';
       html +=   '<a href="https://www.w-vision.ch/de/wir" target="_blank">' + t('wvision_about_team') + '</a>';
       html += '</div>';
 
