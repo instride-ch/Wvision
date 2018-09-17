@@ -14,7 +14,7 @@
   ],
   "require": {
     "coreshop/registry": "^2.0",
-    "hampe/zurb-ink-bundle": "^2.2",
+    "dachcom-digital/emailizr" : "~1.0.0",
     "w-vision/wvision-web-project": "^1.0"
   },
   "autoload": {
