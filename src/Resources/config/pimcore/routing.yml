@@ -1,4 +1,0 @@
-# Get bundle version
-wvision.admin.version.get_version:
-  path: /admin/wvision/version/get-version
-  defaults: { _controller: WvisionBundle:Admin\Version:getVersion }

@@ -58,10 +58,8 @@ class Ics
             foreach ($key as $k => $v) {
                 $this->set($k, $v);
             }
-        } else {
-            if (\in_array($key, self::$availableProperties, true)) {
-                $this->properties[$key] = $this->sanitizeVal($val, $key);
-            }
+        } else if (\in_array($key, self::$availableProperties, true)) {
+            $this->properties[$key] = $this->sanitizeVal($val, $key);
         }
     }
 
