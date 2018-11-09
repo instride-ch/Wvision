@@ -36,25 +36,4 @@ class WvisionBundle extends AbstractPimcoreBundle
     {
         return $this->container->get(Installer::class);
     }
-
-    /**
-     * @return array
-     */
-    public function getJsPaths(): array
-    {
-        return [
-            '/bundles/wvision/pimcore/js/global.js',
-            '/bundles/wvision/pimcore/js/wvision/helpers.js',
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getCssPaths(): array
-    {
-        return [
-            '/bundles/wvision/pimcore/css/bundle.css'
-        ];
-    }
 }
