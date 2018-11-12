@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "WvisionBundle\\": "src/WvisionBundle"
+      "WvisionBundle\\": "src/"
     }
   },
   "extra": {
