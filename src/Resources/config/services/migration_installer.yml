@@ -4,10 +4,10 @@ services:
         autoconfigure: true
         public: false
 
-    WvisionBundle\Tool\Installer:
+    WvisionBundle\Installer\BundleInstaller:
         public: true
         arguments:
             $bundle: "@=service('kernel').getBundle('WvisionBundle')"
         calls:
-            - [setFileSystem, ['@filesystem']]
-            - [setInstaller, ['@WvisionBundle\Installer\CompositeResourceInstaller']]
+            - [setDemoInstaller, ['@WvisionBundle\Installer\DemoInstaller']]
+            - [setAssetsInstaller, ['@WvisionBundle\Installer\AssetsInstaller']]

@@ -1,35 +1,9 @@
 services:
+    WvisionBundle\Installer\AssetsInstaller:
+        arguments:
+            - '@kernel'
+            - '@filesystem'
 
-  # Installer Registry
-  wvision.registry.installers:
-    class: CoreShop\Component\Registry\PrioritizedServiceRegistry
-    arguments:
-      - WvisionBundle\Installer\ResourceInstallerInterface
-      - 'wvision-resource-installer'
-
-  # Install Predefined Properties
-  WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller:
-    class: WvisionBundle\Installer\Pimcore\PredefinedPropertyInstaller
-    arguments: ['@kernel']
-    tags:
-      - { name: 'wvision.installer', type: 'predefined-properties', priority: 100 }
-
-  # Install Workflow
-  WvisionBundle\Installer\Wvision\WorkflowInstaller:
-    class: WvisionBundle\Installer\Wvision\WorkflowInstaller
-    arguments: ['@filesystem']
-    tags:
-      - { name: 'wvision.installer', type: 'workflow', priority: 200 }
-
-  # Install Static Assets
-  WvisionBundle\Installer\Wvision\StaticAssetInstaller:
-    class: WvisionBundle\Installer\Wvision\StaticAssetInstaller
-    arguments: ['@filesystem']
-    tags:
-      - { name: 'wvision.installer', type: 'static-assets', priority: 210 }
-
-  # Install Resources
-  WvisionBundle\Installer\CompositeResourceInstaller:
-    class: WvisionBundle\Installer\CompositeResourceInstaller
-    arguments:
-      - '@wvision.registry.installers'
+    WvisionBundle\Installer\DemoInstaller:
+        arguments:
+            - '@doctrine.dbal.default_connection'

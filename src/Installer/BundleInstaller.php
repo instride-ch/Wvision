@@ -10,41 +10,38 @@
  * @copyright  Copyright (c) 2018 w-vision AG (https://www.w-vision.ch)
  */
 
-namespace WvisionBundle\Tool;
+namespace WvisionBundle\Installer;
 
 use Doctrine\DBAL\Migrations\Version;
 use Doctrine\DBAL\Schema\Schema;
 use Pimcore\Extension\Bundle\Installer\MigrationInstaller;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Filesystem\Filesystem;
-use WvisionBundle\Installer\ResourceInstallerInterface;
 
-final class Installer extends MigrationInstaller
+final class BundleInstaller extends MigrationInstaller
 {
     /**
-     * @var Filesystem
+     * @var AssetsInstaller
      */
-    private $fileSystem;
+    private $assetsInstaller;
 
     /**
-     * @var ResourceInstallerInterface
+     * @var DemoInstaller
      */
-    private $installer;
+    private $demoInstaller;
 
     /**
-     * @param Filesystem $fileSystem
+     * @param AssetsInstaller $assetsInstaller
      */
-    public function setFileSystem(Filesystem $fileSystem)
+    public function setAssetsInstaller(AssetsInstaller $assetsInstaller)
     {
-        $this->fileSystem = $fileSystem;
+        $this->assetsInstaller = $assetsInstaller;
     }
 
     /**
-     * @param ResourceInstallerInterface $installer
+     * @param DemoInstaller $demoInstaller
      */
-    public function setInstaller(ResourceInstallerInterface $installer)
+    public function setDemoInstaller(DemoInstaller $demoInstaller)
     {
-        $this->installer = $installer;
+        $this->demoInstaller = $demoInstaller;
     }
 
     /**
@@ -52,11 +49,12 @@ final class Installer extends MigrationInstaller
      */
     protected function beforeInstallMigration()
     {
-        $this->installer->installResources(new NullOutput());
+        $this->assetsInstaller->installAssets();
+        $this->demoInstaller->installDemo();
     }
 
     /**
-     * @param Schema $schema
+     * @param Schema  $schema
      * @param Version $version
      */
     public function migrateInstall(Schema $schema, Version $version)
@@ -64,7 +62,7 @@ final class Installer extends MigrationInstaller
     }
 
     /**
-     * @param Schema $schema
+     * @param Schema  $schema
      * @param Version $version
      */
     public function migrateUninstall(Schema $schema, Version $version)

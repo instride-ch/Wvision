@@ -1,10 +1,10 @@
 services:
-  # Mailer
-  WvisionBundle\Tool\Mailer:
-    class: WvisionBundle\Tool\Mailer
-    arguments:
-      - '@pimcore.service.request.document_resolver'
+    # Mailer
+    WvisionBundle\Tool\Mailer:
+        class: WvisionBundle\Tool\Mailer
+        arguments:
+            - '@pimcore.service.request.document_resolver'
 
-  # iCalendar
-  WvisionBundle\Tool\Ics:
-    class: WvisionBundle\Tool\Ics
+    # iCalendar
+    WvisionBundle\Tool\Ics:
+        class: WvisionBundle\Tool\Ics

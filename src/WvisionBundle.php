@@ -13,27 +13,15 @@
 namespace WvisionBundle;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use WvisionBundle\DependencyInjection\Compiler\RegisterInstallersPass;
-use WvisionBundle\Tool\Installer;
+use WvisionBundle\Installer\BundleInstaller;
 
 class WvisionBundle extends AbstractPimcoreBundle
 {
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container)
-    {
-        parent::build($container);
-
-        $container->addCompilerPass(new RegisterInstallersPass());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getInstaller()
     {
-        return $this->container->get(Installer::class);
+        return $this->container->get(BundleInstaller::class);
     }
 }

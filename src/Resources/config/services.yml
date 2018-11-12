@@ -1,10 +1,9 @@
 imports:
-  - { resource: services/*.yml }
+    - { resource: services/*.yml }
 
 services:
-
-  # configuration
-  WvisionBundle\Configuration\Configuration:
-    class: WvisionBundle\Configuration\Configuration
-    arguments:
-      - '@pimcore.extension.bundle_manager'
+    # configuration
+    WvisionBundle\Configuration\Configuration:
+        class: WvisionBundle\Configuration\Configuration
+        arguments:
+            - '@pimcore.extension.bundle_manager'

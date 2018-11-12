@@ -1,13 +1,12 @@
 services:
+    # Obfuscate Email
+    WvisionBundle\Twig\Extension\ObfuscateEmailExtension:
+        class: WvisionBundle\Twig\Extension\ObfuscateEmailExtension
+        tags:
+            - { name: twig.extension }
 
-  # Obfuscate Email
-  WvisionBundle\Twig\Extension\ObfuscateEmailExtension:
-    class: WvisionBundle\Twig\Extension\ObfuscateEmailExtension
-    tags:
-      - { name: twig.extension }
-
-  # Truncate
-  WvisionBundle\Twig\Extension\TruncateExtension:
-    class: WvisionBundle\Twig\Extension\TruncateExtension
-    tags:
-      - { name: twig.extension }
+    # Truncate
+    WvisionBundle\Twig\Extension\TruncateExtension:
+        class: WvisionBundle\Twig\Extension\TruncateExtension
+        tags:
+            - { name: twig.extension }
