@@ -14,13 +14,6 @@ services:
     tags:
       - { name: 'wvision.installer', type: 'predefined-properties', priority: 100 }
 
-  # Install Workflow
-  WvisionBundle\Installer\Wvision\WorkflowInstaller:
-    class: WvisionBundle\Installer\Wvision\WorkflowInstaller
-    arguments: ['@filesystem']
-    tags:
-      - { name: 'wvision.installer', type: 'workflow', priority: 200 }
-
   # Install Static Assets
   WvisionBundle\Installer\Wvision\StaticAssetInstaller:
     class: WvisionBundle\Installer\Wvision\StaticAssetInstaller

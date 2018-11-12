@@ -11,3 +11,4 @@ services:
         calls:
             - [setFileSystem, ['@filesystem']]
             - [setInstaller, ['@WvisionBundle\Installer\CompositeResourceInstaller']]
+            - [setConnection, ['@doctrine.dbal.connection']]
