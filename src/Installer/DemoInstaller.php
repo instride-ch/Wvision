@@ -34,21 +34,55 @@ final class DemoInstaller
      */
     public function installDemo()
     {
+        $columns = $this->db->getSchemaManager()->listTableColumns('documents');
+        $hasVersionCount = false;
+
+        foreach ($columns as $col) {
+            if ($col->getName() === 'versionCount') {
+                $hasVersionCount = true;
+                break;
+            }
+        }
+
+        if ($hasVersionCount) {
+            $this->db->exec(
+                '
+                SET NAMES utf8mb4;
+    
+                -- Documents
+                DELETE FROM `documents` WHERE `id`=1 OR `id`=2 OR `id`=3;
+                INSERT INTO `documents` VALUES (1, 0, \'page\', \'\', \'/\', 999999, 1, 1368522989, 1505139865, 1, 2, 0);
+                INSERT INTO `documents` VALUES (2, 1, \'page\', \'impressum\', \'/\', 0, 1, 1505139774, 1505139846, 2, 2, 0);
+                INSERT INTO `documents` VALUES (3, 1, \'page\', \'fehler\', \'/\', 1, 1, 1503510199, 1505139888, 2, 2, 0);
+               
+                DELETE FROM `documents_page` WHERE `id`=1 OR `id`=2 OR `id`=3;
+                INSERT INTO `documents_page` VALUES (1, NULL, \'@AppBundle\\Controller\\DefaultController\', \'default\', NULL, \'Startseite\', \'\', \'a:0:{}\', NULL, 0, \'\', 0);
+                INSERT INTO `documents_page` VALUES (2, NULL, \'@AppBundle\\Controller\\DefaultController\', \'imprint\', NULL, \'Impressum\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
+                INSERT INTO `documents_page` VALUES (3, NULL, \'@AppBundle\\Controller\\ErrorController\', \'error\', NULL, \'Fehler\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);'
+            );
+        }
+        else {
+            $this->db->exec(
+                '
+                SET NAMES utf8mb4;
+    
+                -- Documents
+                DELETE FROM `documents` WHERE `id`=1 OR `id`=2 OR `id`=3;
+                INSERT INTO `documents` VALUES (1, 0, \'page\', \'\', \'/\', 999999, 1, 1368522989, 1505139865, 1, 2);
+                INSERT INTO `documents` VALUES (2, 1, \'page\', \'impressum\', \'/\', 0, 1, 1505139774, 1505139846, 2, 2);
+                INSERT INTO `documents` VALUES (3, 1, \'page\', \'fehler\', \'/\', 1, 1, 1503510199, 1505139888, 2, 2);
+               
+                DELETE FROM `documents_page` WHERE `id`=1 OR `id`=2 OR `id`=3;
+                INSERT INTO `documents_page` VALUES (1, NULL, \'@AppBundle\\Controller\\DefaultController\', \'default\', NULL, \'Startseite\', \'\', \'a:0:{}\', NULL, 0, \'\', 0);
+                INSERT INTO `documents_page` VALUES (2, NULL, \'@AppBundle\\Controller\\DefaultController\', \'imprint\', NULL, \'Impressum\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
+                INSERT INTO `documents_page` VALUES (3, NULL, \'@AppBundle\\Controller\\ErrorController\', \'error\', NULL, \'Fehler\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);'
+            );
+        }
+
         $this->db->exec(
             '
             SET NAMES utf8mb4;
 
-            -- Documents
-            DELETE FROM `documents` WHERE `id`=1 OR `id`=2 OR `id`=3;
-            INSERT INTO `documents` VALUES (1, 0, \'page\', \'\', \'/\', 999999, 1, 1368522989, 1505139865, 1, 2);
-            INSERT INTO `documents` VALUES (2, 1, \'page\', \'impressum\', \'/\', 0, 1, 1505139774, 1505139846, 2, 2);
-            INSERT INTO `documents` VALUES (3, 1, \'page\', \'fehler\', \'/\', 1, 1, 1503510199, 1505139888, 2, 2);
-            
-            DELETE FROM `documents_page` WHERE `id`=1 OR `id`=2 OR `id`=3;
-            INSERT INTO `documents_page` VALUES (1, NULL, \'@AppBundle\\Controller\\DefaultController\', \'default\', NULL, \'Startseite\', \'\', \'a:0:{}\', NULL, 0, \'\', 0);
-            INSERT INTO `documents_page` VALUES (2, NULL, \'@AppBundle\\Controller\\DefaultController\', \'imprint\', NULL, \'Impressum\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
-            INSERT INTO `documents_page` VALUES (3, NULL, \'@AppBundle\\Controller\\ErrorController\', \'error\', NULL, \'Fehler\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
-            
             -- Assets
             DELETE FROM `assets` WHERE `id`=1;
             INSERT INTO `assets` VALUES (1, 0, \'folder\', \'\', \'/\', NULL, 1368522989, 1368522989, 1, 1, \'\', 0);
