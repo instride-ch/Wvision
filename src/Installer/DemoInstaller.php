@@ -56,9 +56,9 @@ final class DemoInstaller
                 INSERT INTO `documents` VALUES (3, 1, \'page\', \'fehler\', \'/\', 1, 1, 1503510199, 1505139888, 2, 2, 0);
                
                 DELETE FROM `documents_page` WHERE `id`=1 OR `id`=2 OR `id`=3;
-                INSERT INTO `documents_page` VALUES (1, NULL, \'@AppBundle\\Controller\\DefaultController\', \'default\', NULL, \'Startseite\', \'\', \'a:0:{}\', NULL, 0, \'\', 0);
-                INSERT INTO `documents_page` VALUES (2, NULL, \'@AppBundle\\Controller\\DefaultController\', \'imprint\', NULL, \'Impressum\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
-                INSERT INTO `documents_page` VALUES (3, NULL, \'@AppBundle\\Controller\\ErrorController\', \'error\', NULL, \'Fehler\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
+                INSERT INTO `documents_page` VALUES (1, NULL, \'@AppBundle\\\\Controller\\\\DefaultController\', \'default\', NULL, \'Startseite\', \'\', \'a:0:{}\', NULL, 0, \'\', 0);
+                INSERT INTO `documents_page` VALUES (2, NULL, \'@AppBundle\\\\Controller\\\\DefaultController\', \'imprint\', NULL, \'Impressum\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
+                INSERT INTO `documents_page` VALUES (3, NULL, \'@AppBundle\\\\Controller\\\\ErrorController\', \'error\', NULL, \'Fehler\', \'\', \'a:0:{}\', NULL, NULL, \'\', 0);
                 
                 -- Assets
                 DELETE FROM `assets` WHERE `id`=1;
