@@ -13,6 +13,7 @@
 namespace WvisionBundle\Installer;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 
 final class DemoInstaller
 {
@@ -31,8 +32,9 @@ final class DemoInstaller
 
     /**
      * {@inheritdoc}
+     * @throws DBALException
      */
-    public function installDemo()
+    public function installDemo(): void
     {
         $columns = $this->db->getSchemaManager()->listTableColumns('documents');
         $hasVersionCount = false;

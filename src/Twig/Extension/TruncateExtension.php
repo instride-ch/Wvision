@@ -12,7 +12,10 @@
 
 namespace WvisionBundle\Twig\Extension;
 
-class TruncateExtension extends \Twig_Extension
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class TruncateExtension extends AbstractExtension
 {
     /**
      * Returns a list of filters to add to the existing list.
@@ -22,7 +25,7 @@ class TruncateExtension extends \Twig_Extension
     public function getFilters(): array
     {
         return [
-            new \Twig_Filter(
+            new TwigFilter(
                 'truncate', [$this, 'truncate'], [
                     'is_safe' => ['html']
                 ]
@@ -37,11 +40,12 @@ class TruncateExtension extends \Twig_Extension
      * @param int $limit The maximum number of characters that must be returned.
      * @param string $brChar The character to use for breaking the string.
      * @param string $pad The string to use at the end of the cut string.
+     *
      * @return string The cut string
      */
     public function truncate($str, $limit = 100, $brChar = '', $pad = ' ...'): string
     {
-        if (\strlen($str) <= $limit) {
+        if (strlen($str) <= $limit) {
             return $str;
         }
 

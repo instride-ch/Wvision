@@ -12,6 +12,7 @@
 
 namespace WvisionBundle\Tool;
 
+use Exception;
 use Pimcore\Mail;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
@@ -63,9 +64,9 @@ class Mailer
     /**
      * @param array|string $emails
      */
-    public function setEmails($emails)
+    public function setEmails($emails): void
     {
-        if (\is_string($emails)) {
+        if (is_string($emails)) {
             $this->emails[] = $emails;
         } else {
             $this->emails = $emails;
@@ -83,7 +84,7 @@ class Mailer
     /**
      * @param array|Document $documents
      */
-    public function setDocuments($documents)
+    public function setDocuments($documents): void
     {
         if ($documents instanceof Document\Email) {
             $this->documents[] = $documents;
@@ -103,7 +104,7 @@ class Mailer
     /**
      * @param array|Asset $assets
      */
-    public function setAssets($assets)
+    public function setAssets($assets): void
     {
         if ($assets instanceof Asset) {
             $this->assets[] = $assets;
@@ -123,7 +124,7 @@ class Mailer
     /**
      * @param bool $success
      */
-    public function setSuccess($success)
+    public function setSuccess($success): void
     {
         $this->success = $success;
     }
@@ -131,8 +132,10 @@ class Mailer
     /**
      * @param $data
      * @param array $adminEmail
+     *
      * @return bool
-     * @throws \Exception
+     *
+     * @throws Exception
      */
     public function sendEmails($data, array $adminEmail = []): bool
     {
@@ -174,6 +177,7 @@ class Mailer
     /**
      * @param $data
      * @param $admin
+     *
      * @return array
      */
     public function parseData($data, $admin): array
@@ -181,7 +185,7 @@ class Mailer
         $document = $this->documentResolver->getDocument();
 
         foreach ($data as $param) {
-            if (\is_string($param) && Mail::isValidEmailAddress($param)) {
+            if (is_string($param) && Mail::isValidEmailAddress($param)) {
                 $this->setEmails($param);
             }
             else if ($param instanceof Document\Email) {
@@ -202,7 +206,7 @@ class Mailer
                 $i = 0;
                 foreach ($admin as $param) {
                     $adminArray['emails'] = [];
-                    if (\is_string($param) && Mail::isValidEmailAddress($param)) {
+                    if (is_string($param) && Mail::isValidEmailAddress($param)) {
                         $adminArray['emails'][$i] = $param;
                     }
 
@@ -237,8 +241,10 @@ class Mailer
      * @param $params
      * @param Document\Email $document
      * @param array $assets
+     *
      * @return bool
-     * @throws \Exception
+     *
+     * @throws Exception
      */
     public function send($emails, array $params, Document\Email $document, array $assets): bool
     {

@@ -12,6 +12,8 @@
 
 namespace WvisionBundle\Configuration;
 
+use Exception;
+use Pimcore;
 use Pimcore\Extension\Bundle\PimcoreBundleManager;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
@@ -43,7 +45,7 @@ class Configuration
     /**
      * @param array $config
      */
-    public function setConfig(array $config = [])
+    public function setConfig(array $config = []): void
     {
         $this->config = $config;
     }
@@ -86,7 +88,7 @@ class Configuration
             'route' => $data
         ]);
 
-        \Pimcore::getEventDispatcher()->dispatch('wvision.path.route', $event);
+        Pimcore::getEventDispatcher()->dispatch('wvision.path.route', $event);
 
         if ($event->hasArgument('url')) {
             $url = $event->getArgument('url');
@@ -105,7 +107,7 @@ class Configuration
     /**
      * @param array $config
      */
-    public function setSystemConfig(array $config = [])
+    public function setSystemConfig(array $config = []): void
     {
         $this->systemConfig = $config;
     }
@@ -127,7 +129,7 @@ class Configuration
     {
         try {
             $hasExtension = $this->bundleManager->isEnabled($bundleName);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $hasExtension = false;
         }
 

@@ -31,7 +31,7 @@ final class BundleInstaller extends MigrationInstaller
     /**
      * @param AssetsInstaller $assetsInstaller
      */
-    public function setAssetsInstaller(AssetsInstaller $assetsInstaller)
+    public function setAssetsInstaller(AssetsInstaller $assetsInstaller): void
     {
         $this->assetsInstaller = $assetsInstaller;
     }
@@ -39,7 +39,7 @@ final class BundleInstaller extends MigrationInstaller
     /**
      * @param DemoInstaller $demoInstaller
      */
-    public function setDemoInstaller(DemoInstaller $demoInstaller)
+    public function setDemoInstaller(DemoInstaller $demoInstaller): void
     {
         $this->demoInstaller = $demoInstaller;
     }
@@ -57,7 +57,7 @@ final class BundleInstaller extends MigrationInstaller
      * @param Schema  $schema
      * @param Version $version
      */
-    public function migrateInstall(Schema $schema, Version $version)
+    public function migrateInstall(Schema $schema, Version $version): void
     {
     }
 
@@ -65,7 +65,7 @@ final class BundleInstaller extends MigrationInstaller
      * @param Schema  $schema
      * @param Version $version
      */
-    public function migrateUninstall(Schema $schema, Version $version)
+    public function migrateUninstall(Schema $schema, Version $version): void
     {
     }
 }

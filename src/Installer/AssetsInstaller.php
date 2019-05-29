@@ -40,7 +40,7 @@ final class AssetsInstaller
     /**
      * {@inheritdoc}
      */
-    public function installAssets()
+    public function installAssets(): void
     {
         $installSourcesPath = $this->kernel->locateResource('@WvisionBundle/Resources/install');
 

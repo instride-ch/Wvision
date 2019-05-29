@@ -12,12 +12,15 @@
 
 namespace WvisionBundle\Tool;
 
+use DateTime;
+use Exception;
+
 class Ics
 {
     /**
      * The default date and time format.
      */
-    const DT_FORMAT = 'Ymd\THis\Z';
+    private const DT_FORMAT = 'Ymd\THis\Z';
 
     /**
      * @var array Available properties.
@@ -40,8 +43,10 @@ class Ics
      * Receives all data.
      *
      * @param $props
+     *
+     * @throws Exception
      */
-    public function setProps($props)
+    public function setProps($props): void
     {
         $this->set($props);
     }
@@ -51,14 +56,16 @@ class Ics
      *
      * @param $key
      * @param bool $val
+     *
+     * @throws Exception
      */
-    public function set($key, $val = false)
+    public function set($key, $val = false): void
     {
-        if (\is_array($key)) {
+        if (is_array($key)) {
             foreach ($key as $k => $v) {
                 $this->set($k, $v);
             }
-        } else if (\in_array($key, self::$availableProperties, true)) {
+        } else if (in_array($key, self::$availableProperties, true)) {
             $this->properties[$key] = $this->sanitizeVal($val, $key);
         }
     }
@@ -67,6 +74,8 @@ class Ics
      * Converts all properties to a ICS-file.
      *
      * @return string The ICS-file
+     *
+     * @throws Exception
      */
     public function toString(): string
     {
@@ -79,6 +88,8 @@ class Ics
      * Composes all properties together.
      *
      * @return array
+     *
+     * @throws Exception
      */
     private function buildProps(): array
     {
@@ -117,7 +128,10 @@ class Ics
      *
      * @param $val
      * @param bool $key
+     *
      * @return mixed|string
+     *
+     * @throws Exception
      */
     private function sanitizeVal($val, $key = false)
     {
@@ -129,6 +143,7 @@ class Ics
                 break;
             default:
                 $val = $this->escapeString($val);
+                break;
         }
 
         return $val;
@@ -138,11 +153,14 @@ class Ics
      * Formats a timestamp with the given setting.
      *
      * @param $timestamp
+     *
      * @return string
+     *
+     * @throws Exception
      */
     private function formatTimestamp($timestamp): string
     {
-        $dt = new \DateTime($timestamp);
+        $dt = new DateTime($timestamp);
 
         return $dt->format(self::DT_FORMAT);
     }
@@ -151,6 +169,7 @@ class Ics
      * Escapes all string.
      *
      * @param $str
+     *
      * @return null|string|string[]
      */
     private function escapeString($str)

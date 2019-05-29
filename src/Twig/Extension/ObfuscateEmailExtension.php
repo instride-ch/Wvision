@@ -12,7 +12,10 @@
 
 namespace WvisionBundle\Twig\Extension;
 
-class ObfuscateEmailExtension extends \Twig_Extension
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class ObfuscateEmailExtension extends AbstractExtension
 {
     /**
      * Returns a list of filters to add to the existing list.
@@ -22,7 +25,7 @@ class ObfuscateEmailExtension extends \Twig_Extension
     public function getFilters(): array
     {
         return [
-            new \Twig_Filter(
+            new TwigFilter(
                 'obfuscateEmail', [$this, 'parse'], [
                     'is_safe' => ['html']
                 ]
@@ -34,6 +37,7 @@ class ObfuscateEmailExtension extends \Twig_Extension
      * Twig filter callback
      *
      * @param $email
+     *
      * @return string
      */
     public function parse($email): string
