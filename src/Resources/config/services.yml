@@ -7,3 +7,15 @@ services:
         class: WvisionBundle\Configuration\Configuration
         arguments:
             - '@pimcore.extension.bundle_manager'
+
+    # API
+    WvisionBundle\Api\ImprintApi\ImprintApiInterface:
+        alias: WvisionBundle\Api\ImprintApi\ImprintApi
+
+    WvisionBundle\Api\ImprintApi\ImprintApi:
+
+    WvisionBundle\Api\ImprintApi\ImprintApiCached:
+        decorates: 'WvisionBundle\Api\ImprintApi\ImprintApiInterface'
+        arguments:
+            - '@Pimcore\Cache\Core\CoreHandlerInterface'
+            - '@WvisionBundle\Api\ImprintApi\ImprintApiCached.inner'
