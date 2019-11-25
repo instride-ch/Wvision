@@ -13,10 +13,21 @@
 namespace WvisionBundle;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
+use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
 use WvisionBundle\Installer\BundleInstaller;
 
 class WvisionBundle extends AbstractPimcoreBundle
 {
+    use PackageVersionTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getComposerPackageName()
+    {
+        return 'w-vision/wvision';
+    }
+
     /**
      * {@inheritdoc}
      */
