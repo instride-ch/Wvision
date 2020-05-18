@@ -53,9 +53,19 @@ class InkyAction extends Action
     public function dispatchLoopShutdown($body)
     {
         include_once("simple_html_dom.php");
+        
+        // Bugfix wysiwyg
+        $body = preg_replace_callback('/editableConfigurations\.push\(\{(.*?)\}\);[?:\s+<\/]/', function ($hit) {
+            return 'editableConfigurations.push({' . htmlspecialchars($hit[1]) . '});';
+        }, $body);
 
         $inky = new \Hampe\Inky\Inky();
         $body = $inky->releaseTheKraken($body);
+        
+        // Bugfix wysiwyg
+        $body = preg_replace_callback('/editableConfigurations\.push\(\{(.*?)\}\);[?:\s+<\/]/', function ($hit) {
+            return 'editableConfigurations.push({' . html_entity_decode($hit[1]) . '});';
+        }, $body);
 
         $html = str_get_html($body);
 
